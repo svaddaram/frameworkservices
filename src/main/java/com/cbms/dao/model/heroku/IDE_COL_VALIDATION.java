@@ -18,153 +18,82 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = { "ideColValidations" })
 @Entity
-@Table(name = "IDE_COL_VALIDATION__c", schema = "salesforce")
+@Table(name = "IDE_COL_VALIDATION", schema = "salesforce")
 public class IDE_COL_VALIDATION implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@SequenceGenerator(name="IDE_COL_VALIDATION_SEQUENCE", sequenceName="IDE_COL_VALIDATION_SEQUENCE")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="IDE_COL_VALIDATION_SEQUENCE")
-	@Column(name = "VALIDATION_ID__c")
+	@Column(name = "VALIDATION_ID")
 	private Integer VALIDATION_ID;
-	@Column(name = "DW_NAME__c")
+	@Column(name = "DW_NAME")
 	private String DW_NAME;
-	@Column(name = "IDE_PG_LAYOUT_ID__c", nullable=false)
+	@Column(name = "IDE_PG_LAYOUT_ID", nullable=false)
 	private Integer IDE_PG_LAYOUT_ID;
-	@Column(name = "COL_ID__c")
+	@Column(name = "COL_ID")
 	private Integer COL_ID;
-	@Column(name = "CHK_SPL_CHARS__c")
+	@Column(name = "CHK_SPL_CHARS")
 	private String CHK_SPL_CHARS;
-	@Column(name = "IS_ALPHA__c")
+	@Column(name = "IS_ALPHA")
 	private String IS_ALPHA;
-	@Column(name = "IS_ALPHA_NUMERIC__c")
+	@Column(name = "IS_ALPHA_NUMERIC")
 	private String IS_ALPHA_NUMERIC;
-	@Column(name = "IS_NUMERIC__c")
+	@Column(name = "IS_NUMERIC")
 	private String IS_NUMERIC;
-	@Column(name = "IS_COMPLETE__c")
+	@Column(name = "IS_COMPLETE")
 	private String IS_COMPLETE;
-	@Column(name = "JOIN_THREE_FIELDS__c")
+	@Column(name = "JOIN_THREE_FIELDS")
 	private String JOIN_THREE_FIELDS;
-	@Column(name = "JOIN_FOUR_FIELDS__c")
+	@Column(name = "JOIN_FOUR_FIELDS")
 	private String JOIN_FOUR_FIELDS;
-	@Column(name = "FORMAT_DATE__c")
+	@Column(name = "FORMAT_DATE")
 	private String FORMAT_DATE;
-	@Column(name = "VALIDATE_DATE__c")
+	@Column(name = "VALIDATE_DATE")
 	private String VALIDATE_DATE;
-	@Column(name = "VALIDATE_DOB__c")
+	@Column(name = "VALIDATE_DOB")
 	private String VALIDATE_DOB;
-	@Column(name = "VALIDATE_NONDOB__c")
+	@Column(name = "VALIDATE_NONDOB")
 	private String VALIDATE_NONDOB;
-	@Column(name = "FUTURE_DATE__c")
+	@Column(name = "FUTURE_DATE")
 	private String FUTURE_DATE;
-	@Column(name = "VALIDATE_FUTURE_DATE__c")
+	@Column(name = "VALIDATE_FUTURE_DATE")
 	private String VALIDATE_FUTURE_DATE;
-	@Column(name = "PAST_DATE__c")
+	@Column(name = "PAST_DATE")
 	private String PAST_DATE;
-	@Column(name = "COMPARE_DATES__c")
+	@Column(name = "COMPARE_DATES")
 	private String COMPARE_DATES;
-	@Column(name = "COMPARE_DATES_INCLUSIVE__c")
+	@Column(name = "COMPARE_DATES_INCLUSIVE")
 	private String COMPARE_DATES_INCLUSIVE;
-	@Column(name = "FORMAT_CURRENCY__c")
+	@Column(name = "FORMAT_CURRENCY")
 	private String FORMAT_CURRENCY;
-	@Column(name = "IS_CURRENCY__c")
+	@Column(name = "IS_CURRENCY")
 	private String IS_CURRENCY;
-	@Column(name = "VALIDATE_EFF_DATES__c")
+	@Column(name = "VALIDATE_EFF_DATES")
 	private String VALIDATE_EFF_DATES;
-	@Column(name = "VALIDATE_CHG_RPT_DATE__c")
+	@Column(name = "VALIDATE_CHG_RPT_DATE")
 	private String VALIDATE_CHG_RPT_DATE;
-	@Column(name = "VALIDATE_CHG_VRF_DATE__c")
+	@Column(name = "VALIDATE_CHG_VRF_DATE")
 	private String VALIDATE_CHG_VRF_DATE;
-	@Column(name = "VALIDATE_VRF_END_DATE__c")
+	@Column(name = "VALIDATE_VRF_END_DATE")
 	private String VALIDATE_VRF_END_DATE;
-	@Column(name = "VALIDATE_USE_MONTH__c")
+	@Column(name = "VALIDATE_USE_MONTH")
 	private String VALIDATE_USE_MONTH;
-	@Column(name = "VALIDATE_EED__c")
+	@Column(name = "VALIDATE_EED")
 	private String VALIDATE_EED;
-	@Column(name = "BLANKOUT_EBD__c")
+	@Column(name = "BLANKOUT_EBD")
 	private String BLANKOUT_EBD;
-	@Column(name = "NAME")
-	private String NAME;
-	@Column(name = "systemmodstamp", columnDefinition= "TIMESTAMP WITH TIME ZONE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date systemModStamp;
-	@Column(name = "BLANKOUT_FLDS__C")
-	private String BLANKOUT_FLDS;
-	@Column(name = "createddate", columnDefinition= "TIMESTAMP WITH TIME ZONE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createddate;
-	@Column(name = "COPY_FLDS__C")
+	@Column(name = "COPY_FLDS")
 	private String COPY_FLDS;
-	@Column(name = "created_by__c")
-	String created_by;
-	@Column(name = "updated_by__c")
-	String updated_by;
 	
-	public void setUpdated_by(String updated_by) {
-		this.updated_by = updated_by;
-	}
-	
-	public String getUpdated_by() {
-		return updated_by;
-	}
-	
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
-	}
-	
-	public String getCreated_by() {
-		return created_by;
-	}
-	
-
-	
-	public void setBLANKOUT_FLDS(String bLANKOUT_FLDS) {
-		BLANKOUT_FLDS = bLANKOUT_FLDS;
-	}
-	
-	public String getBLANKOUT_FLDS() {
-		return BLANKOUT_FLDS;
-	}
-	
-
-	
-	public void setCOPY_FLDS(String cOPY_FLDS) {
-		COPY_FLDS = cOPY_FLDS;
-	}
 	
 	
 	public String getCOPY_FLDS() {
 		return COPY_FLDS;
 	}
-	
-	public void setNAME(String nAME) {
-		NAME = nAME;
+	public void setCOPY_FLDS(String cOPY_FLDS) {
+		COPY_FLDS = cOPY_FLDS;
 	}
-	
-	public String getNAME() {
-		return NAME;
-	}
-	
-	
-	public void setSystemModStamp(Date systemModStamp) {
-		this.systemModStamp = systemModStamp;
-	}
-	
-	public Date getSystemModStamp() {
-		return systemModStamp;
-	}
-	
-	
-	
-	public void setCreateddate(Date createddate) {
-		this.createddate = createddate;
-	}
-	
-	public Date getCreateddate() {
-		return createddate;
-	}
-	
 	/**
 	 * @return the vALIDATION_ID
 	 */
@@ -529,7 +458,7 @@ public class IDE_COL_VALIDATION implements Serializable {
 	}
 	
 	@ManyToOne
-    @JoinColumn(name="IDE_PG_LAYOUT_ID__c", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name="IDE_PG_LAYOUT_ID", nullable=false, insertable=false, updatable=false)
 	private IDE_PG_LAYOUT ideColValidations;
 
 	/**
@@ -544,4 +473,35 @@ public class IDE_COL_VALIDATION implements Serializable {
 	public void setIdeColValidations(IDE_PG_LAYOUT ideColValidations) {
 		this.ideColValidations = ideColValidations;
 	}
+	
+	@Column(name = "UPD_DTM", columnDefinition= "TIMESTAMP WITH TIME ZONE")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date systemModStamp;
+	@Column(name = "BLANKOUT_FLDS")
+	private String BLANKOUT_FLDS;
+	@Column(name = "CRT_DTM", columnDefinition= "TIMESTAMP WITH TIME ZONE")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createddate;
+
+
+	public Date getSystemModStamp() {
+		return systemModStamp;
+	}
+	public void setSystemModStamp(Date systemModStamp) {
+		this.systemModStamp = systemModStamp;
+	}
+	public String getBLANKOUT_FLDS() {
+		return BLANKOUT_FLDS;
+	}
+	public void setBLANKOUT_FLDS(String bLANKOUT_FLDS) {
+		BLANKOUT_FLDS = bLANKOUT_FLDS;
+	}
+	public Date getCreateddate() {
+		return createddate;
+	}
+	public void setCreateddate(Date createddate) {
+		this.createddate = createddate;
+	}
+	
+	
 }

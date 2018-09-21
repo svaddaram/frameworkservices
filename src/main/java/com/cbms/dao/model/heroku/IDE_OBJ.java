@@ -17,11 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
-
-
-
 @Entity
-@Table(name = "IDE_OBJ__c",schema = "salesforce")
+@Table(name = "IDE_OBJ",schema = "salesforce")
 public class IDE_OBJ implements Serializable {
 		
 	private static final long serialVersionUID = 1L;
@@ -29,141 +26,90 @@ public class IDE_OBJ implements Serializable {
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
-	@Column(name = "IDE_OBJ_ID__c")
+	@Column(name = "IDE_OBJ_ID")
 	String IDE_OBJ_ID;
-	@Column(name = "OBJECT_NAME_S__c")
+	@Column(name = "OBJECT_NAME_S")
 	String OBJECT_NAME_S;
-	@Column(name = "API_S__c")
+	@Column(name = "API_S")
 	String API_S;
-	@Column(name = "TYPE_C__c")
+	@Column(name = "TYPE_C")
 	String TYPE_C;
-	@Column(name = "PLURAL_NAME_S__c")
+	@Column(name = "PLURAL_NAME_S")
 	String PLURAL_NAME_S;
-	@Column(name = "SHARING_MODEL_S__c")
+	@Column(name = "SHARING_MODEL_S")
 	String SHARING_MODEL_S;
-	@Column(name = "ENABLE_ACTVITIES_S__c")
+	@Column(name = "ENABLE_ACTVITIES_S")
 	String ENABLE_ACTVITIES_S;
-	@Column(name = "ENABLE_FEEDS_S__c")
+	@Column(name = "ENABLE_FEEDS_S")
 	String ENABLE_FEEDS_S;
-	@Column(name = "ENABLE_HISTORY_S__c")
+	@Column(name = "ENABLE_HISTORY_S")
 	String ENABLE_HISTORY_S;
-	@Column(name = "ENABLE_REPORTS_S__c")
+	@Column(name = "ENABLE_REPORTS_S")
 	String ENABLE_REPORTS_S;
-	@Column(name = "DESCRIPTION_S__c")
+	@Column(name = "DESCRIPTION_S")
 	String DESCRIPTION_S;
-	@Column(name = "SEQ_TYPE_S__c")
+	@Column(name = "SEQ_TYPE_S")
 	String SEQ_TYPE_S;
-	@Column(name = "LABEL_S__c")
+	@Column(name = "LABEL_S")
 	String LABEL_S;
-	@Column(name = "DISPLAY_FORMAT_S__c")
+	@Column(name = "DISPLAY_FORMAT_S")
 	String DISPLAY_FORMAT_S;
-	@Column(name = "GENERATE_C__c")
+	@Column(name = "GENERATE_C")
 	String GENERATE_C;
-	@Column(name = "INAPP_C__c")
+	@Column(name = "INAPP_C")
 	String INAPP_C;
-	@Column(name = "IS_CUSTOM__c")
+	@Column(name = "IS_CUSTOM")
 	String IS_CUSTOM;
-	@Column(name = "ENABLE_STRMING_API_S__c")
+	@Column(name = "ENABLE_STRMING_API_S")
 	String ENABLE_STRMING_API_S;
-	@Column(name = "ENABLE_SRCH_S__c")
+	@Column(name = "ENABLE_SRCH_S")
 	String ENABLE_SRCH_S;
-	@Column(name = "ENABLE_BULK_APL_S__c")
+	@Column(name = "ENABLE_BULK_APL_S")
 	String ENABLE_BULK_APL_S;
-	@Column(name = "ENABLE_SHARING_S__c")
+	@Column(name = "ENABLE_SHARING_S")
 	String ENABLE_SHARING_S;
+	@Column(name = "OBJECT_TYPE")
+	String OBJECT_TYPE;
 	
-	@Column(name = "created_by__c")
-	String created_by;
-	
-	@Column(name = "updated_by__c")
-	String updated_by;
-	@Column(name = "DW_NAME__C")
-	private String DW_NAME__C;
-	
-	@Column(name = "status__c")
-	String status;
-	
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
-	public String getStatus() {
-		return status;
-	}
-	
-	public void setDW_NAME__C(String dW_NAME__C) {
-		DW_NAME__C = dW_NAME__C;
-	}
-	
-	public String getDW_NAME__C() {
-		return DW_NAME__C;
-	}
-	
-	@Column(name = "NAME")
-	private String Name;
-	
-	public void setName(String name) {
-		Name = name;
-	}
-	
-	public String getName() {
-		return Name;
-	}
-	
-	public void setUpdated_by(String updated_by) {
-		this.updated_by = updated_by;
-	}
-	
-	public String getUpdated_by() {
-		return updated_by;
-	}
-	
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
-	}
-	
-	public String getCreated_by() {
-		return created_by;
-	}
-	
-	/*@Column(name = "systemmodstamp")
-	String systemModStamp;
-	
-	public void setSystemModStamp(String systemModStamp) {
-		this.systemModStamp = systemModStamp;
-	}
-	
-	public String getSystemModStamp() {
-		return systemModStamp;
-	}*/
-	
-	@Column(name = "systemmodstamp", columnDefinition= "TIMESTAMP WITH TIME ZONE")
+	@Column(name = "UPD_DTM", columnDefinition= "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date systemModStamp;
 	
-	public void setSystemModStamp(Date systemModStamp) {
-		this.systemModStamp = systemModStamp;
-	}
+	@Column(name = "CRT_DTM", columnDefinition= "TIMESTAMP WITH TIME ZONE")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createddate;
+	
+	@Column(name = "CRT_OS_USR")
+	String created_by;
+	
+	@Column(name = "UPD_OS_USER")
+	String updated_by;
+	
 	
 	public Date getSystemModStamp() {
 		return systemModStamp;
 	}
-	
-	
-	@Column(name = "createddate", columnDefinition= "TIMESTAMP WITH TIME ZONE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createddate;
-	
-	public void setCreateddate(Date createddate) {
-		this.createddate = createddate;
+	public void setSystemModStamp(Date systemModStamp) {
+		this.systemModStamp = systemModStamp;
 	}
-	
 	public Date getCreateddate() {
 		return createddate;
 	}
-	
-	
-	
+	public void setCreateddate(Date createddate) {
+		this.createddate = createddate;
+	}
+	public String getCreated_by() {
+		return created_by;
+	}
+	public void setCreated_by(String created_by) {
+		this.created_by = created_by;
+	}
+	public String getUpdated_by() {
+		return updated_by;
+	}
+	public void setUpdated_by(String updated_by) {
+		this.updated_by = updated_by;
+	}
 	/**
 	 * @return the iDE_OBJ_ID
 	 */
@@ -414,7 +360,6 @@ public class IDE_OBJ implements Serializable {
 		this.ideFldLayouts = ideFldLayouts;
 	}*/
 	
-
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL,mappedBy = "ideObjFlds")
 	private List<IDE_FLD> ideFlds = new ArrayList<IDE_FLD>();
 	/**
@@ -451,11 +396,27 @@ public class IDE_OBJ implements Serializable {
 		this.idePgLayouts = idePgLayouts;
 	}
 	
+	
+	/*@OneToMany(mappedBy = "idePgLayouts")
+	private List<IDE_PG_LAYOUT> idePgLayouts = new ArrayList<IDE_PG_LAYOUT>();
+	*//**
+	 * @return the idePgLayout
+	 *//*
+	public List<IDE_PG_LAYOUT> getIdePgLayouts() {
+		return idePgLayouts;
+	}
+	*//**
+	 * @param idePgLayout the idePgLayout to set
+	 *//*
+	public void setIdePgLayouts(List<IDE_PG_LAYOUT> idePgLayouts) {
+		this.idePgLayouts = idePgLayouts;
+	}*/
+	
 	/*@OneToMany(mappedBy = "ideBoValidations")
 	private List<IDE_BO_VALIDATIONS> ideBoValidations = new ArrayList<IDE_BO_VALIDATIONS>();
 	
 	
-	*//**oad
+	*//**
 	 * @return the ideBoValidations
 	 *//*
 	public List<IDE_BO_VALIDATIONS> getIdeBoValidations() {
@@ -466,9 +427,9 @@ public class IDE_OBJ implements Serializable {
 	 *//*
 	public void setIdeBoValidations(List<IDE_BO_VALIDATIONS> ideBoValidations) {
 		this.ideBoValidations = ideBoValidations;
-	}
+	}*/
 	
-	@OneToMany(mappedBy = "ideObjTriggers")
+	/*@OneToMany(mappedBy = "ideObjTriggers")
 	private List<IDE_OBJ_TRIGGER> ideObjTriggers = new ArrayList<IDE_OBJ_TRIGGER>();
 	
 	*//**
@@ -482,18 +443,6 @@ public class IDE_OBJ implements Serializable {
 	 *//*
 	public void setIdeObjTriggers(List<IDE_OBJ_TRIGGER> ideObjTriggers) {
 		this.ideObjTriggers = ideObjTriggers;
-	}*/
-	
-	@OneToMany(mappedBy = "ideObjTriggers")
-	/*private List<IDE_OBJ_TRIGGER> ideObjTriggers = new ArrayList<IDE_OBJ_TRIGGER>();
-	
-	
-	public void setIdeObjTriggers(List<IDE_OBJ_TRIGGER> ideObjTriggers) {
-		this.ideObjTriggers = ideObjTriggers;
-	}
-	
-	public List<IDE_OBJ_TRIGGER> getIdeObjTriggers() {
-		return ideObjTriggers;
 	}*/
 	
 	public String getENABLE_STRMING_API_S() {
@@ -520,6 +469,23 @@ public class IDE_OBJ implements Serializable {
 	public void setENABLE_SHARING_S(String eNABLE_SHARING_S) {
 		ENABLE_SHARING_S = eNABLE_SHARING_S;
 	}
+	public String getOBJECT_TYPE() {
+		if(OBJECT_TYPE == null)
+			return "";
+		return OBJECT_TYPE;
+	}
+	public void setOBJECT_TYPE(String oBJECT_TYPE) {
+		OBJECT_TYPE = oBJECT_TYPE;
+	}
+	@Column(name = "status")
+	String status;
 	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
 	
 }

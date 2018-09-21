@@ -106,6 +106,32 @@ private List<PageLayout> pgStatusList = null;
 private String createdBy;
 @JsonProperty("updatedBy")
 private String updatedBy;
+@JsonProperty("pageRelatedList")
+private List<PageLayout> pageRelatedList = null;
+
+@JsonProperty("addedPageRelatedList")
+private List<PageLayout> addedPageRelatedList = null;
+
+@JsonProperty("addedPageRelatedList")
+public void setAddedPageRelatedList(List<PageLayout> addedPageRelatedList) {
+	this.addedPageRelatedList = addedPageRelatedList;
+}
+
+@JsonProperty("pageRelatedList")
+public void setPageRelatedList(List<PageLayout> pageRelatedList) {
+	this.pageRelatedList = pageRelatedList;
+}
+
+@JsonProperty("pageRelatedList")
+public List<PageLayout> getPageRelatedList() {
+	return pageRelatedList;
+}
+
+@JsonProperty("addedPageRelatedList")
+public List<PageLayout> getAddedPageRelatedList() {
+	return addedPageRelatedList;
+}
+
 @JsonProperty("pageStatusList")
 public void setPgStatusList(List<PageLayout> pgStatusList) {
 	this.pgStatusList = pgStatusList;

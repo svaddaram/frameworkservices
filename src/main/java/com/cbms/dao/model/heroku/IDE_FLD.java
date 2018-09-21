@@ -1,6 +1,5 @@
 package com.cbms.dao.model.heroku;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,45 +12,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @JsonIgnoreProperties(value = { "ideObjFlds" })
 @Entity
-@Table(name = "IDE_FLD__c",schema = "salesforce")
+@Table(name = "IDE_FLD",schema = "salesforce")
 public class IDE_FLD implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
-	
-	
-	@Column(name = "systemmodstamp", columnDefinition= "TIMESTAMP WITH TIME ZONE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date systemModStamp;
-	
-	public void setSystemModStamp(Date systemModStamp) {
-		this.systemModStamp = systemModStamp;
-	}
-	
-	public Date getSystemModStamp() {
-		return systemModStamp;
-	}
-	
-	
-	@Column(name = "createddate", columnDefinition= "TIMESTAMP WITH TIME ZONE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createddate;
-	
-	public void setCreateddate(Date createddate) {
-		this.createddate = createddate;
-	}
-	
-	public Date getCreateddate() {
-		return createddate;
-	}
+
 	public String getAPI_NAME_S() {
 		return API_NAME_S;
 	}
@@ -82,13 +52,15 @@ public class IDE_FLD implements Serializable {
 		REQUIRED_S = rEQUIRED_S;
 	}
 	public String getUNIQUE_S() {
-		if(UNIQUE_S == null){
+		/*if(UNIQUE_S == null || "N".equalsIgnoreCase(UNIQUE_S)){
 			UNIQUE_S ="false";
-		}
+		}else {
+			UNIQUE_S ="true";
+		}*/
 		return UNIQUE_S;
 	}
 	public void setUNIQUE_S(String uNIQUE_S) {
-		UNIQUE_S = uNIQUE_S;
+		UNIQUE_S=uNIQUE_S;
 	}
 	public String getCASE_SENSITIVE_S() {
 		return CASE_SENSITIVE_S;
@@ -148,7 +120,19 @@ public class IDE_FLD implements Serializable {
 	public void setCOL_FLTR_VAL_C(String cOL_FLTR_VAL_C) {
 		COL_FLTR_VAL_C = cOL_FLTR_VAL_C;
 	}
-	
+	public String getHOVR_TXT_C() {
+		if(HOVR_TXT_C == null){
+			HOVR_TXT_C = "";
+		}
+		HOVR_TXT_C = HOVR_TXT_C.replaceAll("[&]","");
+		if(HOVR_TXT_C.length() > 255){
+			HOVR_TXT_C = HOVR_TXT_C.substring(0,254);
+		}
+		return HOVR_TXT_C;
+	}
+	public void setHOVR_TXT_C(String hOVR_TXT_C) {
+		HOVR_TXT_C = hOVR_TXT_C;
+	}
 	public String getRT_CD_C() {
 		if(null == RT_CD_C || "null".equals(RT_CD_C))
 			RT_CD_C = "";
@@ -222,77 +206,76 @@ public class IDE_FLD implements Serializable {
 	public void setLIST_VIEW_S(Integer lIST_VIEW_S) {
 		LIST_VIEW_S = lIST_VIEW_S;
 	}
-	@Column(name = "FORMULA_S__c")
+	@Column(name = "FORMULA_S")
 	String FORMULA_S;
 	public String getFORMULA_S() {
 		if(FORMULA_S == null){
 			FORMULA_S ="";
+		}
+		if(FORMULA_S.contains("&") && !FORMULA_S.contains("&amp;")) {
+			FORMULA_S =  FORMULA_S.replace("&", "&amp;");
 		}
 		return FORMULA_S;
 	}
 	public void setFORMULA_S(String fORMULA_S) {
 		FORMULA_S = fORMULA_S;
 	}
-	/*@Id
-	@Column(name = "IDE_OBJ_NM")
-	String IDE_OBJ_NM;*/
-	@Column(name = "API_NAME__c")
+	
+	@Column(name = "API_NAME_S")
 	String API_NAME_S;
-	@Column(name = "FIELD_LABEL_S__c")
+	@Column(name = "FIELD_LABEL_S")
 	String FIELD_LABEL_S;
-	@Column(name = "TYPE_S__c")
+	@Column(name = "TYPE_S")
 	String TYPE_S;
-	@Column(name = "REQUIRED_S__c")
+	@Column(name = "REQUIRED_S")
 	String REQUIRED_S;
-	@Column(name = "UNIQUE_S__c")
+	@Column(name = "UNIQUE_S")
 	String UNIQUE_S;
-	@Column(name = "CASE_SENSITIVE__c")
+	@Column(name = "CASE_SENSITIVE_S")
 	String CASE_SENSITIVE_S;
-	@Column(name = "EXTERNAL_ID_S__c")
+	@Column(name = "EXTERNAL_ID_S")
 	String EXTERNAL_ID_S;
-	@Column(name = "FIELD_DESCRIPTION_S__c")
+	@Column(name = "FIELD_DESCRIPTION_S")
 	String FIELD_DESCRIPTION_S;
-	@Column(name = "REFERENCE_TO_S__c")
+	@Column(name = "REFERENCE_TO_S")
 	String REFERENCE_TO_S;
-	@Column(name = "RELATIONSHIP_LABEL_S__c")
+	@Column(name = "RELATIONSHIP_LABEL_S")
 	String RELATIONSHIP_LABEL_S;
-	@Column(name = "RELATIONSHIP_ORDER_S__c")
+	@Column(name = "RELATIONSHIP_ORDER_S")
 	String RELATIONSHIP_ORDER_S;
-	@Column(name = "COL_FLTR_NAME__c")
+	@Column(name = "COL_FLTR_NAME_C")
 	String COL_FLTR_NAME_C;
-	@Column(name = "COL_FLTR_VAL_C__c")
+	@Column(name = "COL_FLTR_VAL_C")
 	String COL_FLTR_VAL_C;
 	@Column(name = "HOVR_TXT_C")
 	String HOVR_TXT_C;
-	@Column(name = "RT_CD_C__c")
+	@Column(name = "RT_CD_C")
 	String RT_CD_C;
-	@Column(name = "RT_DSC_C__c")
+	@Column(name = "RT_DSC_C")
 	String RT_DSC_C;
-	@Column(name = "RT_TBL_NM_C__c")
+	@Column(name = "RT_TBL_NM_C")
 	String RT_TBL_NM_C;
-	@Column(name = "LABEL_OVERIDE_S__c")
+	@Column(name = "LABEL_OVERIDE_S")
 	String LABEL_OVERIDE_S;
-	@Column(name = "DISPLAY_ONLY_S__c")
+	@Column(name = "DISPLAY_ONLY_S")
 	String DISPLAY_ONLY_S;
-	@Column(name = "COL_VISIBLE_S__c")
+	@Column(name = "COL_VISIBLE_S")
 	String COL_VISIBLE_S;
 	
-	@Column(name = "LENGTH_S__c")
+	@Column(name = "LENGTH_S")
 	Integer LENGTH_S;
-	@Column(name = "PRECISION_S__c")
+	@Column(name = "PRECISION_S")
 	Integer PRECISION_S;
-	@Column(name = "SCALE_S__c")
+	@Column(name = "SCALE_S")
 	Integer SCALE_S;
-	//@Id
-	
-	@Column(name = "COL_ORDER_S__c")
+	@Column(name = "COL_ORDER_S")
 	Integer COL_ORDER_S;
-	@Column(name = "LIST_VIEW_S__c")
+	@Column(name = "LIST_VIEW_S")
 	Integer LIST_VIEW_S;
 	@Id
 	@SequenceGenerator(name="ide_field_sequence", sequenceName="ide_field_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ide_field_sequence")
-	@Column(name = "IDE_FLD_SEQ__c")
+	@Column(name = "IDE_FLD_SEQ")
 	Integer IDE_FLD_SEQ;
 	public Integer getIDE_FLD_SEQ() {
 		return IDE_FLD_SEQ;
@@ -301,69 +284,10 @@ public class IDE_FLD implements Serializable {
 		IDE_FLD_SEQ = iDE_FLD_SEQ;
 	}
 	
-	@Column(name = "created_by__c")
-	String created_by;
-	
-	@Column(name = "updated_by__c")
-	String updated_by;
-	
-	@Column(name = "TYPE__C")
-	private String TYPE__C;
-	
-	@Column(name = "DISP_REL_LST__C")
-	private String DISP_REL_LST;
-	
-	
-	
-	
-	public void setDISP_REL_LST(String dISP_REL_LST) {
-		DISP_REL_LST = dISP_REL_LST;
-	}
-	
-	public String getDISP_REL_LST() {
-		return DISP_REL_LST;
-	}
-	
-	public void setTYPE__C(String tYPE__C) {
-		TYPE__C = tYPE__C;
-	}
-	
-	public String getTYPE__C() {
-		return TYPE__C;
-	}
-	
-	@Column(name = "NAME")
-	private String Name;
-	
-	public void setName(String name) {
-		Name = name;
-	}
-	
-	public String getName() {
-		return Name;
-	}
-	
-	public void setUpdated_by(String updated_by) {
-		this.updated_by = updated_by;
-	}
-	
-	public String getUpdated_by() {
-		return updated_by;
-	}
-	
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
-	}
-	
-	public String getCreated_by() {
-		return created_by;
-	}
-	
-	
-	@Column(name = "ROW_NUMBER__c")
+	@Column(name = "ROW_NUMBER")
 	Integer ROW_NUMBER;
 	
-	@Column(name = "COL_NUMBER__c")
+	@Column(name = "COL_NUMBER")
 	Integer COL_NUMBER;
 	public Integer getROW_NUMBER() {
 		return ROW_NUMBER;
@@ -378,7 +302,7 @@ public class IDE_FLD implements Serializable {
 		COL_NUMBER = cOL_NUMBER;
 	}
 	
-	/*@Column(name = "TYPE_C__c")
+	@Column(name = "TYPE_C")
 	String TYPE_C;
 	public String getTYPE_C() {
 		return TYPE_C;
@@ -386,8 +310,8 @@ public class IDE_FLD implements Serializable {
 	public void setTYPE_C(String tYPE_C) {
 		TYPE_C = tYPE_C;
 	}
-	*/
-	@Column(name = "EDIT_VAL__c")
+	
+	@Column(name = "EDIT_VAL")
 	String EDIT_VAL;
 	public String getEDIT_VAL() {
 		if(EDIT_VAL==null) {
@@ -399,7 +323,7 @@ public class IDE_FLD implements Serializable {
 		EDIT_VAL = eDIT_VAL;
 	}
 	
-	@Column(name = "IDE_OBJ_NM__c")
+	@Column(name = "OBJ_NAME")
 	String OBJ_NAME;
 	public String getOBJ_NAME() {
 		if(null == OBJ_NAME)
@@ -410,7 +334,7 @@ public class IDE_FLD implements Serializable {
 		OBJ_NAME = oBJ_NAME;
 	}
 	
-	@Column(name = "FLD_NAME__c")
+	@Column(name = "FLD_NAME")
 	String FLD_NAME;
 	public String getFLD_NAME() {
 		if(null == FLD_NAME)
@@ -447,13 +371,12 @@ public class IDE_FLD implements Serializable {
 		}   
 		return "{!"+ ENA_DIS_RULE_EXP + "}";
 	}
+	
+	@Column(name = "MAND_RULE_EXP")
+	String MAND_RULE_EXP;
 	public void setENA_DIS_RULE_EXP(String eNA_DIS_RULE_EXP) {
 		ENA_DIS_RULE_EXP = eNA_DIS_RULE_EXP;
 	}
-	
-	@Column(name = "MAND_RULE_EXP__c")
-	String MAND_RULE_EXP;
-
 	public String getMAND_RULE_EXP() {
 		if(null == MAND_RULE_EXP)
 			return "";
@@ -484,10 +407,8 @@ public class IDE_FLD implements Serializable {
 	}
 	
 	@ManyToOne
-    @JoinColumn(name="ide_obj_nm__r__ide_obj_id__c")
+    @JoinColumn(name="IDE_OBJ_ID")
 	private IDE_OBJ ideObjFlds;
-	
-	
 	
 	/**
 	 * @return the ideObjFlds
@@ -501,7 +422,7 @@ public class IDE_FLD implements Serializable {
 	public void setIdeObjFlds(IDE_OBJ ideObjFlds) {
 		this.ideObjFlds = ideObjFlds;
 	}
-	@Column(name = "DEPNT_FLDS__c")
+	@Column(name = "DEPNT_FLDS")
 	String DEPNT_FLDS;
 
 	/**
@@ -520,7 +441,7 @@ public class IDE_FLD implements Serializable {
 		DEPNT_FLDS = dEPNT_FLDS;
 	}
 	
-	@Column(name = "IS_DEPNT__c")
+	@Column(name = "IS_DEPNT")
 	String IS_DEPNT;
 
 	/**
@@ -537,13 +458,16 @@ public class IDE_FLD implements Serializable {
 	}
 	
 	
-	@Column(name = "PAGE_PARAMS__c")
+	@Column(name = "PAGE_PARAMS")
 	String PAGE_PARAMS;
 
 	/**
 	 * @return the pAGE_PARAMS
 	 */
 	public String getPAGE_PARAMS() {
+		if(PAGE_PARAMS == null) {
+			return "";
+		}
 		return PAGE_PARAMS;
 	}
 	/**
@@ -553,7 +477,7 @@ public class IDE_FLD implements Serializable {
 		PAGE_PARAMS = pAGE_PARAMS;
 	}
 	
-	@Column(name = "DEPNT_S__c")
+	@Column(name = "DEPNT_S")
 	String DEPNT_S;
 
 	/**
@@ -569,7 +493,7 @@ public class IDE_FLD implements Serializable {
 		DEPNT_S = dEPNT_S;
 	}
 	
-	@Column(name="BLANKOUT_FLDS__c")
+	@Column(name="BLANKOUT_FLDS")
 	String BLANKOUT_FLDS;
 
 	/**
@@ -597,7 +521,7 @@ public class IDE_FLD implements Serializable {
 		BLANKOUT_FLDS = bLANKOUT_FLDS;
 	}
 	
-	@Column(name="BLANKOUT_FLDS_RULE__c")
+	@Column
 	String BLANKOUT_FLDS_RULE;
 
 	/**
@@ -632,7 +556,7 @@ public class IDE_FLD implements Serializable {
 		BLANKOUT_FLDS_RULE = bLANKOUT_FLDS_RULE;
 	}
 	
-	@Column(name="COPY_SRC_FLD__c")
+	@Column
 	String COPY_SRC_FLD;
 
 	/**
@@ -650,7 +574,7 @@ public class IDE_FLD implements Serializable {
 		COPY_SRC_FLD = cOPY_SRC_FLD;
 	}
 	
-	@Column(name="COPY_TARGET_FLD__c")
+	@Column
 	String COPY_TARGET_FLD;
 
 	/**
@@ -668,7 +592,7 @@ public class IDE_FLD implements Serializable {
 		COPY_TARGET_FLD = cOPY_TARGET_FLD;
 	}
 	
-	@Column(name="COPY_FLDS_RULE__c")
+	@Column
 	String COPY_FLDS_RULE;
 
 	/**
@@ -702,7 +626,7 @@ public class IDE_FLD implements Serializable {
 	}
 	
 	
-	@Column(name="COPY_SEL_OPT_COLS__c")
+	@Column
 	String COPY_SEL_OPT_COLS;
 
 	/**
@@ -720,7 +644,7 @@ public class IDE_FLD implements Serializable {
 		COPY_SEL_OPT_COLS = cOPY_SEL_OPT_COLS;
 	}
 	
-	@Column(name= "COMPUTE_FLD_RULE__c")
+	@Column
 	String COMPUTE_FLD_RULE;
 
 	/**
@@ -753,22 +677,6 @@ public class IDE_FLD implements Serializable {
 		COMPUTE_FLD_RULE = cOMPUTE_FLD_RULE;
 	}
 	
-
-	
-	public String getHOVR_TXT_C() {
-		if(HOVR_TXT_C == null){
-			HOVR_TXT_C = "";
-		}
-		HOVR_TXT_C = HOVR_TXT_C.replaceAll("[&]","");
-		if(HOVR_TXT_C.length() > 255){
-			HOVR_TXT_C = HOVR_TXT_C.substring(0,254);
-		}
-		return HOVR_TXT_C;
-	}
-	public void setHOVR_TXT_C(String hOVR_TXT_C) {
-		HOVR_TXT_C = hOVR_TXT_C;
-	}
-
 	@Column
 	String DEFAULT_VALUE;
 
@@ -907,8 +815,20 @@ public class IDE_FLD implements Serializable {
 	public void setSELECT_ON_SELECT(String sELECT_ON_SELECT) {
 		SELECT_ON_SELECT = sELECT_ON_SELECT;
 	}
-	
-	
-	
-	
+	/*@OneToOne(fetch = FetchType.LAZY, mappedBy = "ideFld", cascade = CascadeType.ALL)
+	@JoinColumn(name="COL_ID", nullable=false, insertable=false, updatable=false)
+	IDE_FIELD_LAYOUT ideFldLayout;
+
+	*//**
+	 * @return the ideFldLayout
+	 *//*
+	public IDE_FIELD_LAYOUT getIdeFldLayout() {
+		return ideFldLayout;
+	}
+	*//**
+	 * @param ideFldLayout the ideFldLayout to set
+	 *//*
+	public void setIdeFldLayout(IDE_FIELD_LAYOUT ideFldLayout) {
+		this.ideFldLayout = ideFldLayout;
+	}*/
 }

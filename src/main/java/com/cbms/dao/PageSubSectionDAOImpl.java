@@ -30,10 +30,10 @@ public class PageSubSectionDAOImpl implements PageSubSectionDAO{
 		IDE_PG_SECTN section=pageSectionDAO.getPageSectionByID(sectionId);
 		if(section!=null) {
 		subSection.setIdePageSubSectns(section);
-		subSection.setIDE_OBJ_ID__c(section.getIDE_OBJ_ID__c());
-		subSection.setIDE_PG_LAYOUT_ID__c(subSection.getIDE_PG_LAYOUT_ID__c());
-		if(section.getIDE_OBJ_ID__c()!=null) {
-			applicationDAO.updateLastUpdatedDateAndTime(section.getIDE_OBJ_ID__c(), section.getUpdated_by());
+		subSection.setIDE_OBJ_ID(section.getIDE_OBJ_ID());
+		subSection.setIDE_PG_LAYOUT_ID(subSection.getIDE_PG_LAYOUT_ID());
+		if(section.getIDE_OBJ_ID()!=null) {
+			applicationDAO.updateLastUpdatedDateAndTime(section.getIDE_OBJ_ID(), "LASTUPDATEDBY");
 		}
 }
 		}
@@ -62,7 +62,7 @@ public class PageSubSectionDAOImpl implements PageSubSectionDAO{
 
 	@Override
 	public IDE_PG_SUB_SECTN getPageSubSectionByID(String pgSubSectionID) {
-		return (IDE_PG_SUB_SECTN) sessionFactory.getCurrentSession().get(IDE_PG_SUB_SECTN.class, pgSubSectionID);
+		return (IDE_PG_SUB_SECTN) sessionFactory.getCurrentSession().get(IDE_PG_SUB_SECTN.class, pgSubSectionID!=null?Integer.parseInt(pgSubSectionID):null);
 	}
 
 	@Override
@@ -71,8 +71,8 @@ public class PageSubSectionDAOImpl implements PageSubSectionDAO{
 		IDE_PG_SUB_SECTN subSection=getPageSubSectionByID(pgSubSectionID);
 		checkIfSubSectionAddedToCanvas(subSection);
 		if(subSection!=null) {
-			if(subSection.getIDE_OBJ_ID__c()!=null) {
-				applicationDAO.updateLastUpdatedDateAndTime(subSection.getIDE_OBJ_ID__c(), subSection.getUpdated_by());
+			if(subSection.getIDE_OBJ_ID()!=null) {
+				applicationDAO.updateLastUpdatedDateAndTime(subSection.getIDE_OBJ_ID(), subSection.getLST_UPD_BY());
 			}
 		 sessionFactory.getCurrentSession().delete(getPageSubSectionByID(pgSubSectionID));
 		}

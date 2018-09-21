@@ -3,6 +3,7 @@ package com.cbms.dao;
 import java.util.List;
 
 import com.cbms.dao.model.heroku.IDE_PG_LAYOUT;
+import com.cbms.dao.model.heroku.IDE_REL_FLD;
 import com.cbms.input.domain.PageLayout;
 import com.cbms.input.domain.PaginationRequest;
 
@@ -27,4 +28,6 @@ public interface PageLayoutDAO {
 	public IDE_PG_LAYOUT saveCanvas(PageLayout pageLayout);
 	
 	public String updateApplicationStatus(String ideObjID);
+	
+	public List<IDE_REL_FLD> getRelatedList(IDE_PG_LAYOUT pgLayout);
 }

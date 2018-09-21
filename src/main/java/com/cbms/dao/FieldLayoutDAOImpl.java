@@ -33,11 +33,11 @@ public class FieldLayoutDAOImpl implements FieldLayoutDAO {
 		IDE_PG_SUB_SECTN subsection=pageSubSectionDAO.getPageSubSectionByID(idePgSubSectionID);
 		if(subsection!=null) {
 		fieldLayout.setIdePgSubSecFldLayouts(subsection);
-		fieldLayout.setIDE_OBJ_ID__c(subsection.getIDE_OBJ_ID__c());
-		fieldLayout.setIDE_PG_LAYOUT_ID__c(subsection.getIDE_PG_LAYOUT_ID__c());
+		fieldLayout.setIDE_OBJ_ID(subsection.getIDE_OBJ_ID());
+		fieldLayout.setIDE_PG_LAYOUT_ID(subsection.getIDE_PG_LAYOUT_ID());
 		fieldLayout.setIDE_PG_SUB_SECTN_ID(subsection.getIDE_PG_SUB_SECTN_ID());
-		if(fieldLayout.getIDE_OBJ_ID__c()!=null) {
-			updateDateandUpdatedBy(fieldLayout.getIDE_OBJ_ID__c(), fieldLayout.getUpdated_by());	
+		if(fieldLayout.getIDE_OBJ_ID()!=null) {
+			updateDateandUpdatedBy(fieldLayout.getIDE_OBJ_ID(), fieldLayout.getUpdated_by());	
 		}
 		
 		}
@@ -57,10 +57,10 @@ public class FieldLayoutDAOImpl implements FieldLayoutDAO {
 		IDE_PG_SECTN section=pageSectionDAO.getPageSectionByID(idePgSectionID);
 		if(section!=null) {
 		fieldLayout.setIdePgSectionLayoutList(section);
-		fieldLayout.setIDE_OBJ_ID__c(section.getIDE_OBJ_ID__c());
-		fieldLayout.setIDE_PG_LAYOUT_ID__c(section.getIDE_PG_LAYOUT_ID__c());
-		if(fieldLayout.getIDE_OBJ_ID__c()!=null) {
-			applicationDAO.updateLastUpdatedDateAndTime(fieldLayout.getIDE_OBJ_ID__c(), fieldLayout.getUpdated_by());	
+		fieldLayout.setIDE_OBJ_ID(section.getIDE_OBJ_ID());
+		fieldLayout.setIDE_PG_LAYOUT_ID(section.getIDE_PG_LAYOUT_ID());
+		if(fieldLayout.getIDE_OBJ_ID()!=null) {
+			applicationDAO.updateLastUpdatedDateAndTime(fieldLayout.getIDE_OBJ_ID(), fieldLayout.getUpdated_by());	
 		}
 		
 		}
@@ -100,8 +100,8 @@ public class FieldLayoutDAOImpl implements FieldLayoutDAO {
 	@Override
 	public void deleteFieldByID(Integer fieldSeq) {
 		IDE_FIELD_LAYOUT fieldLayout=getFieldtByID(fieldSeq);
-		if(fieldLayout.getIDE_OBJ_ID__c()!=null) {
-			updateDateandUpdatedBy(fieldLayout.getIDE_OBJ_ID__c(), fieldLayout.getUpdated_by());	
+		if(fieldLayout.getIDE_OBJ_ID()!=null) {
+			updateDateandUpdatedBy(fieldLayout.getIDE_OBJ_ID(), fieldLayout.getUpdated_by());	
 		}	
 		if(fieldLayout!=null) {
 		 sessionFactory.getCurrentSession().delete(fieldLayout);

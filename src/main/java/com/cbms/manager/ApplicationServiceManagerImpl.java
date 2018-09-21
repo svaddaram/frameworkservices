@@ -10,8 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cbms.constants.SearchParameterEnum;
 import com.cbms.dao.ApplicationDAO;
+import com.cbms.dao.PageLayoutDAO;
 import com.cbms.dao.model.heroku.IDE_OBJ;
+import com.cbms.dao.model.heroku.IDE_PG_LAYOUT;
 import com.cbms.input.domain.Application;
+import com.cbms.input.domain.PageLayout;
 import com.cbms.input.domain.PaginationRequest;
 import com.cbms.input.domain.SearchParameters;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,6 +31,9 @@ public class ApplicationServiceManagerImpl implements ApplicationServiceManager 
 	
 	@Autowired
 	ObjectManager objectManager;
+	
+	@Autowired
+	PageLayoutDAO pageLayoutDAO;
 
 	@Override
 	@Transactional
@@ -73,7 +79,64 @@ public class ApplicationServiceManagerImpl implements ApplicationServiceManager 
 				applicationObjects.add(objectManager.createApplicationObject(ideObj,search.getObjectType()));
 			}
 		}
+		System.out.println("before setUpRelatedListForApplicationObject");
+		setUpRelatedListForApplicationObject(applicationObjects);
+		System.out.println("after setUpRelatedListForApplicationObject");
+	
 		return  mapper.writeValueAsString(applicationObjects);
+	}
+	
+	@Override
+	@Transactional
+	public String getRelatedListObjects(SearchParameters search) throws JsonProcessingException {
+		logger.debug("inside search object");
+		ObjectMapper mapper = new ObjectMapper();
+		List<Application> applicationObjects=new ArrayList<Application>();
+				
+		if(search==null || search.getSearchParameter()==null) {
+			return null;
+		}else if(SearchParameterEnum.ID.toString().equalsIgnoreCase(search.getSearchParameter())) {
+			applicationObjects.add(objectManager.createApplicationObject(applicationDAO.getApplicationByID(search.getId()),"RELATEDLIST"));
+		}else if(SearchParameterEnum.NAME.toString().equalsIgnoreCase(search.getSearchParameter())) {
+			applicationObjects.add(objectManager.createApplicationObject(applicationDAO.getApplicationByName(search.getName()),"RELATEDLIST"));
+		}else if(SearchParameterEnum.ALL.toString().equalsIgnoreCase(search.getSearchParameter())) {
+			 List<IDE_OBJ> ideObjList=applicationDAO.getAllApplicationObjects();
+		for(IDE_OBJ ideObj:ideObjList) {
+			applicationObjects.add(objectManager.createApplicationObject(ideObj,"RELATEDLIST"));
+		}
+		
+	}
+			return  mapper.writeValueAsString(applicationObjects);
+		}
+
+	private void setUpRelatedListForApplicationObject(List<Application> applicationObjects) {
+		System.out.println("inside setUpRelatedListForApplicationObject");
+		if(applicationObjects!=null ) {
+			for(Application app:applicationObjects) {
+				System.out.println("inside setUpRelatedListForApplicationObject");
+				if(app.getIdePgLayouts()!=null) {
+					System.out.println("inside setUpRelatedListForApplicationObject"+app.getIdePgLayouts().size());
+				for(PageLayout layout: app.getIdePgLayouts()) {
+					List<PageLayout> rltdPageLayoutList=new ArrayList<PageLayout>();
+					
+					if(layout!=null && layout.getRltedListIds()!=null && !layout.getRltedListIds().equalsIgnoreCase("")) {
+						System.out.println("inside setUpRelatedListForApplicationObject"+layout.getIdePGLAYOUTNM());
+						String[] rltdList=layout.getRltedListIds().split(",");
+						  for (int i=0; i<rltdList.length; i++)
+					        {
+					           String pgLayoutId=rltdList[i].trim();
+					           System.out.println("----------------------->"+pgLayoutId);
+					           IDE_PG_LAYOUT pageLayout=pageLayoutDAO.getPageLayoutByID(Integer.parseInt(pgLayoutId));
+					           if(pageLayout!=null)
+					           rltdPageLayoutList.add(objectManager.createPageLayoutObject((pageLayout),"ALL",Boolean.FALSE));
+					        }
+					}
+					layout.setRelatedList(rltdPageLayoutList);
+				}
+				}
+			}
+		}
+		
 	}
 	
 	

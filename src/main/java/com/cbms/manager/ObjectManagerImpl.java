@@ -59,8 +59,8 @@ public class ObjectManagerImpl implements ObjectManager{
 		ideObj.setSEQ_TYPE_S(application.getSeqTYPES());
 		ideObj.setTYPE_C(application.getTypeC());
 		ideObj.setSHARING_MODEL_S(application.getSharingMODELS());
-		ideObj.setName(application.getName());
-		ideObj.setDW_NAME__C(application.getDwName());
+		//ideObj.setName(application.getName());
+		//ideObj.setDW_NAME(application.getDwName());
 		if(!SearchParameterEnum.BASICOBJECT.toString().equalsIgnoreCase(objectType)) {
 		if(application!=null && application.getIdePgLayouts()!=null) {
 			for(PageLayout pageLayout:application.getIdePgLayouts()) {
@@ -82,7 +82,28 @@ public class ObjectManagerImpl implements ObjectManager{
 	public Application createApplicationObject(IDE_OBJ ideObj,String objectType) {
 		if(ideObj==null)
 		return null;
+		
+		
 		Application application=new Application(); 
+		
+		if("RELATEDLIST".equalsIgnoreCase(objectType)) {
+			 if (ideObj.getIdePgLayouts() != null) {
+					System.out.println("inside pg layout size" + ideObj.getIdePgLayouts().size());
+					List<PageLayout> pgRelatedList = new ArrayList<PageLayout>();
+					for (IDE_PG_LAYOUT pgLayout : ideObj.getIdePgLayouts()) {
+						if (pgLayout != null && pgLayout.getIS_PARENT()!=null && pgLayout.getIS_PARENT().equalsIgnoreCase("N") ) {
+							System.out.println("is parent is not y");
+							PageLayout pglayout=createPageLayoutObject(pgLayout,"ALL",Boolean.FALSE);
+							//pglayout.setIdePGLAYOUTNM(pgLayout.getIDE_PG_LAYOUT_NM());
+							//layout.setStatus(pgLayout.getStatus());
+							pgRelatedList.add(pglayout);
+						}
+		}
+					 application.setPageRelatedList(pgRelatedList);
+			 }
+			 return application;
+		}
+		
 		application.setApiS(ideObj.getAPI_S());
 		application.setDescriptionS(ideObj.getDESCRIPTION_S());
 		application.setDisplayFORMATS(ideObj.getDISPLAY_FORMAT_S());
@@ -96,8 +117,8 @@ public class ObjectManagerImpl implements ObjectManager{
 		application.setEnableSTRMINGAPIS(ideObj.getENABLE_STRMING_API_S());
 		application.setGenerateC(ideObj.getGENERATE_C());
 		application.setIdeOBJID(ideObj.getIDE_OBJ_ID());
-		application.setName(ideObj.getName());
-		application.setDwName(ideObj.getDW_NAME__C());
+	//	application.setName(ideObj.getName());
+	//	application.setDwName(ideObj.getDW_NAME__C());
 			application.setInappC(ideObj.getINAPP_C() );
 			application.setIsCustom(ideObj.getIS_CUSTOM());
 			application.setLabelS(ideObj.getLABEL_S());
@@ -145,7 +166,15 @@ public class ObjectManagerImpl implements ObjectManager{
 			}else if (ideObj.getIdePgLayouts() != null) {
 				System.out.println("inside pg layout size" + ideObj.getIdePgLayouts().size());
 				List<PageLayout> pgList = new ArrayList<PageLayout>();
+				List<PageLayout> pgRelatedList = new ArrayList<PageLayout>();
 				for (IDE_PG_LAYOUT pgLayout : ideObj.getIdePgLayouts()) {
+					if (pgLayout != null && pgLayout.getIS_PARENT()==null) {
+						System.out.println("is parent is not y");
+						PageLayout layout = new PageLayout();
+						layout.setIdePGLAYOUTNM(pgLayout.getIDE_PG_LAYOUT_NM());
+						//layout.setStatus(pgLayout.getStatus());
+						pgRelatedList.add(layout);
+					}
 					if (pgLayout != null) {
 						PageLayout layout = new PageLayout();
 						layout.setIdePGLAYOUTNM(pgLayout.getIDE_PG_LAYOUT_NM());
@@ -154,7 +183,12 @@ public class ObjectManagerImpl implements ObjectManager{
 					}
 				}
 				application.setPgStatusList(pgList);
+				application.setPageRelatedList(pgRelatedList);
 			}
+			
+			
+			
+			
 			return application;
 	}
 
@@ -164,6 +198,18 @@ public class ObjectManagerImpl implements ObjectManager{
 			return null;
 		}
 		PageLayout layout=new PageLayout();
+		/*List<RelatedList> relatedPagesList=new ArrayList<RelatedList>();
+		RelatedList relatedList=new RelatedList();
+		relatedList.setRelGrpNm("dummyTest");
+		List<String> relListFlds =new ArrayList<String>();
+		relListFlds.add("column1");
+		relListFlds.add("column2");
+		relListFlds.add("column3");
+		relListFlds.add("column4");
+		relatedList.setRelListFlds(relListFlds);
+		relatedPagesList.add(relatedList);
+		layout.setRelatedList(relatedPagesList);*/
+		
 		if(addPageLayoutObject.getIdePgLayouts()!=null) {
 		layout.setIdeOBJID(addPageLayoutObject.getIdePgLayouts().getIDE_OBJ_ID());
 		}
@@ -175,7 +221,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		layout.setCreatedTimeStamp(addPageLayoutObject.getCreateddate()!=null?df.format(addPageLayoutObject.getCreateddate()):null);
 		layout.setCreatedBy(addPageLayoutObject.getCreated_by());
 		layout.setUpdatedBy(addPageLayoutObject.getUpdated_by());
-		layout.setName(addPageLayoutObject.getName());
+		//layout.setName(addPageLayoutObject.getName());
 		
 		layout.setShowTitle(addPageLayoutObject.getSHOW_TITLE());
 		layout.setScrnType(addPageLayoutObject.getSCRN_TYP());
@@ -226,7 +272,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		layout.setIDE_PG_LAYOUT_NM(pageLayout.getIdePGLAYOUTNM());
 		layout.setIDE_OBJ_ID__c(pageLayout.getIdeOBJID());
 		layout.setStatus(pageLayout.getStatus());
-		layout.setName(pageLayout.getName());
+		//layout.setName(pageLayout.getIdePGLAYOUTNM());
 		Date date=new Date();
 		if(pageLayout.getIdePGLAYOUTID()==null) {		
 			layout.setCreateddate(date);
@@ -259,8 +305,8 @@ public class ObjectManagerImpl implements ObjectManager{
 			return null;
 		}
 		IDE_PG_SECTN pageSection=new IDE_PG_SECTN();
-		pageSection.setName(section.getName());
-		pageSection.setDW_NAME__C(section.getDwName());
+		//pageSection.setName(section.getName());
+		pageSection.setDW_NAME(section.getDwName());
 		pageSection.setALLW_DEL(section.getAllwDEL());
 		pageSection.setGRP_LABLE(section.getGrpLABLE());
 		pageSection.setIDE_PG_SECTN_ID(section.getIdePGSECTNID());
@@ -271,10 +317,10 @@ public class ObjectManagerImpl implements ObjectManager{
 		pageSection.setTYPE(section.getType());
 		pageSection.setVW_DEL(section.getVwDEL());
 		pageSection.setVW_HIST(section.getVwHIST());
-		pageSection.setIDE_PG_LAYOUT_ID__c(section.getIdePGLAYOUTID());
+		pageSection.setIDE_PG_LAYOUT_ID(section.getIdePGLAYOUTID());
 		pageSection.setRow(section.getRow());
 		pageSection.setColumn(section.getColumn());
-		pageSection.setIDE_OBJ_ID__c(section.getIdeOBJID());
+		pageSection.setIDE_OBJ_ID(section.getIdeOBJID());
 		
 		
 		pageSection.setENA_DIS_RULE_EXP(section.getEna_DIS_RULE_EXP());
@@ -286,12 +332,12 @@ public class ObjectManagerImpl implements ObjectManager{
 		pageSection.setIS_SUM_DTL(section.getIsSumDetail());
 		
 		Date date=new Date();
-		if(section.getIdePGSECTNID()==null) {		
+	/*	if(section.getIdePGSECTNID()==null) {		
 			pageSection.setCreateddate(date);
 			pageSection.setCreated_by(section.getCreatedBy());
 		}
 		pageSection.setSystemModStamp(date);
-		pageSection.setUpdated_by(section.getUpdatedBy());
+		pageSection.setUpdated_by(section.getUpdatedBy());*/
 		
 		if(!SearchParameterEnum.BASICOBJECT.toString().equalsIgnoreCase(objectType)) {
 			
@@ -331,13 +377,13 @@ public class ObjectManagerImpl implements ObjectManager{
 		fldLayout.setAPI_NAME_S(fieldLayout.getApiNameS());
 		fldLayout.setCOL_ID(fieldLayout.getColId());
 		fldLayout.setCOL_NUMBER(fieldLayout.getColNumber());
-		fldLayout.setFLD_COL_ORDERS(fieldLayout.getFldColOrders());
+		//fldLayout.setFLD_COL_ORDERS(fieldLayout.getFldColOrders());
 		fldLayout.setIDE_FIELD_LAYOUT_ID(fieldLayout.getIdeFieldLayoutId());
 		fldLayout.setFLD_NAME(fieldLayout.getFldName());
 		fldLayout.setROW_NUMBER(fieldLayout.getRowNumber());
-		fldLayout.setIDE_PG_SECTN_ID__c(fieldLayout.getIdePgSectnId());
-		fldLayout.setIDE_OBJ_ID__c(fieldLayout.getIdeObjId());
-		fldLayout.setIDE_PG_LAYOUT_ID__c(fieldLayout.getIdePgLayoutId());
+		fldLayout.setIDE_PG_SECTN_ID(fieldLayout.getIdePgSectnId());
+		fldLayout.setIDE_OBJ_ID(fieldLayout.getIdeObjId());
+		fldLayout.setIDE_PG_LAYOUT_ID(fieldLayout.getIdePgLayoutId());
 		fldLayout.setBLANKOUT_FLDS(fieldLayout.getBlankoutFlds());
 		fldLayout.setBLANKOUT_FLDS_RULE(fieldLayout.getBlankoutFldsRule());
 		fldLayout.setCASE_SENSITIVE_S(fieldLayout.getCaseSensitiveS());
@@ -417,8 +463,8 @@ public class ObjectManagerImpl implements ObjectManager{
 			return null;
 		}
 		PageSection section=new PageSection();
-		section.setName(pagesection.getName());
-		section.setDwName(pagesection.getDW_NAME__C());
+		//section.setName(pagesection.getName());
+		section.setDwName(pagesection.getDW_NAME());
 		section.setAllwDEL(pagesection.getALLW_DEL());
 		section.setGrpLABLE(pagesection.getGRP_LABLE());
 		section.setIdePGGRPID(pagesection.getIDE_PG_GRP_ID());
@@ -438,10 +484,10 @@ public class ObjectManagerImpl implements ObjectManager{
 		section.setShowAdd(pagesection.getSHOW_ADD());
 		section.setIsSumDetail(pagesection.getIS_SUM_DTL());
 		
-		section.setModifiedTimeStamp(pagesection.getSystemModStamp()!=null?df.format(pagesection.getSystemModStamp()):null);
+	/*	section.setModifiedTimeStamp(pagesection.getSystemModStamp()!=null?df.format(pagesection.getSystemModStamp()):null);
 		section.setCreatedTimeStamp(pagesection.getCreateddate()!=null?df.format(pagesection.getCreateddate()):null);
 		section.setCreatedBy(pagesection.getCreated_by());
-		section.setUpdatedBy(pagesection.getUpdated_by());
+		section.setUpdatedBy(pagesection.getUpdated_by());*/
 		/*if(pagesection.getIdePageSubSectns()!=null) {
 		for(IDE_PG_SUB_SECTN subSectn:pagesection.getIdePageSubSectns()) {
 		if(subSectn.getRow())	
@@ -558,7 +604,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		fldLayout.setApiNameS(fieldLayout.getAPI_NAME_S());
 		fldLayout.setColId(fieldLayout.getCOL_ID());
 		fldLayout.setColNumber(fieldLayout.getCOL_NUMBER());
-		fldLayout.setFldColOrders(fieldLayout.getFLD_COL_ORDERS());
+	//	fldLayout.setFldColOrders(fieldLayout.getFLD_COL_ORDERS());
 		fldLayout.setIdeFieldLayoutId(fieldLayout.getIDE_FIELD_LAYOUT_ID());
 		fldLayout.setName(fieldLayout.getFLD_NAME());
 		fldLayout.setRowNumber(fieldLayout.getROW_NUMBER());
@@ -660,75 +706,75 @@ public class ObjectManagerImpl implements ObjectManager{
 		IDE_FLD fld=new IDE_FLD();
 		
 		Date date=new Date();
-		if(field.getIdeFLDSEQ()==null) {		
-			fld.setCreateddate(date);
-			fld.setCreated_by(field.getCreatedBy());
+		if(field.getIdeFldSeq()==null) {		
+		//	fld.setCreateddate(date);
+		//	fld.setCreated_by(field.getCreatedBy());
 			
 		}
-		fld.setSELECT_ON_SELECT(field.getSelectONSELECT());
-		fld.setDISABLE_ON_SELECT(field.getDisableONSELECT());
-		fld.setCOPY_DEFAULT_RULE(field.getCopyDEFAULTRULE());
-		fld.setCOPY_DEFAULT_TAR(field.getCopyDEFAULTTAR());
-		fld.setCOPY_DEFAULT_VALUE(field.getCopyDEFAULTVALUE());
+		fld.setSELECT_ON_SELECT(field.getSelectOnSelect());
+		fld.setDISABLE_ON_SELECT(field.getDisableOnSelect());
+		fld.setCOPY_DEFAULT_RULE(field.getCopyDefaultRule());
+		fld.setCOPY_DEFAULT_TAR(field.getCopyDefaultRule());
+		fld.setCOPY_DEFAULT_VALUE(field.getCopyDefaultValue());
 		fld.setDEFAULT_VALUE(field.getDefaultValue());
-		fld.setRELATIONSHIP_ORDER_S(field.getRelationshipORDERS());
+		fld.setRELATIONSHIP_ORDER_S(field.getRelationshipOrderS());
 		fld.setIS_PARENT(field.getIsParent());
 		
-		fld.setSystemModStamp(date);
-		fld.setUpdated_by(field.getUpdatedBy());
-		fld.setAPI_NAME_S(field.getApiNAMES());
-		fld.setFIELD_LABEL_S(field.getFieldLABELS());
-		fld.setIDE_FLD_SEQ(field.getIdeFLDSEQ());
+	//	fld.setSystemModStamp(date);
+	//	fld.setUpdated_by(field.getUpdatedBy());
+		fld.setAPI_NAME_S(field.getApiNameS());
+		fld.setFIELD_LABEL_S(field.getFieldLabelS());
+		fld.setIDE_FLD_SEQ(field.getIdeFldSeq());
 		fld.setTYPE_S(field.getTypeS());
-		fld.setCOL_ORDER_S(field.getColORDERS());
+		fld.setCOL_ORDER_S(field.getColOrderS());
 		fld.setREQUIRED_S(field.getRequiredS());
 		fld.setUNIQUE_S(field.getUniqueS());
-		fld.setCASE_SENSITIVE_S(field.getCaseSENSITIVES());
-		fld.setEXTERNAL_ID_S(field.getExternalIDS());
-		fld.setFIELD_DESCRIPTION_S(field.getFieldDESCRIPTIONS());
-		fld.setREFERENCE_TO_S(field.getReferenceTOS());
-		fld.setRELATIONSHIP_LABEL_S(field.getRelationshipLABELS());
-		fld.setCOL_FLTR_NAME_C(field.getColFLTRNAMEC());
-		fld.setCOL_FLTR_VAL_C(field.getColFLTRVALC());
-		fld.setHOVR_TXT_C(field.getHovrTXTC());
-		fld.setRT_CD_C(field.getRtCDC());
-		fld.setRT_DSC_C(field.getRtDSCC());
-		fld.setRT_TBL_NM_C(field.getRtTBLNMC());
-		fld.setLABEL_OVERIDE_S(field.getLabelOVERIDES());
-		fld.setDISPLAY_ONLY_S(field.getDisplayONLYS());
-		fld.setCOL_VISIBLE_S(field.getColVISIBLES());
+		fld.setCASE_SENSITIVE_S(field.getCaseSensitiveS());
+		fld.setEXTERNAL_ID_S(field.getExternalIdS());
+		fld.setFIELD_DESCRIPTION_S(field.getFieldDescriptionS());
+		fld.setREFERENCE_TO_S(field.getReferenceToS());
+		fld.setRELATIONSHIP_LABEL_S(field.getRelationshipLabelS());
+		fld.setCOL_FLTR_NAME_C(field.getColFltrNameC());
+		fld.setCOL_FLTR_VAL_C(field.getColFltrNameC());
+		fld.setHOVR_TXT_C(field.getHovrTxtC());
+		fld.setRT_CD_C(field.getRtCdC());
+		fld.setRT_DSC_C(field.getRtDscC());
+		fld.setRT_TBL_NM_C(field.getRtTblNmC());
+		fld.setLABEL_OVERIDE_S(field.getLabelOverideS());
+		fld.setDISPLAY_ONLY_S(field.getDisplayOnlyS());
+		fld.setCOL_VISIBLE_S(field.getColVisibleS());
 		fld.setLENGTH_S(field.getLengthS());
 		fld.setPRECISION_S(field.getPrecisionS());
 		fld.setSCALE_S(field.getScaleS());
-		fld.setLIST_VIEW_S(field.getListVIEWS());
+		fld.setLIST_VIEW_S(field.getListViewS());
 		fld.setFORMULA_S(field.getFormulaS());
-		fld.setROW_NUMBER(field.getRowNUMBER());
-		fld.setCOL_NUMBER(field.getColNUMBER());
-		fld.setEDIT_VAL(field.getEditVAL());
-		fld.setOBJ_NAME(field.getObjNAME());
-		fld.setFLD_NAME(field.getFldNAME());
-		fld.setENA_DIS_RULE_EXP(field.getEnaDISRULEEXP());
-		fld.setMAND_RULE_EXP(field.getMandRULEEXP());
-		fld.setDEPNT_FLDS(field.getDepntFLDS());
-		fld.setIS_DEPNT(field.getIsDEPNT());
-		fld.setPAGE_PARAMS(field.getPagePARAMS());
+		fld.setROW_NUMBER(field.getRowNumber());
+		fld.setCOL_NUMBER(field.getColNumber());
+		fld.setEDIT_VAL(field.getEditVal());
+		fld.setOBJ_NAME(field.getObjName());
+		fld.setFLD_NAME(field.getFldName());
+		fld.setENA_DIS_RULE_EXP(field.getEnaDisRuleExp());
+		fld.setMAND_RULE_EXP(field.getMandRuleExp());
+		fld.setDEPNT_FLDS(field.getDepntFlds());
+		fld.setIS_DEPNT(field.getIsDepnt());
+		fld.setPAGE_PARAMS(field.getPageParams());
 		fld.setDEPNT_S(field.getDepntS());
-		fld.setBLANKOUT_FLDS(field.getBlankoutFLDS());
-		fld.setBLANKOUT_FLDS_RULE(field.getBlankoutFLDSRULE());
-		fld.setCOPY_SRC_FLD(field.getCopySRCFLD());
-		fld.setCOPY_TARGET_FLD(field.getCopyTARGETFLD());
-		fld.setCOPY_FLDS_RULE(field.getCopyFLDSRULE());
-		fld.setCOPY_SEL_OPT_COLS(field.getCopySELOPTCOLS());
-		fld.setCOMPUTE_FLD_RULE(field.getComputeFLDRULE());
+		fld.setBLANKOUT_FLDS(field.getBlankoutFlds());
+		fld.setBLANKOUT_FLDS_RULE(field.getBlankoutFldsRule());
+		fld.setCOPY_SRC_FLD(field.getCopySrcFld());
+		fld.setCOPY_TARGET_FLD(field.getCopyTargetFld());
+		fld.setCOPY_FLDS_RULE(field.getCopyFldsRule());
+		fld.setCOPY_SEL_OPT_COLS(field.getCopySelOptCols());
+		fld.setCOMPUTE_FLD_RULE(field.getComputeFldRule());
 		/*fld.setDEFAULT_VALUE(field.getDefaultVALUE());
 		fld.setCOPY_DEFAULT_VALUE(field.getCopyDEFAULTVALUE());
 		fld.setCOPY_DEFAULT_TAR(field.getCopyDEFAULTTAR());
 		fld.setCOPY_DEFAULT_RULE(field.getCopyDEFAULTRULE());
 		fld.setDISABLE_ON_SELECT(field.getDisableONSELECT());
 		fld.setSELECT_ON_SELECT(field.getSelectONSELECT());*/
-		fld.setName(field.getName());
-		fld.setDISP_REL_LST(field.getDispRelLst());
-		fld.setTYPE__C(field.getTypeC());
+	//	fld.setName(field.getName());
+	//	fld.setDISP_REL_LST(field.getDispRelLst());
+	//	fld.setTYPE(field.getTypeC());
 		return fld;
 	}
 	
@@ -739,68 +785,68 @@ public class ObjectManagerImpl implements ObjectManager{
 		}
 
 		Field fld=new Field();
-		fld.setIdeFLDSEQ(field.getIDE_FLD_SEQ());
+		fld.setIdeFldSeq(field.getIDE_FLD_SEQ());
 		if(field.getIdeObjFlds()!=null) {
-		fld.setIdeOBJID(field.getIdeObjFlds().getIDE_OBJ_ID());
+		fld.setIdeObjId(field.getIdeObjFlds().getIDE_OBJ_ID());
 		}
-		fld.setSelectONSELECT(field.getSELECT_ON_SELECT());
-		fld.setDisableONSELECT(field.getDISABLE_ON_SELECT());
-		fld.setCopyDEFAULTRULE(field.getCOPY_DEFAULT_RULE());
-		fld.setCopyDEFAULTTAR(field.getCOPY_DEFAULT_TAR());
-		fld.setCopyDEFAULTVALUE(field.getCOPY_DEFAULT_VALUE());
+		fld.setSelectOnSelect(field.getSELECT_ON_SELECT());
+		fld.setDisableOnSelect(field.getDISABLE_ON_SELECT());
+		fld.setCopyDefaultRule(field.getCOPY_DEFAULT_RULE());
+		fld.setCopyDefaultTar(field.getCOPY_DEFAULT_TAR());
+		fld.setCopyDefaultValue(field.getCOPY_DEFAULT_VALUE());
 		fld.setDefaultValue(field.getDEFAULT_VALUE());
-		fld.setRelationshipORDERS(field.getRELATIONSHIP_ORDER_S());
+		fld.setRelationshipOrderS(field.getRELATIONSHIP_ORDER_S());
 		fld.setIsParent(field.getIS_PARENT());
-		fld.setModifiedTimeStamp(field.getSystemModStamp()!=null?df.format(field.getSystemModStamp()):null);
-		fld.setCreatedTimeStamp(field.getCreateddate()!=null?df.format(field.getCreateddate()):null);
-		fld.setCreatedBy(field.getCreated_by());
-		fld.setUpdatedBy(field.getUpdated_by());
-		fld.setApiNAMES(field.getAPI_NAME_S());
-		fld.setFieldLABELS(field.getFIELD_LABEL_S());
+	//	fld.setModifiedTimeStamp(field.getSystemModStamp()!=null?df.format(field.getSystemModStamp()):null);
+	//	fld.setCreatedTimeStamp(field.getCreateddate()!=null?df.format(field.getCreateddate()):null);
+	//	fld.setCreatedBy(field.getCreated_by());
+	//	fld.setUpdatedBy(field.getUpdated_by());
+		fld.setApiNameS(field.getAPI_NAME_S());
+		fld.setFieldLabelS(field.getFIELD_LABEL_S());
 		fld.setTypeS(field.getTYPE_S());
-		fld.setTypeC(field.getTYPE__C());
-		fld.setColORDERS(field.getCOL_ORDER_S());
+		//fld.setTypeC(field.getTYPE__C());
+		fld.setColOrderS(field.getCOL_ORDER_S());
 		fld.setRequiredS(field.getREQUIRED_S());
 		fld.setUniqueS(field.getUNIQUE_S());
-		fld.setCaseSENSITIVES(field.getCASE_SENSITIVE_S());
-		fld.setDispRelLst(field.getDISP_REL_LST());
-		fld.setName(field.getName());
-		fld.setExternalIDS(field.getEXTERNAL_ID_S());
-		fld.setFieldDESCRIPTIONS(field.getFIELD_DESCRIPTION_S());
-		fld.setReferenceTOS(field.getREFERENCE_TO_S());
-		fld.setRelationshipLABELS(field.getRELATIONSHIP_LABEL_S());
-		fld.setColFLTRNAMEC(field.getCOL_FLTR_NAME_C());
-		fld.setColFLTRVALC(field.getCOL_FLTR_VAL_C());
-		fld.setHovrTXTC(field.getHOVR_TXT_C());
-		fld.setRtCDC(field.getRT_CD_C());
-		fld.setRtDSCC(field.getRT_DSC_C());
-		fld.setRtTBLNMC(field.getRT_TBL_NM_C());
-		fld.setLabelOVERIDES(field.getLABEL_OVERIDE_S());
-		fld.setDisplayONLYS(field.getDISPLAY_ONLY_S());
-		fld.setColVISIBLES(field.getCOL_VISIBLE_S());
+		fld.setCaseSensitiveS(field.getCASE_SENSITIVE_S());
+		//fld.setDispRelLst(field.getDISP_REL_LST());
+		//fld.setName(field.getName());
+		fld.setExternalIdS(field.getEXTERNAL_ID_S());
+		fld.setFieldDescriptionS(field.getFIELD_DESCRIPTION_S());
+		fld.setReferenceToS(field.getREFERENCE_TO_S());
+		fld.setRelationshipLabelS(field.getRELATIONSHIP_LABEL_S());
+		fld.setColFltrNameC(field.getCOL_FLTR_NAME_C());
+		fld.setColFltrValC(field.getCOL_FLTR_VAL_C());
+		fld.setHovrTxtC(field.getHOVR_TXT_C());
+		fld.setRtCdC(field.getRT_CD_C());
+		fld.setRtDscC(field.getRT_DSC_C());
+		fld.setRtTblNmC(field.getRT_TBL_NM_C());
+		fld.setLabelOverideS(field.getLABEL_OVERIDE_S());
+		fld.setDisplayOnlyS(field.getDISPLAY_ONLY_S());
+		fld.setColVisibleS(field.getCOL_VISIBLE_S());
 		fld.setLengthS(field.getLENGTH_S());
 		fld.setPrecisionS(field.getPRECISION_S());
 		fld.setScaleS(field.getSCALE_S());
-		fld.setListVIEWS(field.getLIST_VIEW_S());
+		fld.setListViewS(field.getLIST_VIEW_S());
 		fld.setFormulaS(field.getFORMULA_S());
-		fld.setRowNUMBER(field.getROW_NUMBER());
-		fld.setColNUMBER(field.getCOL_NUMBER());
-		fld.setEditVAL(field.getEDIT_VAL());
-		fld.setObjNAME(field.getOBJ_NAME());
-		fld.setFldNAME(field.getFLD_NAME());
-		fld.setEnaDISRULEEXP(field.getENA_DIS_RULE_EXP());
-		fld.setMandRULEEXP(field.getMAND_RULE_EXP());
-		fld.setDepntFLDS(field.getDEPNT_FLDS());
-		fld.setIsDEPNT(field.getIS_DEPNT());
-		fld.setPagePARAMS(field.getPAGE_PARAMS());
+		fld.setRowNumber(field.getROW_NUMBER());
+		fld.setColNumber(field.getCOL_NUMBER());
+		fld.setEditVal(field.getEDIT_VAL());
+		fld.setObjName(field.getOBJ_NAME());
+		fld.setFldName(field.getFLD_NAME());
+		fld.setEnaDisRuleExp(field.getENA_DIS_RULE_EXP());
+		fld.setMandRuleExp(field.getMAND_RULE_EXP());
+		fld.setDepntFlds(field.getDEPNT_FLDS());
+		fld.setIsDepnt(field.getIS_DEPNT());
+		fld.setPageParams(field.getPAGE_PARAMS());
 		fld.setDepntS(field.getDEPNT_S());
-		fld.setBlankoutFLDS(field.getBLANKOUT_FLDS());
-		fld.setBlankoutFLDSRULE(field.getBLANKOUT_FLDS_RULE());
-		fld.setCopySRCFLD(field.getCOPY_SRC_FLD());
-		fld.setCopyTARGETFLD(field.getCOPY_TARGET_FLD());
-		fld.setCopyFLDSRULE(field.getCOPY_FLDS_RULE());
-		fld.setCopySELOPTCOLS(field.getCOPY_SEL_OPT_COLS());
-		fld.setComputeFLDRULE(field.getCOMPUTE_FLD_RULE());
+		fld.setBlankoutFlds(field.getBLANKOUT_FLDS());
+		fld.setBlankoutFldsRule(field.getBLANKOUT_FLDS_RULE());
+		fld.setCopySrcFld(field.getCOPY_SRC_FLD());
+		fld.setCopyTargetFld(field.getCOPY_TARGET_FLD());
+		fld.setCopyFldsRule(field.getCOPY_FLDS_RULE());
+		fld.setCopySelOptCols(field.getCOPY_SEL_OPT_COLS());
+		fld.setComputeFldRule(field.getCOMPUTE_FLD_RULE());
 		
 		return fld;		
 	}
@@ -845,17 +891,17 @@ public class ObjectManagerImpl implements ObjectManager{
 		}
 		
 		//subSection.setColumn(sub_section.getColumn());
-		subSection.setModifiedTimeStamp(sub_section.getSystemModStamp()!=null?df.format(sub_section.getSystemModStamp()):null);
-		subSection.setCreatedTimeStamp(sub_section.getCreateddate()!=null?df.format(sub_section.getCreateddate()):null);
-		subSection.setCreatedBy(sub_section.getCreated_by());
-		subSection.setUpdatedBy(sub_section.getUpdated_by());
-		subSection.setCreatedBy(sub_section.getCreated_by());
-		subSection.setIdePgSubSectnId(sub_section.getIDE_PG_SUB_SECTN_ID());
+		//subSection.setModifiedTimeStamp(sub_section.get!=null?df.format(sub_section.getSystemModStamp()):null);
+		//subSection.setCreatedTimeStamp(sub_section.geC!=null?df.format(sub_section.getCreateddate()):null);
+		subSection.setCreatedBy(sub_section.getCRT_BY());
+		subSection.setUpdatedBy(sub_section.getLST_UPD_BY());
+		//subSection.setCreatedBy(sub_section.getCreated_by());
+		subSection.setIdePgSubSectnId(sub_section.getIDE_PG_SUB_SECTN_ID()!=null?sub_section.getIDE_PG_SUB_SECTN_ID().toString():null);
 		subSection.setLbl(sub_section.getLBL());
 		subSection.setLstUpdBy(sub_section.getLST_UPD_BY());
-		subSection.setName(sub_section.getName());
+		subSection.setName(sub_section.getLBL());
 		subSection.setSeqOrd(sub_section.getSEQ_ORD());
-		subSection.setIdePgSubSectnId(sub_section.getIDE_PG_SUB_SECTN_ID());
+		subSection.setIdePgSubSectnId(sub_section.getIDE_PG_SUB_SECTN_ID()!=null?sub_section.getIDE_PG_SUB_SECTN_ID().toString():null);
 		
 		subSection.setEna_DIS_RULE_EXP(sub_section.getENA_DIS_RULE_EXP());
 
@@ -905,23 +951,23 @@ public class ObjectManagerImpl implements ObjectManager{
 		
 		Date date=new Date();
 		if(sub_section.getIdePgSubSectnId()==null) {		
-			subSection.setCreateddate(date);
-			subSection.setCreated_by(sub_section.getCreatedBy());
+			//subSection.setCreateddate(date);
+			subSection.setCRT_BY(sub_section.getCreatedBy());
 		}
-		subSection.setSystemModStamp(date);
-		subSection.setUpdated_by(sub_section.getUpdatedBy());
-		subSection.setCreated_by(sub_section.getCreatedBy());
+		//subSection.setSystemModStamp(date);
+		subSection.setLST_UPD_BY(sub_section.getUpdatedBy());
+		subSection.setCRT_BY(sub_section.getCreatedBy());
 		subSection.setRow(sub_section.getRow());
 		subSection.setColumn(sub_section.getColumn());
-		subSection.setIDE_PG_SUB_SECTN_ID(sub_section.getIdePgSubSectnId());
+		subSection.setIDE_PG_SUB_SECTN_ID(sub_section.getIdePgSubSectnId()!=null?Integer.parseInt(sub_section.getIdePgSubSectnId()):null);
 		subSection.setLBL(sub_section.getLbl());
 		subSection.setLST_UPD_BY(sub_section.getLstUpdBy());
-		subSection.setName(sub_section.getName());
+		//subSection.setName(sub_section.getName());
 		subSection.setSEQ_ORD(sub_section.getSeqOrd());
-		subSection.setIDE_PG_SUB_SECTN_ID(sub_section.getIdePgSubSectnId());
+		//subSection.setIDE_PG_SUB_SECTN_ID(sub_section.getIdePgSubSectnId()!);
 		subSection.setIDE_PG_SECTN_ID(sub_section.getIdePgSectnId());
-		subSection.setIDE_PG_LAYOUT_ID__c(sub_section.getIdePgLayoutId());
-		subSection.setIDE_OBJ_ID__c(sub_section.getIdeObjId());
+		subSection.setIDE_PG_LAYOUT_ID(sub_section.getIdePgLayoutId());
+		subSection.setIDE_OBJ_ID(sub_section.getIdeObjId());
 		subSection.setIDE_PG_SECT_NM(sub_section.getIdePgSectNm());
 		subSection.setENA_DIS_RULE_EXP(sub_section.getEna_DIS_RULE_EXP());
 		if(!SearchParameterEnum.BASICOBJECT.toString().equalsIgnoreCase(objectType)) {
@@ -952,7 +998,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		fldLayout.setApiNameS(fieldLayout.getAPI_NAME_S());
 		fldLayout.setColId(fieldLayout.getCOL_ID());
 		fldLayout.setColNumber(fieldLayout.getCOL_NUMBER());
-		fldLayout.setFldColOrders(fieldLayout.getFLD_COL_ORDERS());
+		//fldLayout.setFldColOrders(fieldLayout.getFLD_COL_ORDERS());
 		System.out.println("complted building FE fieldLayout upto primary number");
 		fldLayout.setIdeFieldLayoutId(fieldLayout.getIDE_FIELD_LAYOUT_ID());
 		System.out.println("complted building FE fieldLayout upto primary number");
@@ -967,7 +1013,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		fldLayout.setIdeObjId(fieldLayout.getIdePgSubSecFldLayouts().getIdePageSubSectns().getIdePageSectns().getIdePgLayouts().getIDE_OBJ_ID());
 		}
 		if(fieldLayout.getIdePgSubSecFldLayouts()!=null) {
-		fldLayout.setIdePgSubSectnId(fieldLayout.getIdePgSubSecFldLayouts().getIDE_PG_SUB_SECTN_ID());
+		fldLayout.setIdePgSubSectnId(fieldLayout.getIdePgSubSecFldLayouts().getIDE_PG_SUB_SECTN_ID()!=null?fieldLayout.getIdePgSubSecFldLayouts().getIDE_PG_SUB_SECTN_ID().toString():null);
 		}
 		if(fieldLayout.getIdePgSubSecFldLayouts()!=null && fieldLayout.getIdePgSubSecFldLayouts().getIdePageSubSectns()!=null && fieldLayout.getIdePgSubSecFldLayouts().getIdePageSubSectns().getIdePageSectns()!=null) {
 		fldLayout.setIdePgLayoutId(fieldLayout.getIdePgSubSecFldLayouts().getIdePageSubSectns().getIdePageSectns().getIDE_PG_LAYOUT_ID());
@@ -1065,16 +1111,16 @@ public class ObjectManagerImpl implements ObjectManager{
 		fldLayout.setAPI_NAME_S(fieldLayout.getApiNameS());
 		fldLayout.setCOL_ID(fieldLayout.getColId());
 		fldLayout.setCOL_NUMBER(fieldLayout.getColNumber());
-		fldLayout.setFLD_COL_ORDERS(fieldLayout.getFldColOrders());
+		//fldLayout.setFLD_COL_ORDERS(fieldLayout.getFldColOrders());
 		System.out.println("newly added " +fieldLayout.getIdeFieldLayoutId());
 		fldLayout.setIDE_FIELD_LAYOUT_ID(fieldLayout.getIdeFieldLayoutId());
 		fldLayout.setFLD_NAME(fieldLayout.getFldName());
 		fldLayout.setROW_NUMBER(fieldLayout.getRowNumber());
 		fldLayout.setIDE_PG_SECTN_ID(fieldLayout.getIdePgSectnId());
-		fldLayout.setIDE_OBJ_ID__c(fieldLayout.getIdeObjId());
+		fldLayout.setIDE_OBJ_ID(fieldLayout.getIdeObjId());
 		System.out.println("newly added " +fieldLayout.getIdePgSubSectnId());
-		fldLayout.setIDE_PG_SUB_SECTN_ID(fieldLayout.getIdePgSubSectnId());
-		fldLayout.setIDE_PG_LAYOUT_ID__c(fieldLayout.getIdePgLayoutId());
+		fldLayout.setIDE_PG_SUB_SECTN_ID(fieldLayout.getIdePgSubSectnId()!=null?Integer.parseInt(fieldLayout.getIdePgSubSectnId()):null);
+		fldLayout.setIDE_PG_LAYOUT_ID(fieldLayout.getIdePgLayoutId());
 		fldLayout.setBLANKOUT_FLDS(fieldLayout.getBlankoutFlds());
 		fldLayout.setBLANKOUT_FLDS_RULE(fieldLayout.getBlankoutFldsRule());
 		fldLayout.setCASE_SENSITIVE_S(fieldLayout.getCaseSensitiveS());
@@ -1121,7 +1167,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		fldLayout.setTYPE_C(fieldLayout.getTypeC());
 		fldLayout.setTYPE_S(fieldLayout.getTypeS());
 		fldLayout.setUNIQUE_S(fieldLayout.getUniqueS());
-		fldLayout.setIDE_PG_SUB_SECTN_ID(fieldLayout.getIdePgSubSectnId());
+		fldLayout.setIDE_PG_SUB_SECTN_ID(fieldLayout.getIdePgSubSectnId()!=null?Integer.parseInt(fieldLayout.getIdePgSubSectnId()):null);
 		
 		fldLayout.setDATA_PATTERN((String)fieldLayout.getDataPattern());
 		fldLayout.setMIN_LEN((Integer)fieldLayout.getMinLen());
@@ -1179,16 +1225,16 @@ public class ObjectManagerImpl implements ObjectManager{
 		colValidation.setVALIDATE_USE_MONTH(validation.getValidateUseMonth());
 		colValidation.setVALIDATE_VRF_END_DATE(validation.getValidateVrfEndDate());
 		colValidation.setVALIDATION_ID(validation.getValidationId());
-		colValidation.setNAME(validation.getName());
+		//colValidation.setNAME(validation.getName());
 		colValidation.setBLANKOUT_FLDS(validation.getBlankoutFlds());
 		colValidation.setCOPY_FLDS(validation.getCopyFlds());
 		Date date=new Date();
 		if(validation.getValidationId()==null) {		
 			colValidation.setCreateddate(date);
-			colValidation.setCreated_by(validation.getCreatedBy());
+			//colValidation.setCreated_by(validation.getCreatedBy());
 		}
 		colValidation.setSystemModStamp(date);
-		colValidation.setUpdated_by(validation.getUpdatedBy());
+		//colValidation.setUpdated_by(validation.getUpdatedBy());
 		return colValidation;
 	}
 	
@@ -1225,13 +1271,13 @@ public class ObjectManagerImpl implements ObjectManager{
 		colValidation.setValidateUseMonth(validation.getVALIDATE_USE_MONTH());
 		colValidation.setValidateVrfEndDate(validation.getVALIDATE_VRF_END_DATE());
 		colValidation.setValidationId(validation.getVALIDATION_ID());
-		colValidation.setName(validation.getNAME());
+		//colValidation.setName(validation.getNAME());
 		colValidation.setBlankoutFlds(validation.getBLANKOUT_FLDS());
 		colValidation.setCopyFlds(validation.getCOPY_FLDS());
 			colValidation.setCreateddate(validation.getCreateddate()!=null?df.format(validation.getCreateddate()):null);
-			colValidation.setCreatedBy(validation.getCreated_by());
+		//	colValidation.setCreatedBy(validation.getCreated_by());
 		colValidation.setSystemmodstamp(validation.getSystemModStamp()!=null?df.format(validation.getSystemModStamp()):null);
-		colValidation.setUpdatedBy(validation.getUpdated_by());
+		//colValidation.setUpdatedBy(validation.getUpdated_by());
 		return colValidation;
 	}
 
@@ -1249,7 +1295,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		fldLayout.setApiNameS(fieldLayout.getAPI_NAME_S());
 		fldLayout.setColId(fieldLayout.getCOL_ID());
 		fldLayout.setColNumber(fieldLayout.getCOL_NUMBER());
-		fldLayout.setFldColOrders(fieldLayout.getFLD_COL_ORDERS());
+		//fldLayout.setFldColOrders(fieldLayout.getFLD_COL_ORDERS());
 		System.out.println("complted building FE fieldLayout upto primary number");
 		fldLayout.setIdeFieldLayoutId(fieldLayout.getIDE_FIELD_LAYOUT_ID());
 		System.out.println("complted building FE fieldLayout upto primary number");
@@ -1260,7 +1306,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		fldLayout.setIdePgSectnId(fieldLayout.getIdePgSubSecFldLayouts().getIdePageSubSectns().getIDE_PG_SECTN_ID());
 		}
 		*/
-		fldLayout.setIdePgSectnId(fieldLayout.getIDE_PG_SECTN_ID__c());
+		fldLayout.setIdePgSectnId(fieldLayout.getIDE_PG_SECTN_ID());
 		if(fieldLayout.getIdePgSectionLayoutList()!=null && fieldLayout.getIdePgSectionLayoutList().getIdePageSectns()!=null && fieldLayout.getIdePgSectionLayoutList().getIdePageSectns().getIdePgLayouts()!=null &&
 				fieldLayout.getIdePgSectionLayoutList().getIdePageSectns().getIdePgLayouts().getIDE_OBJ_ID()!=null) {
 			fldLayout.setIdeObjId(fieldLayout.getIdePgSectionLayoutList().getIdePageSectns().getIdePgLayouts().getIDE_OBJ_ID());

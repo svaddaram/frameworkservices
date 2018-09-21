@@ -46,7 +46,7 @@ public class FieldDAOImpl implements FieldDAO{
 
 	private void updateDateandUpdatedBy(IDE_FLD field, IDE_OBJ obj) {
 		if(obj!=null && field!=null) {
-			updateDateandUpdatedBy(obj.getIDE_OBJ_ID(), field.getUpdated_by());
+			updateDateandUpdatedBy(obj.getIDE_OBJ_ID(), "LASTUPAted");
 		}
 	}
 

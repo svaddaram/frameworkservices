@@ -1,4 +1,3 @@
-
 package com.cbms.input.domain;
 
 import java.util.HashMap;
@@ -12,782 +11,777 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-"type_C",
-"col_ORDER_S",
-"ide_FLD_SEQ",
-"api_NAME_S",
-"field_LABEL_S",
-"type_S",
-"required_S",
-"unique_S",
-"case_SENSITIVE_S",
-"external_ID_S",
-"field_DESCRIPTION_S",
-"reference_TO_S",
-"relationship_LABEL_S",
-"relationship_ORDER_S",
-"col_FLTR_NAME_C",
-"col_FLTR_VAL_C",
-"hovr_TXT_C",
-"rt_CD_C",
-"rt_DSC_C",
-"rt_TBL_NM_C",
-"label_OVERIDE_S",
-"display_ONLY_S",
-"col_VISIBLE_S",
-"length_S",
-"precision_S",
-"scale_S",
-"list_VIEW_S",
-"formula_S",
-"row_NUMBER",
-"col_NUMBER",
-"edit_VAL",
-"obj_NAME",
-"fld_NAME",
-"ena_DIS_RULE_EXP",
-"mand_RULE_EXP",
-"depnt_FLDS",
-"is_DEPNT",
-"page_PARAMS",
-"depnt_S",
-"blankout_FLDS",
-"blankout_FLDS_RULE",
-"copy_SRC_FLD",
-"copy_TARGET_FLD",
-"copy_FLDS_RULE",
-"copy_SEL_OPT_COLS",
-"compute_FLD_RULE",
-"default_VALUE",
-"copy_DEFAULT_VALUE",
-"copy_DEFAULT_TAR",
-"copy_DEFAULT_RULE",
-"disable_ON_SELECT",
-"select_ON_SELECT",
-"createdBy",
-"updatedBy",
-"dispRelLst",
-"name",
-"defaultValue",
-"isParent"
-
+"precision_s",
+"hovr_txt_c",
+"obj_name",
+"is_parent",
+"copy_target_fld",
+"external_id_s",
+"copy_flds_rule",
+"field_label_s",
+"page_params",
+"field_description_s",
+"case_sensitive_s",
+"rt_tbl_nm_c",
+"blankout_flds_rule",
+"ide_obj_id",
+"depnt_flds",
+"default_value",
+"col_order_s",
+"copy_src_fld",
+"rt_cd_c",
+"reference_to_s",
+"depnt_s",
+"relationship_order_s",
+"api_name_s",
+"blankout_flds",
+"upd_dtm",
+"col_fltr_val_c",
+"length_s",
+"scale_s",
+"copy_default_rule",
+"label_overide_s",
+"copy_default_tar",
+"copy_sel_opt_cols",
+"row_number",
+"ide_fld_seq",
+"disable_on_select",
+"upd_os_user",
+"compute_fld_rule",
+"relationship_label_s",
+"fld_name",
+"type_s",
+"copy_default_value",
+"edit_val",
+"required_s",
+"list_view_s",
+"col_number",
+"ena_dis_rule_exp",
+"unique_s",
+"mand_rule_exp",
+"select_on_select",
+"col_visible_s",
+"crt_os_usr",
+"crt_dtm",
+"type_c",
+"is_depnt",
+"rt_dsc_c",
+"disp_rel_lst",
+"display_only_s",
+"col_fltr_name_c",
+"formula_s"
 })
 public class Field {
-	@JsonProperty("defaultValue")
-	private String defaultValue;
-	@JsonProperty("isParent")
-	private String isParent;
-		
-	
-	@JsonProperty("name")
-	private String name;
-	@JsonProperty("ide_OBJ_ID")
-	private String ideOBJID;
-	@JsonProperty("dispRelLst")
-	private String dispRelLst;
 
-@JsonProperty("type_C")
-private String typeC;
-@JsonProperty("col_ORDER_S")
-private Integer colORDERS;
-@JsonProperty("ide_FLD_SEQ")
-private Integer ideFLDSEQ;
-@JsonProperty("api_NAME_S")
-private String apiNAMES;
-@JsonProperty("field_LABEL_S")
-private String fieldLABELS;
-@JsonProperty("type_S")
-private String typeS;
-@JsonProperty("required_S")
-private String requiredS;
-@JsonProperty("unique_S")
-private String uniqueS;
-@JsonProperty("case_SENSITIVE_S")
-private String caseSENSITIVES;
-@JsonProperty("external_ID_S")
-private String externalIDS;
-@JsonProperty("field_DESCRIPTION_S")
-private String fieldDESCRIPTIONS;
-@JsonProperty("reference_TO_S")
-private String referenceTOS;
-@JsonProperty("relationship_LABEL_S")
-private String relationshipLABELS;
-@JsonProperty("relationship_ORDER_S")
-private String relationshipORDERS;
-@JsonProperty("col_FLTR_NAME_C")
-private String colFLTRNAMEC;
-@JsonProperty("col_FLTR_VAL_C")
-private String colFLTRVALC;
-@JsonProperty("hovr_TXT_C")
-private String hovrTXTC;
-@JsonProperty("rt_CD_C")
-private String rtCDC;
-@JsonProperty("rt_DSC_C")
-private String rtDSCC;
-@JsonProperty("rt_TBL_NM_C")
-private String rtTBLNMC;
-@JsonProperty("label_OVERIDE_S")
-private String labelOVERIDES;
-@JsonProperty("display_ONLY_S")
-private String displayONLYS;
-@JsonProperty("col_VISIBLE_S")
-private String colVISIBLES;
-@JsonProperty("length_S")
-private Integer lengthS;
-@JsonProperty("precision_S")
+@JsonProperty("precision_s")
 private Integer precisionS;
-@JsonProperty("scale_S")
-private Integer scaleS;
-@JsonProperty("list_VIEW_S")
-private Integer listVIEWS;
-@JsonProperty("formula_S")
-private String formulaS;
-@JsonProperty("row_NUMBER")
-private Integer rowNUMBER;
-@JsonProperty("col_NUMBER")
-private Integer colNUMBER;
-@JsonProperty("edit_VAL")
-private String editVAL;
-@JsonProperty("obj_NAME")
-private String objNAME;
-@JsonProperty("fld_NAME")
-private String fldNAME;
-@JsonProperty("ena_DIS_RULE_EXP")
-private String enaDISRULEEXP;
-@JsonProperty("mand_RULE_EXP")
-private String mandRULEEXP;
-@JsonProperty("depnt_FLDS")
-private String depntFLDS;
-@JsonProperty("is_DEPNT")
-private String isDEPNT;
-@JsonProperty("page_PARAMS")
-private String pagePARAMS;
-@JsonProperty("depnt_S")
+@JsonProperty("hovr_txt_c")
+private String hovrTxtC;
+@JsonProperty("obj_name")
+private String objName;
+@JsonProperty("is_parent")
+private String isParent;
+@JsonProperty("copy_target_fld")
+private String copyTargetFld;
+@JsonProperty("external_id_s")
+private String externalIdS;
+@JsonProperty("copy_flds_rule")
+private String copyFldsRule;
+@JsonProperty("field_label_s")
+private String fieldLabelS;
+@JsonProperty("page_params")
+private String pageParams;
+@JsonProperty("field_description_s")
+private String fieldDescriptionS;
+@JsonProperty("case_sensitive_s")
+private String caseSensitiveS;
+@JsonProperty("rt_tbl_nm_c")
+private String rtTblNmC;
+@JsonProperty("blankout_flds_rule")
+private String blankoutFldsRule;
+@JsonProperty("ide_obj_id")
+private String ideObjId;
+@JsonProperty("depnt_flds")
+private String depntFlds;
+@JsonProperty("default_value")
+private String defaultValue;
+@JsonProperty("col_order_s")
+private Integer colOrderS;
+@JsonProperty("copy_src_fld")
+private String copySrcFld;
+@JsonProperty("rt_cd_c")
+private String rtCdC;
+@JsonProperty("reference_to_s")
+private String referenceToS;
+@JsonProperty("depnt_s")
 private String depntS;
-@JsonProperty("blankout_FLDS")
-private String blankoutFLDS;
-@JsonProperty("blankout_FLDS_RULE")
-private String blankoutFLDSRULE;
-@JsonProperty("copy_SRC_FLD")
-private String copySRCFLD;
-@JsonProperty("copy_TARGET_FLD")
-private String copyTARGETFLD;
-@JsonProperty("copy_FLDS_RULE")
-private String copyFLDSRULE;
-@JsonProperty("copy_SEL_OPT_COLS")
-private String copySELOPTCOLS;
-@JsonProperty("compute_FLD_RULE")
-private String computeFLDRULE;
-
-@JsonProperty("copy_DEFAULT_VALUE")
-private String copyDEFAULTVALUE;
-@JsonProperty("copy_DEFAULT_TAR")
-private String copyDEFAULTTAR;
-@JsonProperty("copy_DEFAULT_RULE")
-private String copyDEFAULTRULE;
-@JsonProperty("disable_ON_SELECT")
-private String disableONSELECT;
-@JsonProperty("select_ON_SELECT")
-private String selectONSELECT;
+@JsonProperty("relationship_order_s")
+private String relationshipOrderS;
+@JsonProperty("api_name_s")
+private String apiNameS;
+@JsonProperty("blankout_flds")
+private String blankoutFlds;
+@JsonProperty("upd_dtm")
+private String updDtm;
+@JsonProperty("col_fltr_val_c")
+private String colFltrValC;
+@JsonProperty("length_s")
+private Integer lengthS;
+@JsonProperty("scale_s")
+private Integer scaleS;
+@JsonProperty("copy_default_rule")
+private String copyDefaultRule;
+@JsonProperty("label_overide_s")
+private String labelOverideS;
+@JsonProperty("copy_default_tar")
+private String copyDefaultTar;
+@JsonProperty("copy_sel_opt_cols")
+private String copySelOptCols;
+@JsonProperty("row_number")
+private Integer rowNumber;
+@JsonProperty("ide_fld_seq")
+private Integer ideFldSeq;
+@JsonProperty("disable_on_select")
+private String disableOnSelect;
+@JsonProperty("upd_os_user")
+private String updOsUser;
+@JsonProperty("compute_fld_rule")
+private String computeFldRule;
+@JsonProperty("relationship_label_s")
+private String relationshipLabelS;
+@JsonProperty("fld_name")
+private String fldName;
+@JsonProperty("type_s")
+private String typeS;
+@JsonProperty("copy_default_value")
+private String copyDefaultValue;
+@JsonProperty("edit_val")
+private String editVal;
+@JsonProperty("required_s")
+private String requiredS;
+@JsonProperty("list_view_s")
+private Integer listViewS;
+@JsonProperty("col_number")
+private Integer colNumber;
+@JsonProperty("ena_dis_rule_exp")
+private String enaDisRuleExp;
+@JsonProperty("unique_s")
+private String uniqueS;
+@JsonProperty("mand_rule_exp")
+private String mandRuleExp;
+@JsonProperty("select_on_select")
+private String selectOnSelect;
+@JsonProperty("col_visible_s")
+private String colVisibleS;
+@JsonProperty("crt_os_usr")
+private String crtOsUsr;
+@JsonProperty("crt_dtm")
+private String crtDtm;
+@JsonProperty("type_c")
+private String typeC;
+@JsonProperty("is_depnt")
+private String isDepnt;
+@JsonProperty("rt_dsc_c")
+private String rtDscC;
+@JsonProperty("disp_rel_lst")
+private String dispRelLst;
+@JsonProperty("display_only_s")
+private String displayOnlyS;
+@JsonProperty("col_fltr_name_c")
+private String colFltrNameC;
+@JsonProperty("formula_s")
+private String formulaS;
 @JsonIgnore
 private Map<String, String> additionalProperties = new HashMap<String, String>();
 
-@JsonProperty("modifiedTimeStamp")
-private String modifiedTimeStamp;
-
-@JsonProperty("createdTimeStamp")
-private String createdTimeStamp;
-
-
-@JsonProperty("createdBy")
-private String createdBy;
-@JsonProperty("updatedBy")
-private String updatedBy;
-
-@JsonProperty("defaultValue")
-public String getDefaultValue() {
-	return defaultValue;
-}
-@JsonProperty("defaultValue")
-public void setDefaultValue(String defaultValue) {
-	this.defaultValue = defaultValue;
-}
-@JsonProperty("isParent")
-public String getIsParent() {
-	return isParent;
-}
-@JsonProperty("isParent")
-public void setIsParent(String isParent) {
-	this.isParent = isParent;
-}
-@JsonProperty("createdBy")
-public void setCreatedBy(String createdBy) {
-	this.createdBy = createdBy;
-}
-@JsonProperty("createdBy")
-public String getCreatedBy() {
-	return createdBy;
-}
-@JsonProperty("updatedBy")
-public void setUpdatedBy(String updatedBy) {
-	this.updatedBy = updatedBy;
-}
-@JsonProperty("updatedBy")
-public String getUpdatedBy() {
-	return updatedBy;
-}
-@JsonProperty("dispRelLst")
-public void setDispRelLst(String dispRelLst) {
-	this.dispRelLst = dispRelLst;
-}
-@JsonProperty("dispRelLst")
-public String getDispRelLst() {
-	return dispRelLst;
-}
-
-
-@JsonProperty("modifiedTimeStamp")
-public void setModifiedTimeStamp(String modifiedTimeStamp) {
-	this.modifiedTimeStamp = modifiedTimeStamp;
-}
-@JsonProperty("modifiedTimeStamp")
-public String getModifiedTimeStamp() {
-	return modifiedTimeStamp;
-}
-@JsonProperty("createdTimeStamp")
-public void setCreatedTimeStamp(String createdTimeStamp) {
-	this.createdTimeStamp = createdTimeStamp;
-}
-@JsonProperty("createdTimeStamp")
-public String getCreatedTimeStamp() {
-	return createdTimeStamp;
-}
-@JsonProperty("ide_OBJ_ID")
-public void setIdeOBJID(String ideOBJID) {
-	this.ideOBJID = ideOBJID;
-}
-@JsonProperty("ide_OBJ_ID")
-public String getIdeOBJID() {
-	return ideOBJID;
-}
-
-@JsonProperty("type_C")
-public String getTypeC() {
-return typeC;
-}
-
-@JsonProperty("type_C")
-public void setTypeC(String typeC) {
-this.typeC = typeC;
-}
-
-@JsonProperty("col_ORDER_S")
-public Integer getColORDERS() {
-return colORDERS;
-}
-
-@JsonProperty("col_ORDER_S")
-public void setColORDERS(Integer colORDERS) {
-this.colORDERS = colORDERS;
-}
-
-@JsonProperty("ide_FLD_SEQ")
-public Integer getIdeFLDSEQ() {
-return ideFLDSEQ;
-}
-
-@JsonProperty("ide_FLD_SEQ")
-public void setIdeFLDSEQ(Integer ideFLDSEQ) {
-this.ideFLDSEQ = ideFLDSEQ;
-}
-
-@JsonProperty("api_NAME_S")
-public String getApiNAMES() {
-return apiNAMES;
-}
-
-@JsonProperty("api_NAME_S")
-public void setApiNAMES(String apiNAMES) {
-this.apiNAMES = apiNAMES;
-}
-
-@JsonProperty("field_LABEL_S")
-public String getFieldLABELS() {
-return fieldLABELS;
-}
-
-@JsonProperty("field_LABEL_S")
-public void setFieldLABELS(String fieldLABELS) {
-this.fieldLABELS = fieldLABELS;
-}
-
-@JsonProperty("type_S")
-public String getTypeS() {
-return typeS;
-}
-
-@JsonProperty("type_S")
-public void setTypeS(String typeS) {
-this.typeS = typeS;
-}
-
-@JsonProperty("required_S")
-public String getRequiredS() {
-return requiredS;
-}
-
-@JsonProperty("required_S")
-public void setRequiredS(String requiredS) {
-this.requiredS = requiredS;
-}
-
-@JsonProperty("unique_S")
-public String getUniqueS() {
-return uniqueS;
-}
-
-@JsonProperty("unique_S")
-public void setUniqueS(String uniqueS) {
-this.uniqueS = uniqueS;
-}
-
-@JsonProperty("case_SENSITIVE_S")
-public String getCaseSENSITIVES() {
-return caseSENSITIVES;
-}
-
-@JsonProperty("case_SENSITIVE_S")
-public void setCaseSENSITIVES(String caseSENSITIVES) {
-this.caseSENSITIVES = caseSENSITIVES;
-}
-
-@JsonProperty("external_ID_S")
-public String getExternalIDS() {
-return externalIDS;
-}
-
-@JsonProperty("external_ID_S")
-public void setExternalIDS(String externalIDS) {
-this.externalIDS = externalIDS;
-}
-
-@JsonProperty("field_DESCRIPTION_S")
-public String getFieldDESCRIPTIONS() {
-return fieldDESCRIPTIONS;
-}
-
-@JsonProperty("field_DESCRIPTION_S")
-public void setFieldDESCRIPTIONS(String fieldDESCRIPTIONS) {
-this.fieldDESCRIPTIONS = fieldDESCRIPTIONS;
-}
-
-@JsonProperty("reference_TO_S")
-public String getReferenceTOS() {
-return referenceTOS;
-}
-
-@JsonProperty("reference_TO_S")
-public void setReferenceTOS(String referenceTOS) {
-this.referenceTOS = referenceTOS;
-}
-
-@JsonProperty("relationship_LABEL_S")
-public String getRelationshipLABELS() {
-return relationshipLABELS;
-}
-
-@JsonProperty("relationship_LABEL_S")
-public void setRelationshipLABELS(String relationshipLABELS) {
-this.relationshipLABELS = relationshipLABELS;
-}
-
-@JsonProperty("relationship_ORDER_S")
-public String getRelationshipORDERS() {
-return relationshipORDERS;
-}
-
-@JsonProperty("relationship_ORDER_S")
-public void setRelationshipORDERS(String relationshipORDERS) {
-this.relationshipORDERS = relationshipORDERS;
-}
-
-@JsonProperty("col_FLTR_NAME_C")
-public String getColFLTRNAMEC() {
-return colFLTRNAMEC;
-}
-
-@JsonProperty("col_FLTR_NAME_C")
-public void setColFLTRNAMEC(String colFLTRNAMEC) {
-this.colFLTRNAMEC = colFLTRNAMEC;
-}
-
-@JsonProperty("col_FLTR_VAL_C")
-public String getColFLTRVALC() {
-return colFLTRVALC;
-}
-
-@JsonProperty("col_FLTR_VAL_C")
-public void setColFLTRVALC(String colFLTRVALC) {
-this.colFLTRVALC = colFLTRVALC;
-}
-
-@JsonProperty("hovr_TXT_C")
-public String getHovrTXTC() {
-return hovrTXTC;
-}
-
-@JsonProperty("hovr_TXT_C")
-public void setHovrTXTC(String hovrTXTC) {
-this.hovrTXTC = hovrTXTC;
-}
-
-@JsonProperty("rt_CD_C")
-public String getRtCDC() {
-return rtCDC;
-}
-
-@JsonProperty("rt_CD_C")
-public void setRtCDC(String rtCDC) {
-this.rtCDC = rtCDC;
-}
-
-public void setName(String name) {
-	this.name = name;
-}
-
-public String getName() {
-	return name;
-}
-
-@JsonProperty("rt_DSC_C")
-public String getRtDSCC() {
-return rtDSCC;
-}
-
-@JsonProperty("rt_DSC_C")
-public void setRtDSCC(String rtDSCC) {
-this.rtDSCC = rtDSCC;
-}
-
-@JsonProperty("rt_TBL_NM_C")
-public String getRtTBLNMC() {
-return rtTBLNMC;
-}
-
-@JsonProperty("rt_TBL_NM_C")
-public void setRtTBLNMC(String rtTBLNMC) {
-this.rtTBLNMC = rtTBLNMC;
-}
-
-@JsonProperty("label_OVERIDE_S")
-public String getLabelOVERIDES() {
-return labelOVERIDES;
-}
-
-@JsonProperty("label_OVERIDE_S")
-public void setLabelOVERIDES(String labelOVERIDES) {
-this.labelOVERIDES = labelOVERIDES;
-}
-
-@JsonProperty("display_ONLY_S")
-public String getDisplayONLYS() {
-return displayONLYS;
-}
-
-@JsonProperty("display_ONLY_S")
-public void setDisplayONLYS(String displayONLYS) {
-this.displayONLYS = displayONLYS;
-}
-
-@JsonProperty("col_VISIBLE_S")
-public String getColVISIBLES() {
-return colVISIBLES;
-}
-
-@JsonProperty("col_VISIBLE_S")
-public void setColVISIBLES(String colVISIBLES) {
-this.colVISIBLES = colVISIBLES;
-}
-
-@JsonProperty("length_S")
-public Integer getLengthS() {
-return lengthS;
-}
-
-@JsonProperty("length_S")
-public void setLengthS(Integer lengthS) {
-this.lengthS = lengthS;
-}
-
-@JsonProperty("precision_S")
+@JsonProperty("precision_s")
 public Integer getPrecisionS() {
 return precisionS;
 }
 
-@JsonProperty("precision_S")
+@JsonProperty("precision_s")
 public void setPrecisionS(Integer precisionS) {
 this.precisionS = precisionS;
 }
 
-@JsonProperty("scale_S")
-public Integer getScaleS() {
-return scaleS;
+@JsonProperty("hovr_txt_c")
+public String getHovrTxtC() {
+return hovrTxtC;
 }
 
-@JsonProperty("scale_S")
-public void setScaleS(Integer scaleS) {
-this.scaleS = scaleS;
+@JsonProperty("hovr_txt_c")
+public void setHovrTxtC(String hovrTxtC) {
+this.hovrTxtC = hovrTxtC;
 }
 
-@JsonProperty("list_VIEW_S")
-public Integer getListVIEWS() {
-return listVIEWS;
+@JsonProperty("obj_name")
+public String getObjName() {
+return objName;
 }
 
-@JsonProperty("list_VIEW_S")
-public void setListVIEWS(Integer listVIEWS) {
-this.listVIEWS = listVIEWS;
+@JsonProperty("obj_name")
+public void setObjName(String objName) {
+this.objName = objName;
 }
 
-@JsonProperty("formula_S")
-public String getFormulaS() {
-return formulaS;
+@JsonProperty("is_parent")
+public String getIsParent() {
+return isParent;
 }
 
-@JsonProperty("formula_S")
-public void setFormulaS(String formulaS) {
-this.formulaS = formulaS;
+@JsonProperty("is_parent")
+public void setIsParent(String isParent) {
+this.isParent = isParent;
 }
 
-@JsonProperty("row_NUMBER")
-public Integer getRowNUMBER() {
-return rowNUMBER;
+@JsonProperty("copy_target_fld")
+public String getCopyTargetFld() {
+return copyTargetFld;
 }
 
-@JsonProperty("row_NUMBER")
-public void setRowNUMBER(Integer rowNUMBER) {
-this.rowNUMBER = rowNUMBER;
+@JsonProperty("copy_target_fld")
+public void setCopyTargetFld(String copyTargetFld) {
+this.copyTargetFld = copyTargetFld;
 }
 
-@JsonProperty("col_NUMBER")
-public Integer getColNUMBER() {
-return colNUMBER;
+@JsonProperty("external_id_s")
+public String getExternalIdS() {
+return externalIdS;
 }
 
-@JsonProperty("col_NUMBER")
-public void setColNUMBER(Integer colNUMBER) {
-this.colNUMBER = colNUMBER;
+@JsonProperty("external_id_s")
+public void setExternalIdS(String externalIdS) {
+this.externalIdS = externalIdS;
 }
 
-@JsonProperty("edit_VAL")
-public String getEditVAL() {
-return editVAL;
+@JsonProperty("copy_flds_rule")
+public String getCopyFldsRule() {
+return copyFldsRule;
 }
 
-@JsonProperty("edit_VAL")
-public void setEditVAL(String editVAL) {
-this.editVAL = editVAL;
+@JsonProperty("copy_flds_rule")
+public void setCopyFldsRule(String copyFldsRule) {
+this.copyFldsRule = copyFldsRule;
 }
 
-@JsonProperty("obj_NAME")
-public String getObjNAME() {
-return objNAME;
+@JsonProperty("field_label_s")
+public String getFieldLabelS() {
+return fieldLabelS;
 }
 
-@JsonProperty("obj_NAME")
-public void setObjNAME(String objNAME) {
-this.objNAME = objNAME;
+@JsonProperty("field_label_s")
+public void setFieldLabelS(String fieldLabelS) {
+this.fieldLabelS = fieldLabelS;
 }
 
-@JsonProperty("fld_NAME")
-public String getFldNAME() {
-return fldNAME;
+@JsonProperty("page_params")
+public String getPageParams() {
+return pageParams;
 }
 
-@JsonProperty("fld_NAME")
-public void setFldNAME(String fldNAME) {
-this.fldNAME = fldNAME;
+@JsonProperty("page_params")
+public void setPageParams(String pageParams) {
+this.pageParams = pageParams;
 }
 
-@JsonProperty("ena_DIS_RULE_EXP")
-public String getEnaDISRULEEXP() {
-return enaDISRULEEXP;
+@JsonProperty("field_description_s")
+public String getFieldDescriptionS() {
+return fieldDescriptionS;
 }
 
-@JsonProperty("ena_DIS_RULE_EXP")
-public void setEnaDISRULEEXP(String enaDISRULEEXP) {
-this.enaDISRULEEXP = enaDISRULEEXP;
+@JsonProperty("field_description_s")
+public void setFieldDescriptionS(String fieldDescriptionS) {
+this.fieldDescriptionS = fieldDescriptionS;
 }
 
-@JsonProperty("mand_RULE_EXP")
-public String getMandRULEEXP() {
-return mandRULEEXP;
+@JsonProperty("case_sensitive_s")
+public String getCaseSensitiveS() {
+return caseSensitiveS;
 }
 
-@JsonProperty("mand_RULE_EXP")
-public void setMandRULEEXP(String mandRULEEXP) {
-this.mandRULEEXP = mandRULEEXP;
+@JsonProperty("case_sensitive_s")
+public void setCaseSensitiveS(String caseSensitiveS) {
+this.caseSensitiveS = caseSensitiveS;
 }
 
-@JsonProperty("depnt_FLDS")
-public String getDepntFLDS() {
-return depntFLDS;
+@JsonProperty("rt_tbl_nm_c")
+public String getRtTblNmC() {
+return rtTblNmC;
 }
 
-@JsonProperty("depnt_FLDS")
-public void setDepntFLDS(String depntFLDS) {
-this.depntFLDS = depntFLDS;
+@JsonProperty("rt_tbl_nm_c")
+public void setRtTblNmC(String rtTblNmC) {
+this.rtTblNmC = rtTblNmC;
 }
 
-@JsonProperty("is_DEPNT")
-public String getIsDEPNT() {
-return isDEPNT;
+@JsonProperty("blankout_flds_rule")
+public String getBlankoutFldsRule() {
+return blankoutFldsRule;
 }
 
-@JsonProperty("is_DEPNT")
-public void setIsDEPNT(String isDEPNT) {
-this.isDEPNT = isDEPNT;
+@JsonProperty("blankout_flds_rule")
+public void setBlankoutFldsRule(String blankoutFldsRule) {
+this.blankoutFldsRule = blankoutFldsRule;
 }
 
-@JsonProperty("page_PARAMS")
-public String getPagePARAMS() {
-return pagePARAMS;
+@JsonProperty("ide_obj_id")
+public String getIdeObjId() {
+return ideObjId;
 }
 
-@JsonProperty("page_PARAMS")
-public void setPagePARAMS(String pagePARAMS) {
-this.pagePARAMS = pagePARAMS;
+@JsonProperty("ide_obj_id")
+public void setIdeObjId(String ideObjId) {
+this.ideObjId = ideObjId;
 }
 
-@JsonProperty("depnt_S")
+@JsonProperty("depnt_flds")
+public String getDepntFlds() {
+return depntFlds;
+}
+
+@JsonProperty("depnt_flds")
+public void setDepntFlds(String depntFlds) {
+this.depntFlds = depntFlds;
+}
+
+@JsonProperty("default_value")
+public String getDefaultValue() {
+return defaultValue;
+}
+
+@JsonProperty("default_value")
+public void setDefaultValue(String defaultValue) {
+this.defaultValue = defaultValue;
+}
+
+@JsonProperty("col_order_s")
+public Integer getColOrderS() {
+return colOrderS;
+}
+
+@JsonProperty("col_order_s")
+public void setColOrderS(Integer colOrderS) {
+this.colOrderS = colOrderS;
+}
+
+@JsonProperty("copy_src_fld")
+public String getCopySrcFld() {
+return copySrcFld;
+}
+
+@JsonProperty("copy_src_fld")
+public void setCopySrcFld(String copySrcFld) {
+this.copySrcFld = copySrcFld;
+}
+
+@JsonProperty("rt_cd_c")
+public String getRtCdC() {
+return rtCdC;
+}
+
+@JsonProperty("rt_cd_c")
+public void setRtCdC(String rtCdC) {
+this.rtCdC = rtCdC;
+}
+
+@JsonProperty("reference_to_s")
+public String getReferenceToS() {
+return referenceToS;
+}
+
+@JsonProperty("reference_to_s")
+public void setReferenceToS(String referenceToS) {
+this.referenceToS = referenceToS;
+}
+
+@JsonProperty("depnt_s")
 public String getDepntS() {
 return depntS;
 }
 
-@JsonProperty("depnt_S")
+@JsonProperty("depnt_s")
 public void setDepntS(String depntS) {
 this.depntS = depntS;
 }
 
-@JsonProperty("blankout_FLDS")
-public String getBlankoutFLDS() {
-return blankoutFLDS;
+@JsonProperty("relationship_order_s")
+public String getRelationshipOrderS() {
+return relationshipOrderS;
 }
 
-@JsonProperty("blankout_FLDS")
-public void setBlankoutFLDS(String blankoutFLDS) {
-this.blankoutFLDS = blankoutFLDS;
+@JsonProperty("relationship_order_s")
+public void setRelationshipOrderS(String relationshipOrderS) {
+this.relationshipOrderS = relationshipOrderS;
 }
 
-@JsonProperty("blankout_FLDS_RULE")
-public String getBlankoutFLDSRULE() {
-return blankoutFLDSRULE;
+@JsonProperty("api_name_s")
+public String getApiNameS() {
+return apiNameS;
 }
 
-@JsonProperty("blankout_FLDS_RULE")
-public void setBlankoutFLDSRULE(String blankoutFLDSRULE) {
-this.blankoutFLDSRULE = blankoutFLDSRULE;
+@JsonProperty("api_name_s")
+public void setApiNameS(String apiNameS) {
+this.apiNameS = apiNameS;
 }
 
-@JsonProperty("copy_SRC_FLD")
-public String getCopySRCFLD() {
-return copySRCFLD;
+@JsonProperty("blankout_flds")
+public String getBlankoutFlds() {
+return blankoutFlds;
 }
 
-@JsonProperty("copy_SRC_FLD")
-public void setCopySRCFLD(String copySRCFLD) {
-this.copySRCFLD = copySRCFLD;
+@JsonProperty("blankout_flds")
+public void setBlankoutFlds(String blankoutFlds) {
+this.blankoutFlds = blankoutFlds;
 }
 
-@JsonProperty("copy_TARGET_FLD")
-public String getCopyTARGETFLD() {
-return copyTARGETFLD;
+@JsonProperty("upd_dtm")
+public String getUpdDtm() {
+return updDtm;
 }
 
-@JsonProperty("copy_TARGET_FLD")
-public void setCopyTARGETFLD(String copyTARGETFLD) {
-this.copyTARGETFLD = copyTARGETFLD;
+@JsonProperty("upd_dtm")
+public void setUpdDtm(String updDtm) {
+this.updDtm = updDtm;
 }
 
-@JsonProperty("copy_FLDS_RULE")
-public String getCopyFLDSRULE() {
-return copyFLDSRULE;
+@JsonProperty("col_fltr_val_c")
+public String getColFltrValC() {
+return colFltrValC;
 }
 
-@JsonProperty("copy_FLDS_RULE")
-public void setCopyFLDSRULE(String copyFLDSRULE) {
-this.copyFLDSRULE = copyFLDSRULE;
+@JsonProperty("col_fltr_val_c")
+public void setColFltrValC(String colFltrValC) {
+this.colFltrValC = colFltrValC;
 }
 
-@JsonProperty("copy_SEL_OPT_COLS")
-public String getCopySELOPTCOLS() {
-return copySELOPTCOLS;
+@JsonProperty("length_s")
+public Integer getLengthS() {
+return lengthS;
 }
 
-@JsonProperty("copy_SEL_OPT_COLS")
-public void setCopySELOPTCOLS(String copySELOPTCOLS) {
-this.copySELOPTCOLS = copySELOPTCOLS;
+@JsonProperty("length_s")
+public void setLengthS(Integer lengthS) {
+this.lengthS = lengthS;
 }
 
-@JsonProperty("compute_FLD_RULE")
-public String getComputeFLDRULE() {
-return computeFLDRULE;
+@JsonProperty("scale_s")
+public Integer getScaleS() {
+return scaleS;
 }
 
-@JsonProperty("compute_FLD_RULE")
-public void setComputeFLDRULE(String computeFLDRULE) {
-this.computeFLDRULE = computeFLDRULE;
+@JsonProperty("scale_s")
+public void setScaleS(Integer scaleS) {
+this.scaleS = scaleS;
 }
 
-
-@JsonProperty("copy_DEFAULT_VALUE")
-public String getCopyDEFAULTVALUE() {
-return copyDEFAULTVALUE;
+@JsonProperty("copy_default_rule")
+public String getCopyDefaultRule() {
+return copyDefaultRule;
 }
 
-@JsonProperty("copy_DEFAULT_VALUE")
-public void setCopyDEFAULTVALUE(String copyDEFAULTVALUE) {
-this.copyDEFAULTVALUE = copyDEFAULTVALUE;
+@JsonProperty("copy_default_rule")
+public void setCopyDefaultRule(String copyDefaultRule) {
+this.copyDefaultRule = copyDefaultRule;
 }
 
-@JsonProperty("copy_DEFAULT_TAR")
-public String getCopyDEFAULTTAR() {
-return copyDEFAULTTAR;
+@JsonProperty("label_overide_s")
+public String getLabelOverideS() {
+return labelOverideS;
 }
 
-@JsonProperty("copy_DEFAULT_TAR")
-public void setCopyDEFAULTTAR(String copyDEFAULTTAR) {
-this.copyDEFAULTTAR = copyDEFAULTTAR;
+@JsonProperty("label_overide_s")
+public void setLabelOverideS(String labelOverideS) {
+this.labelOverideS = labelOverideS;
 }
 
-@JsonProperty("copy_DEFAULT_RULE")
-public String getCopyDEFAULTRULE() {
-return copyDEFAULTRULE;
+@JsonProperty("copy_default_tar")
+public String getCopyDefaultTar() {
+return copyDefaultTar;
 }
 
-@JsonProperty("copy_DEFAULT_RULE")
-public void setCopyDEFAULTRULE(String copyDEFAULTRULE) {
-this.copyDEFAULTRULE = copyDEFAULTRULE;
+@JsonProperty("copy_default_tar")
+public void setCopyDefaultTar(String copyDefaultTar) {
+this.copyDefaultTar = copyDefaultTar;
 }
 
-@JsonProperty("disable_ON_SELECT")
-public String getDisableONSELECT() {
-return disableONSELECT;
+@JsonProperty("copy_sel_opt_cols")
+public String getCopySelOptCols() {
+return copySelOptCols;
 }
 
-@JsonProperty("disable_ON_SELECT")
-public void setDisableONSELECT(String disableONSELECT) {
-this.disableONSELECT = disableONSELECT;
+@JsonProperty("copy_sel_opt_cols")
+public void setCopySelOptCols(String copySelOptCols) {
+this.copySelOptCols = copySelOptCols;
 }
 
-@JsonProperty("select_ON_SELECT")
-public String getSelectONSELECT() {
-return selectONSELECT;
+@JsonProperty("row_number")
+public Integer getRowNumber() {
+return rowNumber;
 }
 
-@JsonProperty("select_ON_SELECT")
-public void setSelectONSELECT(String selectONSELECT) {
-this.selectONSELECT = selectONSELECT;
+@JsonProperty("row_number")
+public void setRowNumber(Integer rowNumber) {
+this.rowNumber = rowNumber;
+}
+
+@JsonProperty("ide_fld_seq")
+public Integer getIdeFldSeq() {
+return ideFldSeq;
+}
+
+@JsonProperty("ide_fld_seq")
+public void setIdeFldSeq(Integer ideFldSeq) {
+this.ideFldSeq = ideFldSeq;
+}
+
+@JsonProperty("disable_on_select")
+public String getDisableOnSelect() {
+return disableOnSelect;
+}
+
+@JsonProperty("disable_on_select")
+public void setDisableOnSelect(String disableOnSelect) {
+this.disableOnSelect = disableOnSelect;
+}
+
+@JsonProperty("upd_os_user")
+public String getUpdOsUser() {
+return updOsUser;
+}
+
+@JsonProperty("upd_os_user")
+public void setUpdOsUser(String updOsUser) {
+this.updOsUser = updOsUser;
+}
+
+@JsonProperty("compute_fld_rule")
+public String getComputeFldRule() {
+return computeFldRule;
+}
+
+@JsonProperty("compute_fld_rule")
+public void setComputeFldRule(String computeFldRule) {
+this.computeFldRule = computeFldRule;
+}
+
+@JsonProperty("relationship_label_s")
+public String getRelationshipLabelS() {
+return relationshipLabelS;
+}
+
+@JsonProperty("relationship_label_s")
+public void setRelationshipLabelS(String relationshipLabelS) {
+this.relationshipLabelS = relationshipLabelS;
+}
+
+@JsonProperty("fld_name")
+public String getFldName() {
+return fldName;
+}
+
+@JsonProperty("fld_name")
+public void setFldName(String fldName) {
+this.fldName = fldName;
+}
+
+@JsonProperty("type_s")
+public String getTypeS() {
+return typeS;
+}
+
+@JsonProperty("type_s")
+public void setTypeS(String typeS) {
+this.typeS = typeS;
+}
+
+@JsonProperty("copy_default_value")
+public String getCopyDefaultValue() {
+return copyDefaultValue;
+}
+
+@JsonProperty("copy_default_value")
+public void setCopyDefaultValue(String copyDefaultValue) {
+this.copyDefaultValue = copyDefaultValue;
+}
+
+@JsonProperty("edit_val")
+public String getEditVal() {
+return editVal;
+}
+
+@JsonProperty("edit_val")
+public void setEditVal(String editVal) {
+this.editVal = editVal;
+}
+
+@JsonProperty("required_s")
+public String getRequiredS() {
+return requiredS;
+}
+
+@JsonProperty("required_s")
+public void setRequiredS(String requiredS) {
+this.requiredS = requiredS;
+}
+
+@JsonProperty("list_view_s")
+public Integer getListViewS() {
+return listViewS;
+}
+
+@JsonProperty("list_view_s")
+public void setListViewS(Integer listViewS) {
+this.listViewS = listViewS;
+}
+
+@JsonProperty("col_number")
+public Integer getColNumber() {
+return colNumber;
+}
+
+@JsonProperty("col_number")
+public void setColNumber(Integer colNumber) {
+this.colNumber = colNumber;
+}
+
+@JsonProperty("ena_dis_rule_exp")
+public String getEnaDisRuleExp() {
+return enaDisRuleExp;
+}
+
+@JsonProperty("ena_dis_rule_exp")
+public void setEnaDisRuleExp(String enaDisRuleExp) {
+this.enaDisRuleExp = enaDisRuleExp;
+}
+
+@JsonProperty("unique_s")
+public String getUniqueS() {
+return uniqueS;
+}
+
+@JsonProperty("unique_s")
+public void setUniqueS(String uniqueS) {
+this.uniqueS = uniqueS;
+}
+
+@JsonProperty("mand_rule_exp")
+public String getMandRuleExp() {
+return mandRuleExp;
+}
+
+@JsonProperty("mand_rule_exp")
+public void setMandRuleExp(String mandRuleExp) {
+this.mandRuleExp = mandRuleExp;
+}
+
+@JsonProperty("select_on_select")
+public String getSelectOnSelect() {
+return selectOnSelect;
+}
+
+@JsonProperty("select_on_select")
+public void setSelectOnSelect(String selectOnSelect) {
+this.selectOnSelect = selectOnSelect;
+}
+
+@JsonProperty("col_visible_s")
+public String getColVisibleS() {
+return colVisibleS;
+}
+
+@JsonProperty("col_visible_s")
+public void setColVisibleS(String colVisibleS) {
+this.colVisibleS = colVisibleS;
+}
+
+@JsonProperty("crt_os_usr")
+public String getCrtOsUsr() {
+return crtOsUsr;
+}
+
+@JsonProperty("crt_os_usr")
+public void setCrtOsUsr(String crtOsUsr) {
+this.crtOsUsr = crtOsUsr;
+}
+
+@JsonProperty("crt_dtm")
+public String getCrtDtm() {
+return crtDtm;
+}
+
+@JsonProperty("crt_dtm")
+public void setCrtDtm(String crtDtm) {
+this.crtDtm = crtDtm;
+}
+
+@JsonProperty("type_c")
+public String getTypeC() {
+return typeC;
+}
+
+@JsonProperty("type_c")
+public void setTypeC(String typeC) {
+this.typeC = typeC;
+}
+
+@JsonProperty("is_depnt")
+public String getIsDepnt() {
+return isDepnt;
+}
+
+@JsonProperty("is_depnt")
+public void setIsDepnt(String isDepnt) {
+this.isDepnt = isDepnt;
+}
+
+@JsonProperty("rt_dsc_c")
+public String getRtDscC() {
+return rtDscC;
+}
+
+@JsonProperty("rt_dsc_c")
+public void setRtDscC(String rtDscC) {
+this.rtDscC = rtDscC;
+}
+
+@JsonProperty("disp_rel_lst")
+public String getDispRelLst() {
+return dispRelLst;
+}
+
+@JsonProperty("disp_rel_lst")
+public void setDispRelLst(String dispRelLst) {
+this.dispRelLst = dispRelLst;
+}
+
+@JsonProperty("display_only_s")
+public String getDisplayOnlyS() {
+return displayOnlyS;
+}
+
+@JsonProperty("display_only_s")
+public void setDisplayOnlyS(String displayOnlyS) {
+this.displayOnlyS = displayOnlyS;
+}
+
+@JsonProperty("col_fltr_name_c")
+public String getColFltrNameC() {
+return colFltrNameC;
+}
+
+@JsonProperty("col_fltr_name_c")
+public void setColFltrNameC(String colFltrNameC) {
+this.colFltrNameC = colFltrNameC;
+}
+
+@JsonProperty("formula_s")
+public String getFormulaS() {
+return formulaS;
+}
+
+@JsonProperty("formula_s")
+public void setFormulaS(String formulaS) {
+this.formulaS = formulaS;
 }
 
 @JsonAnyGetter

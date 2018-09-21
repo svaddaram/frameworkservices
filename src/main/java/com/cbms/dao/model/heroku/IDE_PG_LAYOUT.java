@@ -21,24 +21,22 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.NaturalId;
-
 @Entity
-@Table(name = "IDE_PG_LAYOUT__c",schema = "salesforce")
+@Table(name = "IDE_PG_LAYOUT",schema = "salesforce")
 public class IDE_PG_LAYOUT implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	@Column(name = "created_by__c")
+	@Column(name = "CRT_OS_USR")
 	String created_by;
 	
-	@Column(name = "updated_by__c")
+	@Column(name = "UPD_OS_USER")
 	String updated_by;
 	
-	@Column(name = "status__c")
+	@Column(name = "STATUS")
 	String status;
 	
 	
-	@Column(name = "published_date__c", columnDefinition= "TIMESTAMP WITH TIME ZONE")
+	@Column(name = "PUBLISHED_DATE", columnDefinition= "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date publishedDate;
 	
@@ -74,13 +72,10 @@ public class IDE_PG_LAYOUT implements Serializable{
 		return created_by;
 	}
 	
-	
-	
-
 	@Id
 	@SequenceGenerator( name="IDE_PG_LAYOUT_SEQUENCE", sequenceName="IDE_PG_LAYOUT_SEQUENCE")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="IDE_PG_LAYOUT_SEQUENCE")
-	@Column(name = "IDE_PG_LAYOUT_ID__c")
+	@Column(name = "IDE_PG_LAYOUT_ID")
 	private Integer IDE_PG_LAYOUT_ID;
 	/**
 	 * @return the iDE_PG_LAYOUT_ID
@@ -96,7 +91,7 @@ public class IDE_PG_LAYOUT implements Serializable{
 	}
 	
 	
-	@Column(name = "systemmodstamp", columnDefinition= "TIMESTAMP WITH TIME ZONE")
+	@Column(name = "UPD_DTM", columnDefinition= "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date systemModStamp;
 	
@@ -108,7 +103,7 @@ public class IDE_PG_LAYOUT implements Serializable{
 		return systemModStamp;
 	}
 	
-	@Column(name = "NAME")
+/*	@Column(name = "NAME")
 	private String Name;
 	
 	public void setName(String name) {
@@ -116,10 +111,10 @@ public class IDE_PG_LAYOUT implements Serializable{
 	}
 	
 	public String getName() {
-		return Name;
-	}
+		return Name; 
+	}*/
 	
-	@Column(name = "createddate", columnDefinition= "TIMESTAMP WITH TIME ZONE")
+	@Column(name = "CRT_DTM", columnDefinition= "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createddate;
 	
@@ -142,7 +137,7 @@ public class IDE_PG_LAYOUT implements Serializable{
 		return systemModStamp;
 	}*/
 	
-	@Column(name = "IDE_PG_LAYOUT_NM__c")
+	@Column(name = "IDE_PG_LAYOUT_NM")
 	private String IDE_PG_LAYOUT_NM;
 	/**
 	 * @return the iDE_PG_LAYOUT_NM
@@ -157,7 +152,7 @@ public class IDE_PG_LAYOUT implements Serializable{
 		IDE_PG_LAYOUT_NM = iDE_PG_LAYOUT_NM;
 	}
 	
-	@Column(name = "IDE_OBJ_ID__c" ,insertable=false,updatable=false)
+	@Column(name = "IDE_OBJ_ID" ,insertable=false,updatable=false)
 	//@NaturalId
 	String IDE_OBJ_ID__c;
 	
@@ -170,7 +165,7 @@ public class IDE_PG_LAYOUT implements Serializable{
 	}
 	
 	@ManyToOne
-    @JoinColumn(name="IDE_OBJ_ID__c",referencedColumnName="IDE_OBJ_ID__c")
+    @JoinColumn(name="IDE_OBJ_ID",referencedColumnName="IDE_OBJ_ID")
 	private IDE_OBJ idePgLayouts;
 
 

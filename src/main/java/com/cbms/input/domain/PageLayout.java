@@ -29,7 +29,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 "pageRedirect",
 "pageId",
 "scrnType",
-"showTitle"
+"showTitle",
+"relatedList"
 
 
 })
@@ -48,7 +49,8 @@ public class PageLayout {
 	@JsonProperty("showTitle")
 	private String showTitle;
 
-	
+	@JsonProperty("relatedList")
+	private List<PageLayout> relatedList ;
 	
 	@JsonProperty("name")
 	private String name;	
@@ -76,6 +78,16 @@ public void setPublishedDate(String publishedDate) {
 public String getPublishedDate() {
 	return publishedDate;
 }
+@JsonProperty("relatedList")
+public void setRelatedList(List<PageLayout> relatedList) {
+	this.relatedList = relatedList;
+}
+@JsonProperty("relatedList")
+public List<PageLayout> getRelatedList() {
+	return relatedList;
+}
+
+
 @JsonProperty("columnValidation")
 public void setColumnValidation(List<ColumnValidation> columnValidation) {
 	this.columnValidation = columnValidation;

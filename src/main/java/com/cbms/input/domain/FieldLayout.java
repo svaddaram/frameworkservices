@@ -92,7 +92,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 "extn_rqrd",
 "max_val",
 "icon_name",
-"col_order_s__c",
+"col_order_s",
 "show_link",
 "date_comp_fld",
 "clr_err_msg_flds",
@@ -965,7 +965,7 @@ private Object extnRqrd;
 private Object maxVal;
 @JsonProperty("icon_name")
 private Object iconName;
-@JsonProperty("col_order_s__c")
+@JsonProperty("col_order_s")
 private Object colOrderSC;
 @JsonProperty("show_link")
 private Object showLink;

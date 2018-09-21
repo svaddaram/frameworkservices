@@ -83,7 +83,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
 		Query query =null;
 		if(status!=null) {
 		query = sessionFactory.getCurrentSession().createQuery(
-				"update IDE_OBJ set systemModStamp=:systemModStamp,updated_by__c=:updated_by,status__c=:status where IDE_OBJ_ID = :IDE_OBJ_ID ");
+				"update IDE_OBJ set systemModStamp=:systemModStamp,UPD_OS_USER=:updated_by,status=:status where IDE_OBJ_ID = :IDE_OBJ_ID ");
 		query.setParameter("IDE_OBJ_ID", objID);
 		query.setParameter("updated_by", updatedBY);
 		query.setParameter("status", status);
@@ -91,7 +91,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
 		}
 		else {
 			query = sessionFactory.getCurrentSession().createQuery(
-					"update IDE_OBJ set systemModStamp=:systemModStamp,updated_by__c=:updated_by where IDE_OBJ_ID = :IDE_OBJ_ID ");
+					"update IDE_OBJ set systemModStamp=:systemModStamp,UPD_OS_USER=:updated_by where IDE_OBJ_ID = :IDE_OBJ_ID ");
 			query.setParameter("IDE_OBJ_ID", objID);
 			query.setParameter("updated_by", updatedBY);
 			query.setTimestamp("systemModStamp", new Timestamp(new Date().getTime()));

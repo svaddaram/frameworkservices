@@ -31,7 +31,7 @@ public class PageSectionDAOImpl implements PageSectionDAO {
 		IDE_PG_LAYOUT pgLayout=pageLayoutDAO.getPageLayoutByID(pgLayoutID);
 		if(pgLayout!=null) {
 		section.setIdePageSectns(pgLayout);
-		section.setIDE_OBJ_ID__c(pgLayout.getIDE_OBJ_ID__c());
+		section.setIDE_OBJ_ID(pgLayout.getIDE_OBJ_ID__c());
 		if(pgLayout.getIDE_OBJ_ID__c()!=null) {
 			applicationDAO.updateLastUpdatedDateAndTime(pgLayout.getIDE_OBJ_ID__c(), pgLayout.getUpdated_by(),null);
 		}
@@ -73,8 +73,8 @@ public class PageSectionDAOImpl implements PageSectionDAO {
 		
 		
 		if(section!=null) {
-			if(section.getIDE_OBJ_ID__c()!=null) {
-				applicationDAO.updateLastUpdatedDateAndTime(section.getIDE_OBJ_ID__c(), section.getUpdated_by());
+			if(section.getIDE_OBJ_ID()!=null) {
+				applicationDAO.updateLastUpdatedDateAndTime(section.getIDE_OBJ_ID(), "LASTUPDATEDBY");
 			}
 		 sessionFactory.getCurrentSession().delete(section);
 		 

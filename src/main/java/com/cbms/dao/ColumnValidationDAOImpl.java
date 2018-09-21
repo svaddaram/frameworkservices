@@ -36,7 +36,7 @@ public class ColumnValidationDAOImpl implements ColumnValidationDAO {
 
 	private void updateDateandUpdatedBy(IDE_COL_VALIDATION colValidation, IDE_PG_LAYOUT pgLayout) {
 		if(pgLayout!=null) {
-			updateDateandUpdatedBy(pgLayout.getIDE_OBJ_ID__c(), colValidation.getUpdated_by());
+			updateDateandUpdatedBy(pgLayout.getIDE_OBJ_ID__c(), "LASTUPDATEDBY");
 		}
 	}
 	
@@ -75,7 +75,7 @@ public class ColumnValidationDAOImpl implements ColumnValidationDAO {
 		if(object!=null) {
 		 sessionFactory.getCurrentSession().delete(object);
 		 if(object.getIdeColValidations()!=null)
-		 updateDateandUpdatedBy(object.getIdeColValidations().getIDE_OBJ_ID__c(), object.getUpdated_by());
+		 updateDateandUpdatedBy(object.getIdeColValidations().getIDE_OBJ_ID__c(), "LASTUPDATEDBY");
 		}
 		
 	}

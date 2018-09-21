@@ -26,7 +26,7 @@ public class SynchronizerDAOImpl implements SynchronizerDAO {
  			for(PageSection section:pgLayout.getIde_PG_SECTN()){
  				Integer sectionId=section.getIdePGSECTNID();
  				Query query = sessionFactory.getCurrentSession()
- 						.createQuery("update IDE_PG_SECTN set IDE_OBJ_ID__c = :IDE_OBJ_ID__c  where IDE_PG_SECTN_ID = :IDE_PG_SECTN_ID");
+ 						.createQuery("update IDE_PG_SECTN set IDE_OBJ_ID = :IDE_OBJ_ID__c  where IDE_PG_SECTN_ID = :IDE_PG_SECTN_ID");
  				query.setParameter("IDE_OBJ_ID__c", ideObjID);
  				query.setParameter("IDE_PG_SECTN_ID", section.getIdePGSECTNID());
  				int result = query.executeUpdate();
@@ -36,7 +36,7 @@ public class SynchronizerDAOImpl implements SynchronizerDAO {
  				for(FieldLayout layout:section.getIde_field_layout()) {
  					Integer fieldLayoutId=layout.getIdeFieldLayoutId();
  					Query query1 = sessionFactory.getCurrentSession()
-     						.createQuery("update IDE_SECTION_FLD_LAYOUT set IDE_OBJ_ID__c = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID__c=:IDE_PG_LAYOUT_ID__c  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
+     						.createQuery("update IDE_SECTION_FLD_LAYOUT set IDE_OBJ_ID = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID=:IDE_PG_LAYOUT_ID__c  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
  					query1.setParameter("IDE_FIELD_LAYOUT_ID", fieldLayoutId);
  					query1.setParameter("IDE_OBJ_ID__c", ideObjID);
  					query1.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutId);
@@ -46,16 +46,16 @@ public class SynchronizerDAOImpl implements SynchronizerDAO {
  				for(SubSection subSection:section.getIdePageSubSectns()) {
  					String subSectionId=subSection.getIdePgSubSectnId();
  					Query query1 = sessionFactory.getCurrentSession()
-     						.createQuery("update IDE_PG_SUB_SECTN set IDE_OBJ_ID__c = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID__c=:IDE_PG_LAYOUT_ID__c  where IDE_PG_SUB_SECTN_ID = :IDE_PG_SUB_SECTN_ID");
- 					query1.setParameter("IDE_PG_SUB_SECTN_ID", subSectionId);
- 					query1.setParameter("IDE_OBJ_ID__c", ideObjID);
- 					query1.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutId);
+     						.createQuery("update IDE_PG_SUB_SECTN set IDE_OBJ_ID = :IDE_OBJ_ID,IDE_PG_LAYOUT_ID=:IDE_PG_LAYOUT_ID  where IDE_PG_SUB_SECTN_ID = :IDE_PG_SUB_SECTN_ID");
+ 					query1.setParameter("IDE_PG_SUB_SECTN_ID", subSectionId!=null? Integer.parseInt(subSectionId):null);
+ 					query1.setParameter("IDE_OBJ_ID", ideObjID);
+ 					query1.setParameter("IDE_PG_LAYOUT_ID", pgLayoutId);
      				int result1 = query1.executeUpdate();
  					
  					for(FieldLayout layout:subSection.getIde_field_layout()) {
  						Integer fieldLayoutId=layout.getIdeFieldLayoutId();
  						Query query2 = sessionFactory.getCurrentSession()
-         						.createQuery("update IDE_FIELD_LAYOUT set IDE_OBJ_ID__c = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID__c=:IDE_PG_LAYOUT_ID__c,IDE_PG_SECTN_ID=:IDE_PG_SECTN_ID  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
+         						.createQuery("update IDE_FIELD_LAYOUT set IDE_OBJ_ID = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID=:IDE_PG_LAYOUT_ID__c,IDE_PG_SECTN_ID=:IDE_PG_SECTN_ID  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
  						query2.setParameter("IDE_FIELD_LAYOUT_ID",fieldLayoutId);
  						query2.setParameter("IDE_OBJ_ID__c", ideObjID);
  						query2.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutId);
@@ -75,7 +75,7 @@ public class SynchronizerDAOImpl implements SynchronizerDAO {
  			for(PageSection section:pgLayout.getIde_PG_SECTN()){
  				Integer sectionId=section.getIdePGSECTNID();
  				Query query = sessionFactory.getCurrentSession()
- 						.createQuery("update IDE_PG_SECTN set IDE_OBJ_ID__c = :IDE_OBJ_ID__c  where IDE_PG_SECTN_ID = :IDE_PG_SECTN_ID");
+ 						.createQuery("update IDE_PG_SECTN set IDE_OBJ_ID = :IDE_OBJ_ID__c  where IDE_PG_SECTN_ID = :IDE_PG_SECTN_ID");
  				query.setParameter("IDE_OBJ_ID__c", ideObjID);
  				query.setParameter("IDE_PG_SECTN_ID", section.getIdePGSECTNID());
  				 query.executeUpdate();
@@ -85,7 +85,7 @@ public class SynchronizerDAOImpl implements SynchronizerDAO {
  				for(FieldLayout layout:section.getIde_field_layout()) {
  					Integer fieldLayoutId=layout.getIdeFieldLayoutId();
  					Query query1 = sessionFactory.getCurrentSession()
-     						.createQuery("update IDE_SECTION_FLD_LAYOUT set IDE_OBJ_ID__c = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID__c=:IDE_PG_LAYOUT_ID__c  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
+     						.createQuery("update IDE_SECTION_FLD_LAYOUT set IDE_OBJ_ID = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID=:IDE_PG_LAYOUT_ID__c  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
  					query1.setParameter("IDE_FIELD_LAYOUT_ID", fieldLayoutId);
  					query1.setParameter("IDE_OBJ_ID__c", ideObjID);
  					query1.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutId);
@@ -95,21 +95,21 @@ public class SynchronizerDAOImpl implements SynchronizerDAO {
  				for(SubSection subSection:section.getIdePageSubSectns()) {
  					String subSectionId=subSection.getIdePgSubSectnId();
  					Query query1 = sessionFactory.getCurrentSession()
-     						.createQuery("update IDE_PG_SUB_SECTN set IDE_OBJ_ID__c = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID__c=:IDE_PG_LAYOUT_ID__c  where IDE_PG_SUB_SECTN_ID = :IDE_PG_SUB_SECTN_ID");
- 					query1.setParameter("IDE_PG_SUB_SECTN_ID", subSectionId);
- 					query1.setParameter("IDE_OBJ_ID__c", ideObjID);
- 					query1.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutId);
-     				 query1.executeUpdate();
+     						.createQuery("update IDE_PG_SUB_SECTN set IDE_OBJ_ID = :IDE_OBJ_ID,IDE_PG_LAYOUT_ID=:IDE_PG_LAYOUT_ID  where IDE_PG_SUB_SECTN_ID = :IDE_PG_SUB_SECTN_ID");
+ 					query1.setParameter("IDE_PG_SUB_SECTN_ID", subSectionId!=null? Integer.parseInt(subSectionId):null);
+ 					query1.setParameter("IDE_OBJ_ID", ideObjID);
+ 					query1.setParameter("IDE_PG_LAYOUT_ID", pgLayoutId);
+     				int result1 = query1.executeUpdate();
  					
  					for(FieldLayout layout:subSection.getIde_field_layout()) {
  						Integer fieldLayoutId=layout.getIdeFieldLayoutId();
  						Query query2 = sessionFactory.getCurrentSession()
-         						.createQuery("update IDE_FIELD_LAYOUT set IDE_OBJ_ID__c = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID__c=:IDE_PG_LAYOUT_ID__c,IDE_PG_SECTN_ID=:IDE_PG_SECTN_ID  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
+         						.createQuery("update IDE_FIELD_LAYOUT set IDE_OBJ_ID = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID=:IDE_PG_LAYOUT_ID__c,IDE_PG_SECTN_ID=:IDE_PG_SECTN_ID  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
  						query2.setParameter("IDE_FIELD_LAYOUT_ID",fieldLayoutId);
  						query2.setParameter("IDE_OBJ_ID__c", ideObjID);
  						query2.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutId);
  						query2.setParameter("IDE_PG_SECTN_ID", sectionId);
-         				query2.executeUpdate();
+         				int result2 = query2.executeUpdate();
  					}
  				}
  			}
@@ -132,7 +132,7 @@ public class SynchronizerDAOImpl implements SynchronizerDAO {
  		
  		Integer sectionId=obj.getIdePGSECTNID();
 			Query query = sessionFactory.getCurrentSession()
-					.createQuery("update IDE_PG_SECTN set IDE_OBJ_ID__c = :IDE_OBJ_ID__c  where IDE_PG_SECTN_ID = :IDE_PG_SECTN_ID");
+					.createQuery("update IDE_PG_SECTN set IDE_OBJ_ID = :IDE_OBJ_ID__c  where IDE_PG_SECTN_ID = :IDE_PG_SECTN_ID");
 			query.setParameter("IDE_OBJ_ID__c", ideObjID);
 			query.setParameter("IDE_PG_SECTN_ID", sectionId);
 			query.executeUpdate();
@@ -140,7 +140,7 @@ public class SynchronizerDAOImpl implements SynchronizerDAO {
 			for(FieldLayout layout:obj.getIde_field_layout()) {
 				Integer fieldLayoutId=layout.getIdeFieldLayoutId();
 				Query query2 = sessionFactory.getCurrentSession()
-						.createQuery("update IDE_SECTION_FLD_LAYOUT set IDE_OBJ_ID__c = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID__c=:IDE_PG_LAYOUT_ID__c  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
+						.createQuery("update IDE_SECTION_FLD_LAYOUT set IDE_OBJ_ID = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID=:IDE_PG_LAYOUT_ID__c  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
 				query2.setParameter("IDE_FIELD_LAYOUT_ID", fieldLayoutId);
 				query2.setParameter("IDE_OBJ_ID__c", ideObjID);
 				query2.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutID);
@@ -148,23 +148,25 @@ public class SynchronizerDAOImpl implements SynchronizerDAO {
 				
 			}
 			for(SubSection subSection:obj.getIdePageSubSectns()) {
+				
+				
 				String subSectionId=subSection.getIdePgSubSectnId();
-				Query query3 = sessionFactory.getCurrentSession()
-						.createQuery("update IDE_PG_SUB_SECTN set IDE_OBJ_ID__c = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID__c=:IDE_PG_LAYOUT_ID__c  where IDE_PG_SUB_SECTN_ID = :IDE_PG_SUB_SECTN_ID");
-				query3.setParameter("IDE_PG_SUB_SECTN_ID", subSectionId);
-				query3.setParameter("IDE_OBJ_ID__c", ideObjID);
-				query3.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutID);
-				query3.executeUpdate();
+					Query query5 = sessionFactory.getCurrentSession()
+ 						.createQuery("update IDE_PG_SUB_SECTN set IDE_OBJ_ID = :IDE_OBJ_ID,IDE_PG_LAYOUT_ID=:IDE_PG_LAYOUT_ID  where IDE_PG_SUB_SECTN_ID = :IDE_PG_SUB_SECTN_ID");
+					query5.setParameter("IDE_PG_SUB_SECTN_ID", subSectionId!=null? Integer.parseInt(subSectionId):null);
+					query5.setParameter("IDE_OBJ_ID", ideObjID);
+					query5.setParameter("IDE_PG_LAYOUT_ID", pgLayoutID);
+ 				int result1 = query5.executeUpdate();
 				
 				for(FieldLayout layout:subSection.getIde_field_layout()) {
 					Integer fieldLayoutId=layout.getIdeFieldLayoutId();
-					Query query2 = sessionFactory.getCurrentSession()
- 						.createQuery("update IDE_FIELD_LAYOUT set IDE_OBJ_ID__c = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID__c=:IDE_PG_LAYOUT_ID__c,IDE_PG_SECTN_ID=:IDE_PG_SECTN_ID  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
-					query2.setParameter("IDE_FIELD_LAYOUT_ID",fieldLayoutId);
-					query2.setParameter("IDE_OBJ_ID__c", ideObjID);
-					query2.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutID);
-					query2.setParameter("IDE_PG_SECTN_ID", sectionId);
- 				query2.executeUpdate();
+						Query query2 = sessionFactory.getCurrentSession()
+     						.createQuery("update IDE_FIELD_LAYOUT set IDE_OBJ_ID = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID=:IDE_PG_LAYOUT_ID__c,IDE_PG_SECTN_ID=:IDE_PG_SECTN_ID  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
+						query2.setParameter("IDE_FIELD_LAYOUT_ID",fieldLayoutId);
+						query2.setParameter("IDE_OBJ_ID__c", ideObjID);
+						query2.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutID);
+						query2.setParameter("IDE_PG_SECTN_ID", sectionId);
+     				int result2 = query2.executeUpdate();
 				}
 			}
 			 
@@ -177,7 +179,7 @@ public class SynchronizerDAOImpl implements SynchronizerDAO {
  		String ideObjID=null;
  		Integer pgLayoutID=null;
  		Query query1 = sessionFactory.getCurrentSession()
-					.createQuery("select IDE_PG_LAYOUT_ID__c from IDE_PG_SECTN where IDE_PG_SECTN_ID=:IDE_PG_SECTN_ID");
+					.createQuery("select IDE_PG_LAYOUT_ID from IDE_PG_SECTN where IDE_PG_SECTN_ID=:IDE_PG_SECTN_ID");
  		query1.setParameter("IDE_PG_SECTN_ID", sectionID);
  		for(Iterator it=query1.iterate();it.hasNext();){
  			Integer row = (Integer) it.next();
@@ -196,22 +198,24 @@ public class SynchronizerDAOImpl implements SynchronizerDAO {
 			 ideObjID=(String)row;
  		}
 
+				
+				
 				Query query3 = sessionFactory.getCurrentSession()
-						.createQuery("update IDE_PG_SUB_SECTN set IDE_OBJ_ID__c = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID__c=:IDE_PG_LAYOUT_ID__c  where IDE_PG_SUB_SECTN_ID = :IDE_PG_SUB_SECTN_ID");
-				query3.setParameter("IDE_PG_SUB_SECTN_ID", obj.getIdePgSubSectnId());
-				query3.setParameter("IDE_OBJ_ID__c", ideObjID);
-				query3.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutID);
-				query3.executeUpdate();
+						.createQuery("update IDE_PG_SUB_SECTN set IDE_OBJ_ID = :IDE_OBJ_ID,IDE_PG_LAYOUT_ID=:IDE_PG_LAYOUT_ID  where IDE_PG_SUB_SECTN_ID = :IDE_PG_SUB_SECTN_ID");
+				query3.setParameter("IDE_PG_SUB_SECTN_ID", obj.getIdePgSubSectnId()!=null? Integer.parseInt(obj.getIdePgSubSectnId()):null);
+				query3.setParameter("IDE_OBJ_ID", ideObjID);
+				query3.setParameter("IDE_PG_LAYOUT_ID", pgLayoutID);
+				int result1 = query3.executeUpdate();
 				
 				for(FieldLayout layout:obj.getIde_field_layout()) {
 					Integer fieldLayoutId=layout.getIdeFieldLayoutId();
-					Query query4 = sessionFactory.getCurrentSession()
- 						.createQuery("update IDE_FIELD_LAYOUT set IDE_OBJ_ID__c = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID__c=:IDE_PG_LAYOUT_ID__c,IDE_PG_SECTN_ID=:IDE_PG_SECTN_ID  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
-					query4.setParameter("IDE_FIELD_LAYOUT_ID",fieldLayoutId);
-					query4.setParameter("IDE_OBJ_ID__c", ideObjID);
-					query4.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutID);
-					query4.setParameter("IDE_PG_SECTN_ID", sectionID);
-					query4.executeUpdate();
+					Query query5 = sessionFactory.getCurrentSession()
+ 						.createQuery("update IDE_FIELD_LAYOUT set IDE_OBJ_ID = :IDE_OBJ_ID__c,IDE_PG_LAYOUT_ID=:IDE_PG_LAYOUT_ID__c,IDE_PG_SECTN_ID=:IDE_PG_SECTN_ID  where IDE_FIELD_LAYOUT_ID = :IDE_FIELD_LAYOUT_ID");
+					query5.setParameter("IDE_FIELD_LAYOUT_ID",fieldLayoutId);
+					query5.setParameter("IDE_OBJ_ID__c", ideObjID);
+					query5.setParameter("IDE_PG_LAYOUT_ID__c", pgLayoutID);
+					query5.setParameter("IDE_PG_SECTN_ID", sectionID);
+ 				int result2 = query5.executeUpdate();
 				
 			}
 			

@@ -2,7 +2,6 @@ package com.cbms.dao.model.heroku;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,77 +18,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.NaturalId;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(value = { "idePageSectns" })
 @Entity
-@Table(name = "IDE_PG_SECTN__c",schema = "salesforce")
+@Table(name = "IDE_PG_SECTN",schema = "salesforce")
 public class IDE_PG_SECTN implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "created_by__c")
-	String created_by;
 	
-	@Column(name = "updated_by__c")
-	String updated_by;
-	
-	public void setUpdated_by(String updated_by) {
-		this.updated_by = updated_by;
-	}
-	
-	public String getUpdated_by() {
-		return updated_by;
-	}
-	
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
-	}
-	
-	public String getCreated_by() {
-		return created_by;
-	}
-	
-	@Column(name = "row__c")
-	private Integer row;
-	
-	@Column(name = "column__c")
-	private Integer column;
-	
-	public void setRow(Integer row) {
-		this.row = row;
-	}
-	
-	public Integer getRow() {
-		return row;
-	}
-	
-	public void setColumn(Integer column) {
-		this.column = column;
-	}
-	
-	public Integer getColumn() {
-		return column;
-	}
-	
-	@Column(name = "Name")
-	private String Name;
-	
-	public void setName(String name) {
-		Name = name;
-	}
-	
-	public String getName() {
-		return Name;
-	}
-	
-	
-	@Column(name = "ALLW_DEL__c")
+	@Column(name = "ALLW_DEL")
 	String ALLW_DEL;
 	public String getALLW_DEL() {
 		return ALLW_DEL;
@@ -103,29 +43,11 @@ public class IDE_PG_SECTN implements Serializable{
 	public void setGRP_LABLE(String gRP_LABLE) {
 		GRP_LABLE = gRP_LABLE;
 	}
-	@Column(name = "systemmodstamp", columnDefinition= "TIMESTAMP WITH TIME ZONE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date systemModStamp;
-	
-	public void setSystemModStamp(Date systemModStamp) {
-		this.systemModStamp = systemModStamp;
+	public String getIDE_OBJ_ID() {
+		return IDE_OBJ_ID;
 	}
-	
-	public Date getSystemModStamp() {
-		return systemModStamp;
-	}
-	
-	
-	@Column(name = "createddate", columnDefinition= "TIMESTAMP WITH TIME ZONE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createddate;
-	
-	public void setCreateddate(Date createddate) {
-		this.createddate = createddate;
-	}
-	
-	public Date getCreateddate() {
-		return createddate;
+	public void setIDE_OBJ_ID(String iDE_OBJ_ID) {
+		IDE_OBJ_ID = iDE_OBJ_ID;
 	}
 	public Integer getIDE_PG_SECTN_SEQ() {
 		return IDE_PG_SECTN_SEQ;
@@ -145,19 +67,19 @@ public class IDE_PG_SECTN implements Serializable{
 	public void setVW_HIST(String vW_HIST) {
 		VW_HIST = vW_HIST;
 	}
-	@Column(name = "GRP_LABEL__c")
+	@Column(name = "GRP_LABLE")
 	String GRP_LABLE;
-/*	@Column(name = "IDE_OBJ_ID__c", nullable=false)
-	String IDE_OBJ_ID;*/
+	@Column(name = "IDE_OBJ_ID", nullable=false)
+	String IDE_OBJ_ID;
 
-	@Column(name = "IDE_PG_SECTN_SEQ__c")
+	@Column(name = "IDE_PG_SECTN_SEQ")
 	Integer	IDE_PG_SECTN_SEQ;
-	@Column(name = "VW_DEL__c")
+	@Column(name = "VW_DEL")
 	String VW_DEL;
-	@Column(name = "VW_HIST__c")
+	@Column(name = "VW_HIST")
 	String VW_HIST;
 	
-	@Column(name = "IDE_PG_GRP_ID__c")
+	@Column(name = "IDE_PG_GRP_ID")
 	Integer IDE_PG_GRP_ID;
 	public Integer getIDE_PG_GRP_ID() {
 		return IDE_PG_GRP_ID;
@@ -166,7 +88,7 @@ public class IDE_PG_SECTN implements Serializable{
 		IDE_PG_GRP_ID = iDE_PG_GRP_ID;
 	}
 	
-	@Column(name = "TYPE__c")
+	@Column(name = "TYPE")
 	String TYPE;
 	public String getTYPE() {
 		return TYPE;
@@ -175,21 +97,22 @@ public class IDE_PG_SECTN implements Serializable{
 		TYPE = tYPE;
 	}
 	
-	@Column(name = "SECTN_VISIBLE__c")
+	@Column(name = "SECTN_VISIBLE")
 	String SECTN_VISIBLE;
 	
 	public String getSECTN_VISIBLE() {
-		  if(SECTN_VISIBLE == null)
-			   return "";
-			  return SECTN_VISIBLE;
+		if(SECTN_VISIBLE == null)
+			return "";
+		return SECTN_VISIBLE;
 	}
 	public void setSECTN_VISIBLE(String sECTN_VISIBLE) {
 		SECTN_VISIBLE = sECTN_VISIBLE;
 	}
+	
 	@Id
 	@SequenceGenerator(name="IDE_PG_SECTION_SEQUENCE", sequenceName="IDE_PG_SECTION_SEQUENCE")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="IDE_PG_SECTION_SEQUENCE")
-	@Column(name = "IDE_PG_SECTN_ID__c")
+	@Column(name = "IDE_PG_SECTN_ID")
 	Integer IDE_PG_SECTN_ID;
 	public Integer getIDE_PG_SECTN_ID() {
 		return IDE_PG_SECTN_ID;
@@ -198,25 +121,14 @@ public class IDE_PG_SECTN implements Serializable{
 		IDE_PG_SECTN_ID = iDE_PG_SECTN_ID;
 	}
 	
-		
-	@Column(name = "TYP__c")
+	
+	@Column(name = "TYP")
 	String TYP;
 	public String getTYP() {
 		return TYP;
 	}
 	public void setTYP(String tYP) {
 		TYP = tYP;
-	}
-	
-	@Column(name = "IDE_OBJ_ID__c" )
-	String IDE_OBJ_ID__c;
-	
-	public void setIDE_OBJ_ID__c(String iDE_OBJ_ID__c) {
-		IDE_OBJ_ID__c = iDE_OBJ_ID__c;
-	}
-	
-	public String getIDE_OBJ_ID__c() {
-		return IDE_OBJ_ID__c;
 	}
 	
 	/*@ManyToOne
@@ -234,21 +146,21 @@ public class IDE_PG_SECTN implements Serializable{
 	public void setIdeObjSectn(IDE_OBJ ideObjSectn) {
 		this.ideObjSectn = ideObjSectn;
 	}*/
-	@Column(name = "IDE_PG_LAYOUT_ID__c",insertable=false,updatable=false)
+	@Column(name = "IDE_PG_LAYOUT_ID",insertable=false,updatable=false)
 	//@NaturalId
-	Integer IDE_PG_LAYOUT_ID__c;
+	Integer IDE_PG_LAYOUT_ID;
 	
-	public Integer getIDE_PG_LAYOUT_ID__c() {
-		return IDE_PG_LAYOUT_ID__c;
+	public Integer getIDE_PG_LAYOUT_ID() {
+		return IDE_PG_LAYOUT_ID;
 	}
 	
-	public void setIDE_PG_LAYOUT_ID__c(Integer iDE_PG_LAYOUT_ID__c) {
-		IDE_PG_LAYOUT_ID__c = iDE_PG_LAYOUT_ID__c;
+	public void setIDE_PG_LAYOUT_ID(Integer iDE_PG_LAYOUT_ID) {
+		IDE_PG_LAYOUT_ID = iDE_PG_LAYOUT_ID;
 	}
 	
 	@ManyToOne
 	  @JoinColumns({
-	        @JoinColumn(name="IDE_PG_LAYOUT_ID__c", referencedColumnName="IDE_PG_LAYOUT_ID__c")
+	        @JoinColumn(name="IDE_PG_LAYOUT_ID", referencedColumnName="IDE_PG_LAYOUT_ID")
 	    })
 	private IDE_PG_LAYOUT idePageSectns;
 	/**
@@ -266,8 +178,7 @@ public class IDE_PG_SECTN implements Serializable{
 	
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL,mappedBy = "idePageSubSectns")
 	 @OrderBy("SEQ_ORD")
-	private List<IDE_PG_SUB_SECTN> idePageSubSectns = new ArrayList<IDE_PG_SUB_SECTN>();
-	/**
+	private List<IDE_PG_SUB_SECTN> idePageSubSectns = new ArrayList<IDE_PG_SUB_SECTN>();	/**
 	 * @return the idePageSubSectns
 	 */
 	public List<IDE_PG_SUB_SECTN> getIdePageSubSectns() {
@@ -279,27 +190,12 @@ public class IDE_PG_SECTN implements Serializable{
 	public void setIdePageSubSectns(List<IDE_PG_SUB_SECTN> idePageSubSectns) {
 		this.idePageSubSectns = idePageSubSectns;
 	}
+	
 	public void addPageSubSection(IDE_PG_SUB_SECTN idePgSubSectn) {
 		idePageSubSectns.add(idePgSubSectn);
 		idePgSubSectn.setIdePageSubSectns(this);
 		//idePgSubSectn.setIDE_OBJ_ID(getIDE_OBJ_ID());
 	}
-	
-	/*@OneToMany(mappedBy = "idePgSecFldLayouts")
-	@OrderBy(" ROW_NUMBER, COL_NUMBER, COL_ORDER_S")
-	private List<IDE_FIELD_LAYOUT> idePgSecFldLayouts = new ArrayList<IDE_FIELD_LAYOUT>();
-	*//**
-	 * @return the idePgSecFldLayouts
-	 *//*
-	public List<IDE_FIELD_LAYOUT> getIdePgSecFldLayouts() {
-		return idePgSecFldLayouts;
-	}
-	*//**
-	 * @param idePgSecFldLayouts the idePgSecFldLayouts to set
-	 *//*
-	public void setIdePgSecFldLayouts(List<IDE_FIELD_LAYOUT> idePgSecFldLayouts) {
-		this.idePgSecFldLayouts = idePgSecFldLayouts;
-	}*/
 	
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL,mappedBy = "idePgSectionLayoutList",orphanRemoval=true)
 	private List<IDE_SECTION_FLD_LAYOUT> idePgSectionLayoutList = new ArrayList<IDE_SECTION_FLD_LAYOUT>();
@@ -316,18 +212,25 @@ public class IDE_PG_SECTN implements Serializable{
 		idePgSectionLayoutList.add(createIDE_SECTION_FLD_LAYOUT);
 		createIDE_SECTION_FLD_LAYOUT.setIdePgSectionLayoutList(this);
 	}
-	@Column(name = "DW_NAME__C")
-	private String DW_NAME__C;
 	
-	public void setDW_NAME__C(String dW_NAME__C) {
-		DW_NAME__C = dW_NAME__C;
+	
+	/*@OneToMany(mappedBy = "idePgSecFldLayouts")
+	@OrderBy("COL_ORDER_S")
+	private List<IDE_FIELD_LAYOUT> idePgSecFldLayouts = new ArrayList<IDE_FIELD_LAYOUT>();
+	*//**
+	 * @return the idePgSecFldLayouts
+	 *//*
+	public List<IDE_FIELD_LAYOUT> getIdePgSecFldLayouts() {
+		return idePgSecFldLayouts;
 	}
+	*//**
+	 * @param idePgSecFldLayouts the idePgSecFldLayouts to set
+	 *//*
+	public void setIdePgSecFldLayouts(List<IDE_FIELD_LAYOUT> idePgSecFldLayouts) {
+		this.idePgSecFldLayouts = idePgSecFldLayouts;
+	}*/
 	
-	public String getDW_NAME__C() {
-		return DW_NAME__C;
-	}
-	
-	@Column(name = "ENA_DIS_RULE_EXP__C")
+	@Column(name = "ENA_DIS_RULE_EXP")
 	String ENA_DIS_RULE_EXP;
 	public String getENA_DIS_RULE_EXP() {
 		if(null == ENA_DIS_RULE_EXP)
@@ -357,24 +260,6 @@ public class IDE_PG_SECTN implements Serializable{
 	}
 	public void setENA_DIS_RULE_EXP(String eNA_DIS_RULE_EXP) {
 		ENA_DIS_RULE_EXP = eNA_DIS_RULE_EXP;
-	}
-	
-	@Column(name = "SHOW_TBL")
-	String SHOW_TBL;
-	/**
-	 * @return the sHOW_TBL
-	 */
-	public String getSHOW_TBL() {
-		if(SHOW_TBL == null) {
-			return "";
-		}
-		return SHOW_TBL;
-	}
-	/**
-	 * @param sHOW_TBL the sHOW_TBL to set
-	 */
-	public void setSHOW_TBL(String sHOW_TBL) {
-		SHOW_TBL = sHOW_TBL;
 	}
 	
 	@Column(name = "ALLW_EDIT")
@@ -453,4 +338,53 @@ public class IDE_PG_SECTN implements Serializable{
 		IS_SUM_DTL = iS_SUM_DTL;
 	}
 	
+	@Column(name = "DW_NAME")
+	private String DW_NAME;
+	
+	public void setDW_NAME(String dW_NAME) {
+		DW_NAME= dW_NAME;
+	}
+	
+	public String getDW_NAME() {
+		return DW_NAME;
+	}
+	
+	@Column(name = "SHOW_TBL")
+	String SHOW_TBL;
+	/**
+	 * @return the sHOW_TBL
+	 */
+	public String getSHOW_TBL() {
+		if(SHOW_TBL == null) {
+			return "";
+		}
+		return SHOW_TBL;
+	}
+	/**
+	 * @param sHOW_TBL the sHOW_TBL to set
+	 */
+	public void setSHOW_TBL(String sHOW_TBL) {
+		SHOW_TBL = sHOW_TBL;
+	}
+	@Column(name = "row")
+	private Integer row;
+	
+	@Column(name = "columns")
+	private Integer column;
+	
+	public void setRow(Integer row) {
+		this.row = row;
+	}
+	
+	public Integer getRow() {
+		return row;
+	}
+	
+	public void setColumn(Integer column) {
+		this.column = column;
+	}
+	
+	public Integer getColumn() {
+		return column;
+	}
 }

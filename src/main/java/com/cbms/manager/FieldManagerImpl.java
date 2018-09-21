@@ -35,7 +35,7 @@ private static final Logger logger = Logger.getLogger(PageLayoutServiceManagerIm
 		ObjectMapper mapper =null;
 		try{
 			mapper = new ObjectMapper();
-			Field fld=objectManager.createIDE_FLD(fieldDAO.addFieldObject(objectManager.createIDE_FLD(field),field.getIdeOBJID()));
+			Field fld=objectManager.createIDE_FLD(fieldDAO.addFieldObject(objectManager.createIDE_FLD(field),field.getIdeObjId()));
 			return  mapper.writeValueAsString(fld);
 		}
 	 catch (Exception e) {

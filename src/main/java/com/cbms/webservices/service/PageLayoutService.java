@@ -37,7 +37,6 @@ public class PageLayoutService {
 			 obj = mapper.readValue(inputJson, PageLayout.class);
 			 pgLayoutID=obj.getIdePGLAYOUTID();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		 String output=null;
@@ -76,11 +75,14 @@ public class PageLayoutService {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			 obj = mapper.readValue(inputJson, SearchParameters.class);
+			 System.out.println("inside the block"+obj.getSearchParameter());
+			 if(obj.getId()!=null)
 			 objID=pageLayoutServiceManager.getObjectIDForUpdatingApplicationStatus(Integer.parseInt(obj.getId()));
 				
 		} catch (Exception e) {
 			throw new GenericException(e.getMessage());
 		} 
+		System.out.println("after the block"+objID);
 		String output=null;
 		try {
 			output = pageLayoutServiceManager.getPageLayoutObjects(obj);
@@ -90,7 +92,8 @@ public class PageLayoutService {
 		//block to update application status after deletion of a record
 		 if("DELETE".equalsIgnoreCase(obj.getSearchParameter())) {
 			 System.out.println("inside delete block with page layout id"+obj.getId());
-			pageLayoutServiceManager.updateApplicationStatus(objID);
+			if(objID!=null)
+			 pageLayoutServiceManager.updateApplicationStatus(objID);
 			
 		 }
 		return Response.status(200).entity(output).build();

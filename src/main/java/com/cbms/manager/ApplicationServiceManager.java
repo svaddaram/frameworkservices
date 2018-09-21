@@ -10,5 +10,7 @@ public interface ApplicationServiceManager {
 
 
 	public String getApplicationObjects(SearchParameters search) throws JsonProcessingException;
+	
+	public String getRelatedListObjects(SearchParameters search) throws JsonProcessingException ;
 
 }

@@ -1,25 +1,89 @@
 package com.cbms.dao.model.local;
 
 import java.io.Serializable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @JsonIgnoreProperties(value = { "idePgSubSecFldLayouts" })
-@Where(clause="IDE_PG_SUB_SECTN_ID1__c is not null")
 @Entity
-@Table(name = "IDE_FIELD_LAYOUT")
+@Where(clause="IDE_PG_SUB_SECTN_ID is not null")
+@Table(name = "IDE_FIELD_LAYOUT",schema = "salesforce")
 public class IDE_FIELD_LAYOUT implements Serializable{
 	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "IDE_PG_LAYOUT_ID")
+	Integer IDE_PG_LAYOUT_ID;
+	
+	public Integer getIDE_PG_LAYOUT_ID() {
+		return IDE_PG_LAYOUT_ID;
+	}
+	
+	public void setIDE_PG_LAYOUT_ID(Integer iDE_PG_LAYOUT_ID) {
+		IDE_PG_LAYOUT_ID = iDE_PG_LAYOUT_ID;
+	}
+	@Column(name = "UPD_DTM", columnDefinition= "TIMESTAMP WITH TIME ZONE")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date systemModStamp;
+	
+	public void setSystemModStamp(Date systemModStamp) {
+		this.systemModStamp = systemModStamp;
+	}
+	
+	public Date getSystemModStamp() {
+		return systemModStamp;
+	}
+	
+	
+	@Column(name = "CRT_DTM", columnDefinition= "TIMESTAMP WITH TIME ZONE")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createddate;
+	
+	public void setCreateddate(Date createddate) {
+		this.createddate = createddate;
+	}
+	
+	public Date getCreateddate() {
+		return createddate;
+	}
+	
+	@Column(name = "CRT_OS_USR")
+	String created_by;
+	
+	@Column(name = "UPD_OS_USER")
+	String updated_by;
+	
+	public void setUpdated_by(String updated_by) {
+		this.updated_by = updated_by;
+	}
+	
+	public String getUpdated_by() {
+		return updated_by;
+	}
+	
+	public void setCreated_by(String created_by) {
+		this.created_by = created_by;
+	}
+	
+	public String getCreated_by() {
+		return created_by;
+	}
+	
 	
 	@Column(name = "COL_ID")
 	private Integer COL_ID;
@@ -37,7 +101,7 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	public void setIDE_OBJ_ID(String iDE_OBJ_ID) {
 		IDE_OBJ_ID = iDE_OBJ_ID;
 	}
-	@Column(name = "IDE_PG_SUB_SECTN_ID")
+	@Column(name = "IDE_PG_SUB_SECTN_ID",insertable=false,updatable=false)
 	private Integer IDE_PG_SUB_SECTN_ID;
 	public Integer getIDE_PG_SUB_SECTN_ID() {
 		return IDE_PG_SUB_SECTN_ID;
@@ -72,6 +136,8 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	}*/
 	
 	@Id
+	@SequenceGenerator(name="IDE_FIELD_LAYOUT_SEQUENCE", sequenceName="IDE_FIELD_LAYOUT_SEQUENCE")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="IDE_FIELD_LAYOUT_SEQUENCE")
 	@Column(name="IDE_FIELD_LAYOUT_ID")
 	private Integer IDE_FIELD_LAYOUT_ID;
 	/**
@@ -105,7 +171,9 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	}*/
 
 	@ManyToOne
-    @JoinColumn(name="IDE_PG_SUB_SECTN_ID", nullable=false, insertable=false, updatable=false)
+	 @JoinColumns({
+		 	 @JoinColumn(name="IDE_PG_SUB_SECTN_ID", referencedColumnName="IDE_PG_SUB_SECTN_ID")
+	    })
 	private IDE_PG_SUB_SECTN idePgSubSecFldLayouts;
 	/**
 	 * @return the idePgSubSecFldLayouts
@@ -121,6 +189,8 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	}
 	
 	public String getAPI_NAME_S() {
+		if(API_NAME_S == null)
+			return "";
 		return API_NAME_S;
 	}
 	public void setAPI_NAME_S(String aPI_NAME_S) {
@@ -183,6 +253,8 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 		FIELD_DESCRIPTION_S = fIELD_DESCRIPTION_S;
 	}
 	public String getREFERENCE_TO_S() {
+		if(REFERENCE_TO_S == null)
+			return "";
 		return REFERENCE_TO_S;
 	}
 	public void setREFERENCE_TO_S(String rEFERENCE_TO_S) {
@@ -273,6 +345,9 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 		COL_VISIBLE_S = cOL_VISIBLE_S;
 	}
 	public Integer getLENGTH_S() {
+		if(LENGTH_S==null) {
+			LENGTH_S = 0;
+		}
 		return LENGTH_S;
 	}
 	public void setLENGTH_S(Integer lENGTH_S) {
@@ -363,14 +438,12 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	Integer PRECISION_S;
 	@Column(name = "SCALE_S")
 	Integer SCALE_S;
-	@Id
 	@Column(name = "COL_ORDER_S")
 	Integer COL_ORDER_S;
 	@Column(name = "LIST_VIEW_S")
 	Integer LIST_VIEW_S;
-	@Id
 	@Column(name = "IDE_FLD_SEQ")
-	Integer IDE_FLD_SEQ;
+	Integer IDE_FLD_SEQ;	
 	public Integer getIDE_FLD_SEQ() {
 		return IDE_FLD_SEQ;
 	}
@@ -399,6 +472,8 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	@Column(name = "TYPE_C")
 	String TYPE_C;
 	public String getTYPE_C() {
+		if(TYPE_C == null)
+			return "";
 		return TYPE_C;
 	}
 	public void setTYPE_C(String tYPE_C) {
@@ -444,26 +519,8 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	public String getENA_DIS_RULE_EXP() {
 		if(null == ENA_DIS_RULE_EXP)
 			return "";
-		if(ENA_DIS_RULE_EXP.contains("__c") && !ENA_DIS_RULE_EXP.contains("v.detailData.sobjectData")) {
-			Pattern p = Pattern.compile("(\\w*__c)(?!.*\\\\1)");
-		    Matcher m = p.matcher(ENA_DIS_RULE_EXP);
-		    String mGrpTemp = "";
-		    StringBuffer sb = new StringBuffer();
-			while(m.find()) {
-				String mGrp = m.group();
-		    	/*if(!mGrp.equals(mGrpTemp)) {
-		    		mGrpTemp = mGrp;
-		    		ENA_DIS_RULE_EXP = ENA_DIS_RULE_EXP.replace(mGrp, "v.detailData.sobjectData." + mGrp);
-		    	}*/
-				 m.appendReplacement(sb, "v.detailData.sobjectData." + mGrp);
-			}
-			m.appendTail(sb);
-			ENA_DIS_RULE_EXP = sb.toString();
-		}
-		if(ENA_DIS_RULE_EXP.contains("&")) {
-			ENA_DIS_RULE_EXP = ENA_DIS_RULE_EXP.replace("&", "&amp;");
-		}   
-		return "{!"+ ENA_DIS_RULE_EXP + "}";
+		
+		return FrameworkUtil.compileRule(ENA_DIS_RULE_EXP,false);
 	}
 	
 	@Column(name = "MAND_RULE_EXP")
@@ -474,27 +531,7 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	public String getMAND_RULE_EXP() {
 		if(null == MAND_RULE_EXP)
 			return "";
-		if(MAND_RULE_EXP.contains("__c") && !MAND_RULE_EXP.contains("v.detailData.sobjectData")) {
-			Pattern p = Pattern.compile("(\\w*__c)(?!.*\\\\1)");
-		    Matcher m = p.matcher(MAND_RULE_EXP);
-		    String mGrpTemp = "";
-		    StringBuffer sb = new StringBuffer();
-		    while(m.find()) {
-		    	String mGrp = m.group();
-		    	/*MAND_RULE_EXP = m.replaceAll("v.detailData.sobjectData."+ mGrp);
-		    	if(!mGrp.equals(mGrpTemp)) {
-		    		mGrpTemp = mGrp;
-		    		MAND_RULE_EXP = MAND_RULE_EXP.replace(mGrp, "v.detailData.sobjectData." + mGrp);
-		    	}*/
-		    	m.appendReplacement(sb, "v.detailData.sobjectData." + mGrp);
-			}
-		    m.appendTail(sb);
-		    MAND_RULE_EXP = sb.toString();
-		}
-		if(MAND_RULE_EXP.contains("&")) {
-			MAND_RULE_EXP = MAND_RULE_EXP.replace("&", "&amp;");
-		}
-		return "{!"+ MAND_RULE_EXP + "}";
+		return "{!"+ FrameworkUtil.compileRule(MAND_RULE_EXP,false) + "}";
 	}
 	public void setMAND_RULE_EXP(String mAND_RULE_EXP) {
 		MAND_RULE_EXP = mAND_RULE_EXP;
@@ -596,15 +633,6 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 		if(null == BLANKOUT_FLDS) {
 			return BLANKOUT_FLDS="";
 		}
-		/*else {
-			String blnkoutFlds[] = BLANKOUT_FLDS.split(",");
-			String temp = "";
-			for(String str:blnkoutFlds) {
-				temp = temp + "'" +str+"',"; 
-			}
-			BLANKOUT_FLDS =  "[" + temp.substring(0,temp.lastIndexOf(",")) + "]";
-		}*/
-			
 		return BLANKOUT_FLDS;
 	}
 	/**
@@ -624,23 +652,8 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 		
 		if(BLANKOUT_FLDS_RULE == null)
 			return "";
+		return "{!"+ FrameworkUtil.compileRule(BLANKOUT_FLDS_RULE,false) + "}";
 		
-		if(BLANKOUT_FLDS_RULE.contains("__c") && !BLANKOUT_FLDS_RULE.contains("v.detailData.sobjectData")) {
-			Pattern p = Pattern.compile("(\\w*__c)(?!.*\\\\1)");
-		    Matcher m = p.matcher(BLANKOUT_FLDS_RULE);
-		    String mGrpTemp = "";
-		    StringBuffer sb = new StringBuffer();
-		    while(m.find()) {
-		    	String mGrp = m.group();
-		    	m.appendReplacement(sb, "v.detailData.sobjectData." + mGrp);
-			}
-		    m.appendTail(sb);
-		    BLANKOUT_FLDS_RULE = sb.toString();
-		}
-		if(BLANKOUT_FLDS_RULE.contains("&")) {
-			BLANKOUT_FLDS_RULE = BLANKOUT_FLDS_RULE.replace("&", "&amp;");
-		}
-		return "{!"+ BLANKOUT_FLDS_RULE + "}";
 	}
 	/**
 	 * @param bLANKOUT_FLDS_RULE the bLANKOUT_FLDS_RULE to set
@@ -694,22 +707,9 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	public String getCOPY_FLDS_RULE() {
 		if(COPY_FLDS_RULE == null)
 			return "";
-		if(COPY_FLDS_RULE.contains("__c") && !COPY_FLDS_RULE.contains("v.detailData.sobjectData")) {
-			Pattern p = Pattern.compile("(\\w*__c)(?!.*\\\\1)");
-		    Matcher m = p.matcher(COPY_FLDS_RULE);
-		    String mGrpTemp = "";
-		    StringBuffer sb = new StringBuffer();
-		    while(m.find()) {
-		    	String mGrp = m.group();
-		    	m.appendReplacement(sb, "v.detailData.sobjectData." + mGrp);
-			}
-		    m.appendTail(sb);
-		    COPY_FLDS_RULE = sb.toString();
-		}
-		if(COPY_FLDS_RULE.contains("&")) {
-			COPY_FLDS_RULE = COPY_FLDS_RULE.replace("&", "&amp;");
-		}
-		return "{!"+ COPY_FLDS_RULE + "}";
+		
+		return "{!"+ FrameworkUtil.compileRule(COPY_FLDS_RULE,false) + "}";
+		
 	}
 	/**
 	 * @param cOPY_FLDS_RULE the cOPY_FLDS_RULE to set
@@ -746,22 +746,7 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	public String getCOMPUTE_FLD_RULE() {
 		if(COMPUTE_FLD_RULE == null)
 			return "";
-		if(COMPUTE_FLD_RULE.contains("__c") && !COMPUTE_FLD_RULE.contains("v.detailData.sobjectData")) {
-			Pattern p = Pattern.compile("(\\w*__c)(?!.*\\\\1)");
-		    Matcher m = p.matcher(COMPUTE_FLD_RULE);
-		    String mGrpTemp = "";
-		    StringBuffer sb = new StringBuffer();
-		    while(m.find()) {
-		    	String mGrp = m.group();
-		    	m.appendReplacement(sb, "v.detailData.sobjectData." + mGrp);
-			}
-		    m.appendTail(sb);
-		    COMPUTE_FLD_RULE = sb.toString();
-		}
-		if(COMPUTE_FLD_RULE.contains("&")) {
-			COMPUTE_FLD_RULE = COMPUTE_FLD_RULE.replace("&", "&amp;");
-		}
-		return "{!"+ COMPUTE_FLD_RULE + "}";
+		return "{!"+ FrameworkUtil.compileRule(COMPUTE_FLD_RULE,false) + "}";
 	}
 	/**
 	 * @param cOMPUTE_FLD_RULE the cOMPUTE_FLD_RULE to set
@@ -833,22 +818,7 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	public String getCOPY_DEFAULT_RULE() {
 		if(COPY_DEFAULT_RULE == null)
 			return "";
-		if(COPY_DEFAULT_RULE.contains("__c") && !COPY_DEFAULT_RULE.contains("v.detailData.sobjectData")) {
-			Pattern p = Pattern.compile("(\\w*__c)(?!.*\\\\1)");
-		    Matcher m = p.matcher(COPY_DEFAULT_RULE);
-		    String mGrpTemp = "";
-		    StringBuffer sb = new StringBuffer();
-		    while(m.find()) {
-		    	String mGrp = m.group();
-		    	m.appendReplacement(sb, "v.detailData.sobjectData." + mGrp);
-			}
-		    m.appendTail(sb);
-		    COPY_DEFAULT_RULE = sb.toString();
-		}
-		if(COPY_DEFAULT_RULE.contains("&")) {
-			COPY_DEFAULT_RULE = COPY_DEFAULT_RULE.replace("&", "&amp;");
-		}
-		return "{!"+ COPY_DEFAULT_RULE + "}";
+		return "{!"+ FrameworkUtil.compileRule(COPY_DEFAULT_RULE,false) + "}";
 	}
 	/**
 	 * @param cOPY_DEFAULT_RULE the cOPY_DEFAULT_RULE to set
@@ -865,7 +835,7 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	public String getDISABLE_ON_SELECT() {
 		if(DISABLE_ON_SELECT == null)
 			DISABLE_ON_SELECT= "";
-		return DISABLE_ON_SELECT;
+		return "{" + DISABLE_ON_SELECT +"}";
 	}
 	/**
 	 * @param dISABLE_ON_SELECT the dISABLE_ON_SELECT to set
@@ -883,7 +853,7 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	public String getSELECT_ON_SELECT() {
 		if(SELECT_ON_SELECT == null)
 			SELECT_ON_SELECT = "";
-		return SELECT_ON_SELECT;
+		return "{" + SELECT_ON_SELECT +"}";
 	}
 	/**
 	 * @param sELECT_ON_SELECT the sELECT_ON_SELECT to set
@@ -891,6 +861,338 @@ public class IDE_FIELD_LAYOUT implements Serializable{
 	public void setSELECT_ON_SELECT(String sELECT_ON_SELECT) {
 		SELECT_ON_SELECT = sELECT_ON_SELECT;
 	}
+	
+	/*@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	IDE_FLD ideFld;
+	*//**
+	 * @return the ideFld
+	 *//*
+	public IDE_FLD getIdeFld() {
+		return ideFld;
+	}
+	*//**
+	 * @param ideFld the ideFld to set
+	 *//*
+	public void setIdeFld(IDE_FLD ideFld) {
+		this.ideFld = ideFld;
+	}*/
+	
+	@Column
+	String DATA_PATTERN;
+	public String getDATA_PATTERN() {
+		if(DATA_PATTERN == null)
+			DATA_PATTERN="";
+		return DATA_PATTERN;
+	}
+	public void setDATA_PATTERN(String dATA_PATTERN) {
+		DATA_PATTERN = dATA_PATTERN;
+	}
+	@Column(name = "MIN_LEN")
+	Integer MIN_LEN;
+	public Integer getMIN_LEN() {
+		if(MIN_LEN==null) {
+			MIN_LEN = 0;
+		}
+		return MIN_LEN;
+	}
+	public void setMIN_LEN(Integer mIN_LEN) {
+		MIN_LEN = mIN_LEN;
+	}
+	@Column(name = "ADDR_FLDS")
+	String ADDR_FLDS;
+	public String getADDR_FLDS() {
+		if(ADDR_FLDS==null) {
+			ADDR_FLDS = "";
+		}
+		return ADDR_FLDS;
+		
+	}
+	public void setADDR_FLDS(String aDDR_FLDS) {
+		ADDR_FLDS = aDDR_FLDS;
+	}
+	
+	@Column
+	String COND_VALUE;
+	/**
+	 * @return the cOND_VALUE
+	 */
+	public String getCOND_VALUE() {
+		if(null == COND_VALUE)
+			return "";
+		
+		return FrameworkUtil.compileRule(COND_VALUE,true);
+	}
+	/**
+	 * @param cOND_VALUE the cOND_VALUE to set
+	 */
+	public void setCOND_VALUE(String cOND_VALUE) {
+		COND_VALUE = cOND_VALUE;
+	}
+	@Column
+	Integer MIN_VAL;
+	/**
+	 * @return the mIN_VAL
+	 */
+	public Integer getMIN_VAL() {
+		return MIN_VAL;
+	}
+	/**
+	 * @param mIN_VAL the mIN_VAL to set
+	 */
+	public void setMIN_VAL(Integer mIN_VAL) {
+		MIN_VAL = mIN_VAL;
+	}
+	@Column
+	Integer MAX_VAL;
+	/**
+	 * @return the mAX_VAL
+	 */
+	public Integer getMAX_VAL() {
+		if(MAX_VAL == null)
+			return -1;
+		return MAX_VAL;
+	}
+	/**
+	 * @param mAX_VAL the mAX_VAL to set
+	 */
+	public void setMAX_VAL(Integer mAX_VAL) {
+		MAX_VAL = mAX_VAL;
+	}
+	@Column
+	String DATE_COMP_FLD;
+	/**
+	 * @return the dATE_COMP_FLD
+	 */
+	public String getDATE_COMP_FLD() {
+		if(DATE_COMP_FLD == null)
+			return "";
+		
+		return "{!"+ FrameworkUtil.compileRule(DATE_COMP_FLD,false) + "}";
+		
+	}
+	/**
+	 * @param dATE_COMP_FLD the dATE_COMP_FLD to set
+	 */
+	public void setDATE_COMP_FLD(String dATE_COMP_FLD) {
+		DATE_COMP_FLD = dATE_COMP_FLD;
+	}
+	
+	@Column
+	String CLR_ERR_MSG_FLDS;
+	/**
+	 * @return the cLR_ERR_MSG_FLDS
+	 */
+	public String getCLR_ERR_MSG_FLDS() {
+		if(CLR_ERR_MSG_FLDS == null)
+			return "";
+		return CLR_ERR_MSG_FLDS;
+	}
+	/**
+	 * @param cLR_ERR_MSG_FLDS the cLR_ERR_MSG_FLDS to set
+	 */
+	public void setCLR_ERR_MSG_FLDS(String cLR_ERR_MSG_FLDS) {
+		CLR_ERR_MSG_FLDS = cLR_ERR_MSG_FLDS;
+	}
+	
+	@Column
+	String CLR_ERR_MSG_RULE;
+	/**
+	 * @return the cLR_ERR_MSG_RULE
+	 */
+	public String getCLR_ERR_MSG_RULE() {
+		if(CLR_ERR_MSG_RULE == null)
+			return "";
+		
+		return "{!"+ FrameworkUtil.compileRule(CLR_ERR_MSG_RULE,false) + "}";
+	}
+	/**
+	 * @param cLR_ERR_MSG_RULE the cLR_ERR_MSG_RULE to set
+	 */
+	public void setCLR_ERR_MSG_RULE(String cLR_ERR_MSG_RULE) {
+		CLR_ERR_MSG_RULE = cLR_ERR_MSG_RULE;
+	}
+	
+	@Column
+	String CNTY_RQRD;
+	/**
+	 * @return the cNTY_RQRD
+	 */
+	public String getCNTY_RQRD() {
+		if(CNTY_RQRD == null)
+			return "";
+		return CNTY_RQRD;
+	}
+	/**
+	 * @param cNTY_RQRD the cNTY_RQRD to set
+	 */
+	public void setCNTY_RQRD(String cNTY_RQRD) {
+		CNTY_RQRD = cNTY_RQRD;
+	}
+	
+	@Column
+	String EXTN_RQRD;
+	/**
+	 * @return the eXTN_RQRD
+	 */
+	public String getEXTN_RQRD() {
+		if(EXTN_RQRD == null)
+			return "";
+		return EXTN_RQRD;
+	}
+	/**
+	 * @param eXTN_RQRD the eXTN_RQRD to set
+	 */
+	public void setEXTN_RQRD(String eXTN_RQRD) {
+		EXTN_RQRD = eXTN_RQRD;
+	}
+	
+	@Column
+	String 	SEARCH_COND;
+	@Column
+	String 	CHILD_RELATION;
+	@Column
+	String 	CRITERIA_METHOD;
+	@Column
+	String 	TRUMP_ALL;
+	@Column
+	String 	SHOW_LINK;
+	@Column
+	String 	SHOW_ICON;
+	@Column
+	String 	ICON_NAME;
+	/**
+	 * @return the sEARCH_COND
+	 */
+	public String getSEARCH_COND() {
+		if(SEARCH_COND == null)
+			return "";
+		return SEARCH_COND;
+	}
+	/**
+	 * @param sEARCH_COND the sEARCH_COND to set
+	 */
+	public void setSEARCH_COND(String sEARCH_COND) {
+		SEARCH_COND = sEARCH_COND;
+	}
+	/**
+	 * @return the cHILD_RELATION
+	 */
+	public String getCHILD_RELATION() {
+		if(CHILD_RELATION == null)
+			return "";
+		return CHILD_RELATION;
+	}
+	/**
+	 * @param cHILD_RELATION the cHILD_RELATION to set
+	 */
+	public void setCHILD_RELATION(String cHILD_RELATION) {
+		CHILD_RELATION = cHILD_RELATION;
+	}
+	/**
+	 * @return the cRITERIA_METHOD
+	 */
+	public String getCRITERIA_METHOD() {
+		if(CRITERIA_METHOD == null)
+			return "";
+		return CRITERIA_METHOD;
+	}
+	/**
+	 * @param cRITERIA_METHOD the cRITERIA_METHOD to set
+	 */
+	public void setCRITERIA_METHOD(String cRITERIA_METHOD) {
+		CRITERIA_METHOD = cRITERIA_METHOD;
+	}
+	/**
+	 * @return the tRUMP_ALL
+	 */
+	public String getTRUMP_ALL() {
+		if(TRUMP_ALL == null)
+			return "";
+		return TRUMP_ALL;
+	}
+	/**
+	 * @param tRUMP_ALL the tRUMP_ALL to set
+	 */
+	public void setTRUMP_ALL(String tRUMP_ALL) {
+		TRUMP_ALL = tRUMP_ALL;
+	}
+	/**
+	 * @return the sHOW_LINK
+	 */
+	public String getSHOW_LINK() {
+		if(SHOW_LINK == null)
+			return "";
+		return SHOW_LINK;
+	}
+	/**
+	 * @param sHOW_LINK the sHOW_LINK to set
+	 */
+	public void setSHOW_LINK(String sHOW_LINK) {
+		SHOW_LINK = sHOW_LINK;
+	}
+	/**
+	 * @return the sHOW_ICON
+	 */
+	public String getSHOW_ICON() {
+		if(SHOW_ICON == null)
+			return "";
+		return SHOW_ICON;
+	}
+	/**
+	 * @param sHOW_ICON the sHOW_ICON to set
+	 */
+	public void setSHOW_ICON(String sHOW_ICON) {
+		SHOW_ICON = sHOW_ICON;
+	}
+	/**
+	 * @return the iCON_NAME
+	 */
+	public String getICON_NAME() {
+		if(ICON_NAME == null)
+			return "";
+		return ICON_NAME;
+	}
+	/**
+	 * @param iCON_NAME the iCON_NAME to set
+	 */
+	public void setICON_NAME(String iCON_NAME) {
+		ICON_NAME = iCON_NAME;
+	}
+	@Column
+	String VAL_RULE;
+	@Column
+	String VAL_ERR_MSG;
+	/**
+	 * @return the vAL_RULE
+	 */
+	public String getVAL_RULE() {
+		if(VAL_RULE == null)
+			return "";
+		return "{!" + FrameworkUtil.compileRule(VAL_RULE, false) + "}";
+	}
+	/**
+	 * @param vAL_RULE the vAL_RULE to set
+	 */
+	public void setVAL_RULE(String vAL_RULE) {
+		VAL_RULE = vAL_RULE;
+	}
+	/**
+	 * @return the vAL_ERR_MSG
+	 */
+	public String getVAL_ERR_MSG() {
+		if(VAL_ERR_MSG == null)
+			return "";
+		return VAL_ERR_MSG;
+	}
+	/**
+	 * @param vAL_ERR_MSG the vAL_ERR_MSG to set
+	 */
+	public void setVAL_ERR_MSG(String vAL_ERR_MSG) {
+		VAL_ERR_MSG = vAL_ERR_MSG;
+	}
+	
 }
+
 
 

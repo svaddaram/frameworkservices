@@ -4,19 +4,26 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = { "idePageSubSectns" })
 @Entity
-@Table(name = "IDE_PG_SUB_SECTN")
+@Table(name = "IDE_PG_SUB_SECTN",schema = "salesforce")
+
 public class IDE_PG_SUB_SECTN implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -39,11 +46,24 @@ public class IDE_PG_SUB_SECTN implements Serializable{
 	@Column(name = "SEQ_ORD")
 	private Integer SEQ_ORD;
 
-	@Column(name = "IDE_PG_SECTN_ID")
+	@Column(name = "IDE_PG_SECTN_ID",insertable=false,updatable=false)
 	private Integer IDE_PG_SECTN_ID;
 	@Id
+	@SequenceGenerator(name="IDE_PG_SUB_SECTN_SEQUENCE", sequenceName="IDE_PG_SUB_SECTN_SEQUENCE")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="IDE_PG_SUB_SECTN_SEQUENCE")
 	@Column(name = "IDE_PG_SUB_SECTN_ID")
 	private String IDE_PG_SUB_SECTN_ID;
+	
+	@Column(name = "IDE_PG_LAYOUT_ID")
+	Integer IDE_PG_LAYOUT_ID;
+	
+	public Integer getIDE_PG_LAYOUT_ID() {
+		return IDE_PG_LAYOUT_ID;
+	}
+	
+	public void setIDE_PG_LAYOUT_ID(Integer iDE_PG_LAYOUT_ID) {
+		IDE_PG_LAYOUT_ID = iDE_PG_LAYOUT_ID;
+	}
 
 	public String getCRT_BY() {
 		return CRT_BY;
@@ -128,8 +148,10 @@ public class IDE_PG_SUB_SECTN implements Serializable{
 		this.ideObjSubSection = ideObjSubSection;
 	}*/
 	
-	@ManyToOne
-    @JoinColumn(name="IDE_PG_SECTN_ID", nullable=false, insertable=false, updatable=false)
+		@ManyToOne
+	 @JoinColumns({
+		 	@JoinColumn(name="IDE_PG_SECTN_ID__c",referencedColumnName="IDE_PG_SECTN_ID__c"),
+	        })
 	private IDE_PG_SECTN idePageSubSectns;
 
 	/**
@@ -147,9 +169,9 @@ public class IDE_PG_SUB_SECTN implements Serializable{
 	}
 	
 	
-	@OneToMany(mappedBy = "idePgSubSecFldLayouts")
-	@OrderBy(" ROW_NUMBER, COL_NUMBER")
-	private List<IDE_FIELD_LAYOUT> idePgSubSecFldLayouts = new ArrayList<IDE_FIELD_LAYOUT>();
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL,mappedBy = "idePgSubSecFldLayouts",orphanRemoval=true)
+	 @OrderBy(" ROW_NUMBER, COL_NUMBER, COL_ORDER_S")
+private List<IDE_FIELD_LAYOUT> idePgSubSecFldLayouts = new ArrayList<IDE_FIELD_LAYOUT>();
 
 	/**
 	 * @return the idePgSubSecFldLayouts
@@ -163,6 +185,59 @@ public class IDE_PG_SUB_SECTN implements Serializable{
 	 */
 	public void setIdePgSubSecFldLayouts(List<IDE_FIELD_LAYOUT> idePgSubSecFldLayouts) {
 		this.idePgSubSecFldLayouts = idePgSubSecFldLayouts;
+	}
+	
+	@Column(name = "ENA_DIS_RULE_EXP")
+	String ENA_DIS_RULE_EXP;
+	public String getENA_DIS_RULE_EXP() {
+		if(null == ENA_DIS_RULE_EXP)
+			return "";
+		/*if(ENA_DIS_RULE_EXP.contains("__c") && !ENA_DIS_RULE_EXP.contains("v.detailData.sobjectData")) {
+			Pattern p = Pattern.compile("(\\w*__c)(?!.*\\\\1)");
+		    Matcher m = p.matcher(ENA_DIS_RULE_EXP);
+		    String mGrpTemp = "";
+		    StringBuffer sb = new StringBuffer();
+			while(m.find()) {
+				String mGrp = m.group();
+				 m.appendReplacement(sb, "v.detailData.sobjectData." + mGrp);
+			}
+			m.appendTail(sb);
+			ENA_DIS_RULE_EXP = sb.toString();
+		}
+		if(ENA_DIS_RULE_EXP.contains("&")) {
+			ENA_DIS_RULE_EXP = ENA_DIS_RULE_EXP.replace("&&", "&amp;&amp;");
+		} 
+		return "{!"+ ENA_DIS_RULE_EXP + "}";*/ 
+		
+		String ruleArr[] = ENA_DIS_RULE_EXP.split("/.");
+		String containsValue = ruleArr[1].substring(ruleArr[1].indexOf("("), ruleArr[1].lastIndexOf(")"));
+		ENA_DIS_RULE_EXP = "{!v.detailData.sobjectData." + ruleArr[0] + "}~" + containsValue.substring(1,containsValue.length() - 1);
+		return ENA_DIS_RULE_EXP;
+	}
+	public void setENA_DIS_RULE_EXP(String eNA_DIS_RULE_EXP) {
+		ENA_DIS_RULE_EXP = eNA_DIS_RULE_EXP;
+	}
+	
+	@Column(name = "row")
+	private Integer row;
+	
+	@Column(name = "columns")
+	private Integer column;
+	
+	public void setRow(Integer row) {
+		this.row = row;
+	}
+	
+	public Integer getRow() {
+		return row;
+	}
+	
+	public void setColumn(Integer column) {
+		this.column = column;
+	}
+	
+	public Integer getColumn() {
+		return column;
 	}
 	
 }
