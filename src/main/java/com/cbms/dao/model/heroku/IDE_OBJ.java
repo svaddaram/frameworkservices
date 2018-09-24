@@ -487,5 +487,17 @@ public class IDE_OBJ implements Serializable {
 	public String getStatus() {
 		return status;
 	}
+	@Column(name = "DW_NAME")
+	String DW_NAME;
+	
+	public void setDW_NAME(String dW_NAME) {
+		DW_NAME = dW_NAME;
+	}
+	
+	public String getDW_NAME() {
+		return DW_NAME;
+	}
+	
+	
 	
 }

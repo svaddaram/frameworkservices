@@ -831,4 +831,20 @@ public class IDE_FLD implements Serializable {
 	public void setIdeFldLayout(IDE_FIELD_LAYOUT ideFldLayout) {
 		this.ideFldLayout = ideFldLayout;
 	}*/
+	
+
+	
+	@Column
+	String DISP_REL_LST;
+	
+	
+	public void setDISP_REL_LST(String dISP_REL_LST) {
+		DISP_REL_LST = dISP_REL_LST;
+	}
+	
+	public String getDISP_REL_LST() {
+		return DISP_REL_LST;
+	}
+	
+	
 }

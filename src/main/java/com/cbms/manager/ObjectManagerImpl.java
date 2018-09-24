@@ -60,7 +60,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		ideObj.setTYPE_C(application.getTypeC());
 		ideObj.setSHARING_MODEL_S(application.getSharingMODELS());
 		//ideObj.setName(application.getName());
-		//ideObj.setDW_NAME(application.getDwName());
+		ideObj.setDW_NAME(application.getDwName());
 		if(!SearchParameterEnum.BASICOBJECT.toString().equalsIgnoreCase(objectType)) {
 		if(application!=null && application.getIdePgLayouts()!=null) {
 			for(PageLayout pageLayout:application.getIdePgLayouts()) {
@@ -118,7 +118,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		application.setGenerateC(ideObj.getGENERATE_C());
 		application.setIdeOBJID(ideObj.getIDE_OBJ_ID());
 	//	application.setName(ideObj.getName());
-	//	application.setDwName(ideObj.getDW_NAME__C());
+		application.setDwName(ideObj.getDW_NAME());
 			application.setInappC(ideObj.getINAPP_C() );
 			application.setIsCustom(ideObj.getIS_CUSTOM());
 			application.setLabelS(ideObj.getLABEL_S());
@@ -717,6 +717,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		fld.setCOPY_DEFAULT_TAR(field.getCopyDefaultRule());
 		fld.setCOPY_DEFAULT_VALUE(field.getCopyDefaultValue());
 		fld.setDEFAULT_VALUE(field.getDefaultValue());
+		fld.setDISP_REL_LST(field.getDispRelLst());
 		fld.setRELATIONSHIP_ORDER_S(field.getRelationshipOrderS());
 		fld.setIS_PARENT(field.getIsParent());
 		
@@ -795,6 +796,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		fld.setCopyDefaultTar(field.getCOPY_DEFAULT_TAR());
 		fld.setCopyDefaultValue(field.getCOPY_DEFAULT_VALUE());
 		fld.setDefaultValue(field.getDEFAULT_VALUE());
+		fld.setDispRelLst(field.getDISP_REL_LST());
 		fld.setRelationshipOrderS(field.getRELATIONSHIP_ORDER_S());
 		fld.setIsParent(field.getIS_PARENT());
 	//	fld.setModifiedTimeStamp(field.getSystemModStamp()!=null?df.format(field.getSystemModStamp()):null);

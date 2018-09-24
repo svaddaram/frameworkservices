@@ -66,10 +66,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 "type_c",
 "is_depnt",
 "rt_dsc_c",
-"disp_rel_lst",
+"dispRelLst",
 "display_only_s",
 "col_fltr_name_c",
-"formula_s"
+"formula_s",
+"defaultValue"
 })
 public class Field {
 
@@ -344,12 +345,12 @@ public void setDepntFlds(String depntFlds) {
 this.depntFlds = depntFlds;
 }
 
-@JsonProperty("default_value")
+@JsonProperty("defaultValue")
 public String getDefaultValue() {
 return defaultValue;
 }
 
-@JsonProperty("default_value")
+@JsonProperty("defaultValue")
 public void setDefaultValue(String defaultValue) {
 this.defaultValue = defaultValue;
 }
@@ -744,12 +745,12 @@ public void setRtDscC(String rtDscC) {
 this.rtDscC = rtDscC;
 }
 
-@JsonProperty("disp_rel_lst")
+@JsonProperty("dispRelLst")
 public String getDispRelLst() {
 return dispRelLst;
 }
 
-@JsonProperty("disp_rel_lst")
+@JsonProperty("dispRelLst")
 public void setDispRelLst(String dispRelLst) {
 this.dispRelLst = dispRelLst;
 }
