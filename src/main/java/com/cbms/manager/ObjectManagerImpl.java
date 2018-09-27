@@ -776,6 +776,7 @@ public class ObjectManagerImpl implements ObjectManager{
 	//	fld.setName(field.getName());
 	//	fld.setDISP_REL_LST(field.getDispRelLst());
 	//	fld.setTYPE(field.getTypeC());
+		fld.setTYPE_C(field.getTypeC());
 		return fld;
 	}
 	
@@ -806,7 +807,7 @@ public class ObjectManagerImpl implements ObjectManager{
 		fld.setApiNameS(field.getAPI_NAME_S());
 		fld.setFieldLabelS(field.getFIELD_LABEL_S());
 		fld.setTypeS(field.getTYPE_S());
-		//fld.setTypeC(field.getTYPE__C());
+		fld.setTypeC(field.getTYPE_C());
 		fld.setColOrderS(field.getCOL_ORDER_S());
 		fld.setRequiredS(field.getREQUIRED_S());
 		fld.setUniqueS(field.getUNIQUE_S());
